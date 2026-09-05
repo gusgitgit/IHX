@@ -249,16 +249,19 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
       <div class="brand">
         <div class="logo">IHX</div>
         <div>
-          <h1>Internal Heat Exchanger (IHX / SLHX) 적용 기술 검토</h1>
-          <div class="sub">Suction-Line&nbsp;Heat&nbsp;Exchanger · 사이클 거동 · 정량 트레이드오프 · 시스템 리스크</div>
+          <h1>수냉식 칠러 &amp; 내부 열교환기(IHX) 기술 검토 리포트</h1>
+          <div class="sub">R134a / R1234ze(R1233) · 냉수 5℃/10℃ (ΔT 7K) · 냉각탑 32➔39℃ · 현장 실무 가이드</div>
         </div>
       </div>
       <div class="spacer"></div>
+      <button class="btn" id="btnPreset5" type="button" style="border-color:var(--ok);color:var(--ok);font-weight:700">🏢 사내 표준 (냉수 5℃)</button>
+      <button class="btn" id="btnPreset10" type="button" style="border-color:var(--acc);color:var(--acc);font-weight:700">🏢 사내 고온 (냉수 10℃)</button>
       <button class="btn" id="btnPanel" type="button">⚙ 운전조건</button>
       <button class="btn" id="btnTheme" type="button">◐ 라이트</button>
     </div>
     <nav class="tabs" role="tablist" id="tabs">
-      <button role="tab" data-t="s1" aria-selected="true"><span class="n">01</span>Executive Summary</button>
+      <button role="tab" data-t="s0" aria-selected="true"><span class="n">00</span>수냉식 칠러 &amp; IHX 실무 입문</button>
+      <button role="tab" data-t="s1" aria-selected="false"><span class="n">01</span>Executive Summary</button>
       <button role="tab" data-t="s2" aria-selected="false"><span class="n">02</span>작동원리 &amp; P-h 시뮬레이터</button>
       <button role="tab" data-t="s3" aria-selected="false"><span class="n">03</span>냉매별 민감도</button>
       <button role="tab" data-t="s4" aria-selected="false"><span class="n">04</span>트레이드오프 분석</button>
@@ -274,6 +277,24 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     ⚠ 외부 CDN(Chart.js / MathJax) 로딩에 실패했습니다. 차트와 수식이 표시되지 않을 수 있으며, 수치 표와 계산 결과는 정상 동작합니다.
   </div>
   <div class="ctl" id="panel">
+    <!-- 사내 수냉식 시스템 매핑 배너 -->
+    <div style="background:color-mix(in srgb,var(--acc) 10%,transparent);border:1px solid var(--acc);border-radius:10px;padding:12px 16px;margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <div>
+          <b style="color:var(--acc);font-size:13.5px">🏢 사내 수냉식 칠러 시스템 운전조건 연동</b>
+          <span class="small" style="margin-left:8px;color:var(--tx2)">중간 열매체 물(Water) · 냉수 ΔT 7K · 냉각탑 ΔT 7K</span>
+        </div>
+        <div style="display:flex;gap:6px">
+          <button class="btn" id="panelBtn5" type="button" style="padding:4px 10px;font-size:11.5px">냉수 5℃ 모드</button>
+          <button class="btn" id="panelBtn10" type="button" style="padding:4px 10px;font-size:11.5px">냉수 10℃ 모드</button>
+        </div>
+      </div>
+      <div class="grid g2" style="margin-top:8px;font-size:12.5px;color:var(--tx2)">
+        <div><b>· 냉각수(응축기 ➔ 냉각탑):</b> 입구 32.0 °C ➔ 출구 39.0 °C (ΔT = 7.0 K) ➔ <span class="mono" style="color:var(--acc)">응축온도 T<sub>c</sub> ≈ 41.0 °C</span> (접근온도차 2.0 K)</div>
+        <div><b>· 냉수(칠러 부하측):</b> <span id="waterChilledDesc">입구 12.0 °C ➔ 출구 5.0 °C (ΔT = 7.0 K) ➔ <span class="mono" style="color:var(--ok)">증발온도 T<sub>e</sub> ≈ 2.5 °C</span></span></div>
+      </div>
+    </div>
+
     <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:13px">
       <b style="font-size:13px">전역 운전조건</b>
       <span class="small">— 모든 탭의 차트·표·계산기가 이 조건을 공유합니다.</span>
@@ -285,23 +306,345 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     </div>
     <div class="chips" style="margin-bottom:14px" id="fluidChips"></div>
     <div class="ctl-grid">
-      <div class="field"><label>증발온도 <span class="v" id="vTe"></span></label><input type="range" id="Te" min="-30" max="15" step="1" value="5"></div>
-      <div class="field" id="fTc"><label>응축온도 <span class="v" id="vTc"></span></label><input type="range" id="Tc" min="30" max="65" step="1" value="45"></div>
+      <div class="field"><label>증발온도 <span class="v" id="vTe"></span></label><input type="range" id="Te" min="-30" max="15" step="0.5" value="2.5"></div>
+      <div class="field" id="fTc"><label>응축온도 <span class="v" id="vTc"></span></label><input type="range" id="Tc" min="30" max="65" step="0.5" value="41"></div>
       <div class="field" id="fPgc" style="display:none"><label>가스쿨러 압력 <span class="v" id="vPgc"></span></label><input type="range" id="Pgc" min="7.6" max="11.9" step="0.1" value="8.5"></div>
       <div class="field" id="fTgc" style="display:none"><label>가스쿨러 출구온도 <span class="v" id="vTgc"></span></label><input type="range" id="Tgc" min="28" max="45" step="0.5" value="35"></div>
-      <div class="field"><label>IHX 유효도 ε <span class="v" id="vEps"></span></label><input type="range" id="eps" min="0" max="0.9" step="0.05" value="0.5"></div>
-      <div class="field"><label>증발기 출구 과열도 <span class="v" id="vSH"></span></label><input type="range" id="SH" min="0" max="12" step="0.5" value="5"></div>
+      <div class="field"><label>IHX 유효도 ε <span class="v" id="vEps"></span></label><input type="range" id="eps" min="0" max="0.9" step="0.05" value="0.55"></div>
+      <div class="field"><label>증발기 출구 과열도 <span class="v" id="vSH"></span></label><input type="range" id="SH" min="0" max="12" step="0.5" value="4"></div>
       <div class="field" id="fSC"><label>응축기 출구 과냉각도 <span class="v" id="vSC"></span></label><input type="range" id="SC" min="0" max="10" step="0.5" value="3"></div>
-      <div class="field"><label>압축기 등엔트로피효율 <span class="v" id="vEta"></span></label><input type="range" id="eta" min="0.5" max="0.85" step="0.01" value="0.70"></div>
-      <div class="field"><label title="IHX 삽입으로 추가되는 흡입측 손실. 기준 사이클에는 적용되지 않습니다.">흡입관 ΔP <span style="font-weight:400">(IHX 부가분)</span> <span class="v" id="vDP"></span></label><input type="range" id="dP" min="0" max="60" step="1" value="0"></div>
+      <div class="field"><label>압축기 등엔트로피효율 <span class="v" id="vEta"></span></label><input type="range" id="eta" min="0.5" max="0.85" step="0.01" value="0.72"></div>
+      <div class="field"><label title="IHX 삽입으로 추가되는 흡입측 손실. 기준 사이클에는 적용되지 않습니다.">흡입관 ΔP <span style="font-weight:400">(IHX 부가분)</span> <span class="v" id="vDP"></span></label><input type="range" id="dP" min="0" max="60" step="1" value="2"></div>
     </div>
   </div>
 </div>
 
 <main class="wrap">
 
+<!-- ================================================================ 00 ================= -->
+<section class="tabpane active" id="s0">
+  <div class="sechead">
+    <span class="no">00</span><h2>수냉식 칠러 &amp; 내부열교환기(IHX) 실무 가이드</h2>
+    <span class="desc">사내 운전 스펙(냉수 5℃/10℃, 냉각탑 32➔39℃) 기반 필요성(Why) · 배관도(How) · 정량효과(What) · 현장 트러블슈팅</span>
+  </div>
+
+  <!-- 사내 운전조건 퀵 토글 카드 -->
+  <div class="card tight" style="background:linear-gradient(135deg,var(--panel2),var(--panel));border:1px solid var(--acc);margin-bottom:18px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span class="badge b-acc" style="font-size:12px">사내 시스템 연동</span>
+          <b style="font-size:15px;color:var(--tx)">수냉식 칠러 운전 모드 선택</b>
+        </div>
+        <div style="font-size:13px;color:var(--tx2);margin-top:4px">
+          버튼을 클릭하면 사내 표준 온도 스펙(물-냉매 접근온도차 반영)으로 실시간 계산기가 자동 전환됩니다.
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn on" id="btnMode5" type="button" style="padding:8px 16px;font-size:13px">
+          🏢 <b>사내 표준 (냉수 5℃)</b> <span class="small" style="opacity:.85">12➔5℃ / 32➔39℃</span>
+        </button>
+        <button class="btn" id="btnMode10" type="button" style="padding:8px 16px;font-size:13px">
+          🏢 <b>사내 고온 (냉수 10℃)</b> <span class="small" style="opacity:.85">17➔10℃ / 32➔39℃</span>
+        </button>
+      </div>
+    </div>
+    <div class="grid g3" style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--line2);font-size:13px">
+      <div><b>· 냉각수 루프 (냉각탑):</b> 32.0 °C 입구 ➔ 39.0 °C 출구 (ΔT = 7.0 K) <br><span class="small" style="color:var(--tx3)">→ 응축온도 T<sub>c</sub> ≈ 41.0 °C (접근온도차 2.0 K)</span></div>
+      <div><b>· 냉수 루프 (칠러 부하):</b> <span id="s0_chilledSummary">12.0 °C 입구 ➔ 5.0 °C 출구 (ΔT = 7.0 K)</span> <br><span class="small" style="color:var(--tx3)" id="s0_teSummary">→ 증발온도 T<sub>e</sub> ≈ 2.5 °C (접근온도차 2.5 K)</span></div>
+      <div><b>· 사내 핵심 냉매:</b> <span class="badge b-neu">기존: R134a</span> ➔ <span class="badge b-ok">친환경 전환: R1234ze / R1233ze</span></div>
+    </div>
+  </div>
+
+  <!-- 00.1 필요성 (Why) -->
+  <div class="card">
+    <h3 class="blk">00.1 왜 우리 수냉식 칠러에 IHX가 절실한가? (Why)</h3>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="card tight" style="margin:0;background:var(--panel2)">
+        <div style="font-size:13px;font-weight:700;color:var(--acc);margin-bottom:6px">① 친환경 냉매(R1234ze) 용량 저하 보완</div>
+        <p style="font-size:13px;color:var(--tx2);margin:0">
+          기존 <b>R134a</b>에서 친환경 GWP &lt; 1인 <b>R1234ze(E) / R1233ze</b>로 전환하면, 비체적이 커서 압축기 체적능력(VCC)이 <b>약 20% 감소</b>합니다.
+          동일한 압축기로 기존 용량을 내려면 IHX가 필수입니다. IHX가 <b>체적능력을 +6~8% 회복</b>시켜 압축기 프레임 대형화 없이 드롭인 대체를 가능하게 합니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0;background:var(--panel2)">
+        <div style="font-size:13px;font-weight:700;color:var(--ok);margin-bottom:6px">② 팽창밸브(EEV) 전단 플래시가스 제로화</div>
+        <p style="font-size:13px;color:var(--tx2);margin:0">
+          수냉식 응축기(39℃)에서 나온 액체 냉매는 필터드라이어, 사이트글라스, 배관 굴곡을 지나며 압력강하를 겪습니다. 이때 밸브 앞에서 기포(플래시가스)가 끓어 <b>EEV 헌팅과 소음/진동</b>이 발생합니다.
+          IHX는 <b>10~15 K의 강력한 과냉각 마진</b>을 주어 밸브에 <b>100% 묵직한 순수 액체</b>만 공급합니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0;background:var(--panel2)">
+        <div style="font-size:13px;font-weight:700;color:var(--warn);margin-bottom:6px">③ 칠러 부분부하 시 압축기 액백(Liquid Back) 방지</div>
+        <p style="font-size:13px;color:var(--tx2);margin:0">
+          수냉식 증발기는 부하 변동이나 기동 과도기에 냉매가 덜 증발하여 액 방울(습증기)이 압축기로 넘어올 위험이 있습니다.
+          IHX 저압측이 찬 가스를 따뜻하게 데워주므로, <b>압축기 흡입단에 100% 마른 과열 증기만 진입</b>하여 스크류/스크롤 압축기의 액압축 파손을 완벽히 방어합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 00.2 작동 원리 & 인터랙티브 P&ID (How) -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px">
+      <h3 class="blk">00.2 수냉식 칠러 사이클 &amp; IHX 실시간 배관도 (How)</h3>
+      <span class="small" style="color:var(--tx3)">현재 선택 냉매: <b id="pidFluidName" style="color:var(--acc)">R134a</b> | 상단 운전조건 슬라이더와 100% 실시간 연동됩니다.</span>
+    </div>
+    <p style="font-size:13.5px;color:var(--tx2);margin:6px 0 14px">
+      <b>버려지던 저압 가스의 냉기</b>로 <b>응축기에서 나온 뜨거운 액체</b>를 식혀주는 1:1 맞교환(대향류) 메커니즘입니다.
+    </p>
+
+    <!-- 인터랙티브 SVG 배관도 -->
+    <div style="width:100%;overflow-x:auto;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 6px">
+      <svg viewBox="0 0 960 460" style="width:100%;min-width:780px;height:auto;display:block;font-family:var(--sans)">
+        <defs>
+          <linearGradient id="pipeHot" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ef4444"/><stop offset="100%" stop-color="#f87171"/></linearGradient>
+          <linearGradient id="pipeLiq" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fb923c"/><stop offset="100%" stop-color="#facc15"/></linearGradient>
+          <linearGradient id="pipeCold" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#34d399"/></linearGradient>
+          <linearGradient id="waterCool" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0ea5e9"/></linearGradient>
+          <linearGradient id="waterChill" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#059669"/><stop offset="100%" stop-color="#10b981"/></linearGradient>
+          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="blur"/><feComposite in="SourceGraphic" in2="blur" operator="over"/></filter>
+        </defs>
+
+        <!-- 배관 선 (라인) -->
+        <!-- 1. 압축기 토출 ➔ 응축기 (빨강) -->
+        <path d="M 170 270 L 170 85 L 360 85" fill="none" stroke="#f87171" stroke-width="5" stroke-linecap="round"/>
+        <!-- 2. 응축기 ➔ IHX 고압측 (주황) -->
+        <path d="M 600 85 L 750 85 L 750 160" fill="none" stroke="#fb923c" stroke-width="4.5" stroke-linecap="round"/>
+        <!-- 3. IHX 고압측 ➔ 팽창밸브 (골드/과냉각) -->
+        <path d="M 750 310 L 750 380" fill="none" stroke="#facc15" stroke-width="4.5" stroke-linecap="round"/>
+        <!-- 4. 팽창밸브 ➔ 증발기 (보라/2상) -->
+        <path d="M 730 395 L 600 395" fill="none" stroke="#a78bfa" stroke-width="4.5" stroke-linecap="round"/>
+        <!-- 5. 증발기 ➔ IHX 저압측 (하늘색) -->
+        <path d="M 360 395 L 260 395 L 260 440 L 830 440 L 830 310" fill="none" stroke="#38bdf8" stroke-width="5" stroke-linecap="round"/>
+        <!-- 6. IHX 저압측 ➔ 압축기 흡입 (초록/과열가스) -->
+        <path d="M 830 160 L 830 130 L 220 130 L 220 270" fill="none" stroke="#34d399" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- ================= 기기 1: 압축기 ================= -->
+        <g transform="translate(195,310)">
+          <circle cx="0" cy="0" r="46" fill="var(--panel)" stroke="var(--line2)" stroke-width="3"/>
+          <circle cx="0" cy="0" r="38" fill="color-mix(in srgb,var(--acc) 15%,transparent)" stroke="var(--acc)" stroke-width="2"/>
+          <text x="0" y="-8" fill="var(--tx)" font-size="13" font-weight="700" text-anchor="middle">압축기</text>
+          <text x="0" y="10" fill="var(--tx3)" font-size="10.5" text-anchor="middle">Compressor</text>
+          <text x="0" y="24" fill="var(--acc)" font-size="10" font-family="var(--mono)" font-weight="700" text-anchor="middle">스크류/스크롤</text>
+        </g>
+
+        <!-- ================= 기기 2: 수냉식 응축기 ================= -->
+        <g transform="translate(360,50)">
+          <rect width="240" height="74" rx="10" fill="var(--panel)" stroke="#f87171" stroke-width="2.2"/>
+          <rect x="6" y="6" width="228" height="62" rx="7" fill="color-mix(in srgb,#f87171 10%,transparent)"/>
+          <text x="120" y="26" fill="var(--tx)" font-size="13" font-weight="700" text-anchor="middle">수냉식 응축기 (Water Condenser)</text>
+          <!-- 냉각수 코일 표현 -->
+          <path d="M 20 52 Q 60 40 100 52 T 180 52 T 220 52" fill="none" stroke="#0284c7" stroke-width="3" stroke-dasharray="4,3"/>
+          <text x="120" y="44" fill="var(--tx2)" font-size="11" text-anchor="middle">냉매 응축 (Tc <span id="svgTc">41.0</span> °C)</text>
+        </g>
+        <!-- 냉각수 입출구 배관 (냉각탑 연계) -->
+        <g transform="translate(360,50)">
+          <!-- 입구 32도 -->
+          <path d="M 240 52 L 280 52" stroke="#0284c7" stroke-width="3.5" marker-end="url(#arr)"/>
+          <rect x="245" y="62" width="76" height="20" rx="4" fill="var(--panel)" stroke="#0284c7"/>
+          <text x="283" y="76" fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle">냉각수 In 32℃</text>
+          <!-- 출구 39도 -->
+          <path d="M 0 52 L -40 52" stroke="#0284c7" stroke-width="3.5"/>
+          <rect x="-82" y="62" width="76" height="20" rx="4" fill="var(--panel)" stroke="#ef4444"/>
+          <text x="-44" y="76" fill="#f87171" font-size="10" font-weight="700" text-anchor="middle">냉각수 Out 39℃</text>
+        </g>
+
+        <!-- ================= 기기 3: 내부 열교환기 (IHX) ================= -->
+        <g transform="translate(710,160)">
+          <rect width="160" height="150" rx="12" fill="var(--panel)" stroke="var(--acc)" stroke-width="2.5" filter="url(#glow)"/>
+          <rect x="6" y="6" width="148" height="138" rx="8" fill="color-mix(in srgb,var(--acc) 12%,transparent)"/>
+          <text x="80" y="24" fill="var(--tx)" font-size="13.5" font-weight="800" text-anchor="middle">내부 열교환기 (IHX)</text>
+          <text x="80" y="39" fill="var(--tx3)" font-size="10" text-anchor="middle">동축관식 (Tube-in-tube)</text>
+          <!-- 고압측 액체 유로 (하향) -->
+          <line x1="40" y1="50" x2="40" y2="135" stroke="#facc15" stroke-width="6" stroke-linecap="round"/>
+          <text x="40" y="47" fill="#fb923c" font-size="9.5" font-weight="700" text-anchor="middle">액↓</text>
+          <!-- 저압측 가스 유로 (상향) -->
+          <line x1="120" y1="135" x2="120" y2="50" stroke="#34d399" stroke-width="7" stroke-linecap="round"/>
+          <text x="120" y="145" fill="#38bdf8" font-size="9.5" font-weight="700" text-anchor="middle">가스↑</text>
+          <!-- 열교환 화살표 (액 ➔ 가스) -->
+          <g stroke="#f472b6" stroke-width="2" stroke-dasharray="3,2">
+            <line x1="50" y1="75" x2="108" y2="75"/>
+            <line x1="50" y1="95" x2="108" y2="95"/>
+            <line x1="50" y1="115" x2="108" y2="115"/>
+          </g>
+          <text x="80" y="90" fill="#f472b6" font-size="10.5" font-weight="800" text-anchor="middle">열교환 Q<sub>IHX</sub></text>
+          <text x="80" y="106" fill="var(--tx)" font-size="11" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgQihx">-- kJ/kg</text>
+        </g>
+
+        <!-- ================= 기기 4: 팽창밸브 (EEV) ================= -->
+        <g transform="translate(750,395)">
+          <path d="M -18 -12 L 18 12 L 18 -12 L -18 12 Z" fill="var(--panel)" stroke="var(--acc)" stroke-width="2"/>
+          <circle cx="0" cy="0" r="4" fill="var(--acc)"/>
+          <text x="0" y="-18" fill="var(--tx)" font-size="11.5" font-weight="700" text-anchor="middle">팽창밸브 (EEV)</text>
+          <rect x="-55" y="18" width="110" height="18" rx="4" fill="var(--panel2)" stroke="var(--line2)"/>
+          <text x="0" y="31" fill="var(--ok)" font-size="10" font-weight="700" text-anchor="middle" id="svgEEV">플래시가스 0% (완전액)</text>
+        </g>
+
+        <!-- ================= 기기 5: 수냉식 증발기 ================= -->
+        <g transform="translate(360,360)">
+          <rect width="240" height="74" rx="10" fill="var(--panel)" stroke="#38bdf8" stroke-width="2.2"/>
+          <rect x="6" y="6" width="228" height="62" rx="7" fill="color-mix(in srgb,#38bdf8 10%,transparent)"/>
+          <text x="120" y="26" fill="var(--tx)" font-size="13" font-weight="700" text-anchor="middle">수냉식 증발기 (Chiller Evaporator)</text>
+          <!-- 냉수 코일 표현 -->
+          <path d="M 20 52 Q 60 40 100 52 T 180 52 T 220 52" fill="none" stroke="#059669" stroke-width="3" stroke-dasharray="4,3"/>
+          <text x="120" y="44" fill="var(--tx2)" font-size="11" text-anchor="middle">냉매 증발 (Te <span id="svgTe">2.5</span> °C)</text>
+        </g>
+        <!-- 냉수 입출구 배관 (냉수 부하 루프) -->
+        <g transform="translate(360,360)">
+          <!-- 입구 12도 -->
+          <path d="M 240 52 L 280 52" stroke="#059669" stroke-width="3.5"/>
+          <rect x="245" y="62" width="76" height="20" rx="4" fill="var(--panel)" stroke="#059669"/>
+          <text x="283" y="76" fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" id="svgChilledIn">냉수 In 12℃</text>
+          <!-- 출구 5도 -->
+          <path d="M 0 52 L -40 52" stroke="#059669" stroke-width="3.5"/>
+          <rect x="-82" y="62" width="76" height="20" rx="4" fill="var(--panel)" stroke="#38bdf8"/>
+          <text x="-44" y="76" fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle" id="svgChilledOut">냉수 Out 5℃</text>
+        </g>
+
+        <!-- ================= 실시간 상태 뱃지 ================= -->
+        <!-- 토출 상태 2′ -->
+        <g transform="translate(245,62)">
+          <rect width="100" height="22" rx="5" fill="var(--panel)" stroke="#f87171" stroke-width="1.2"/>
+          <text x="50" y="15" fill="#f87171" font-size="10.5" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgSt2">2′: -- °C</text>
+        </g>
+        <!-- 응축기 출구 3 -->
+        <g transform="translate(615,62)">
+          <rect width="115" height="22" rx="5" fill="var(--panel)" stroke="#fb923c" stroke-width="1.2"/>
+          <text x="57" y="15" fill="#fb923c" font-size="10.5" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgSt3">3: -- °C (SC 3K)</text>
+        </g>
+        <!-- IHX 후단 과냉각 액 3′ -->
+        <g transform="translate(765,340)">
+          <rect width="125" height="22" rx="5" fill="var(--panel)" stroke="#facc15" stroke-width="1.5"/>
+          <text x="62" y="15" fill="#facc15" font-size="10.5" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgSt3p">3′: -- °C (과냉↑)</text>
+        </g>
+        <!-- 증발기 출구 1 -->
+        <g transform="translate(365,426)">
+          <rect width="115" height="22" rx="5" fill="var(--panel)" stroke="#38bdf8" stroke-width="1.2"/>
+          <text x="57" y="15" fill="#38bdf8" font-size="10.5" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgSt1">1: -- °C (SH 4K)</text>
+        </g>
+        <!-- IHX 후단 흡입 가스 1′ -->
+        <g transform="translate(235,142)">
+          <rect width="130" height="22" rx="5" fill="var(--panel)" stroke="#34d399" stroke-width="1.5"/>
+          <text x="65" y="15" fill="#34d399" font-size="10.5" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgSt1p">1′: -- °C (과열↑)</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- 동축관 단면 구조 설명 카드 -->
+    <div class="card tight" style="margin-top:14px;background:var(--panel2)">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div style="width:58px;height:58px;border-radius:50%;border:4px solid #34d399;display:grid;place-items:center;flex:0 0 auto;position:relative">
+          <div style="width:26px;height:26px;border-radius:50%;background:#facc15"></div>
+          <span style="position:absolute;bottom:-20px;font-size:10px;color:var(--tx3);font-weight:700">단면 구조</span>
+        </div>
+        <div style="flex:1 1 320px">
+          <b style="font-size:13.5px;color:var(--tx)">동축관(이중관) 내부 배치 실무 원칙: 왜 가스를 바깥으로 보낼까?</b>
+          <div style="font-size:12.5px;color:var(--tx2);margin-top:4px">
+            <b>· 바깥쪽 굵은 환상부 (초록 원):</b> <span style="color:var(--ok)">저압 흡입 증기 (가스) 통과</span> ➔ 가스는 비체적이 매우 커 좁은 통로를 지나면 압력손실(ΔP)이 폭발하므로 가장 넓은 유로를 배정합니다.<br>
+            <b>· 안쪽 얇은 원관 (노란 원):</b> <span style="color:var(--warn)">고압 액체 통과</span> ➔ 액체는 부피가 작아 얇은 관을 지나도 압력손실 영향이 미미하며, 액 압력강하는 과냉각 마진으로 쉽게 흡수됩니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 00.3 사내 스펙 기준 실시간 비교표 (What) -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+      <div>
+        <h3 class="blk" style="margin:0">00.3 사내 핵심 냉매 실시간 성능 비교 (What)</h3>
+        <div class="small" style="color:var(--tx3)">기존 냉매(R134a) vs 친환경 전환 냉매(R1234ze) 실시간 연동 비교</div>
+      </div>
+      <div class="badge b-acc" id="s0_activeCondLabel">냉수 5℃ / 냉각수 32➔39℃ 기준</div>
+    </div>
+    <div class="tbl-wrap">
+      <table id="s0_compareTable">
+        <thead>
+          <tr>
+            <th>구분</th>
+            <th>기저 COP (OFF)</th>
+            <th>IHX COP (ON)</th>
+            <th>COP 개선율 (ΔCOP)</th>
+            <th>체적능력 회복 (ΔVCC)</th>
+            <th>질량유량 절감 (Δṁ)</th>
+            <th>토출온도 (마진)</th>
+            <th>사내 실무 판정</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- JS에서 실시간 계산 주입 -->
+        </tbody>
+        <caption>위 표는 상단 운전조건 및 냉수 모드(5℃/10℃)에 따라 즉시 재계산됩니다.</caption>
+      </table>
+    </div>
+  </div>
+
+  <!-- 00.4 현장 트러블슈팅 119 -->
+  <div class="card">
+    <h3 class="blk">00.4 현장 트러블슈팅 119 (자주 발생하는 5대 이상 증상 &amp; 해결책)</h3>
+    <p style="font-size:13px;color:var(--tx3);margin-bottom:12px">현장 시운전 및 양산 라인에서 실무자가 겪을 수 있는 대표적인 문제점과 즉시 조치 가이드입니다.</p>
+    <div class="grid g2">
+      <div class="card tight" style="margin:0;border-left:3px solid var(--bad);background:var(--panel2)">
+        <b style="color:var(--bad);font-size:13.5px">🚨 증상 1. EEV가 덜덜 떨며 헌팅하고 압축기로 액이 넘어옵니다</b>
+        <div style="font-size:12.5px;color:var(--tx2);margin-top:6px">
+          <b>· 원인 (가장 빈번한 실수!):</b> 과열도 센서를 <b>IHX 후단(압축기 직전)</b>에 달았기 때문입니다. IHX가 만든 인위적 과열도를 보고 제어기가 증발기가 바짝 말랐다고 오판하여 EEV를 과도하게 열어젖힙니다.<br>
+          <b>· 즉시 조치:</b> EEV 제어용 온도 센서를 반드시 <b>'증발기 직후(IHX 전단)'</b>로 이전 설치하십시오.
+        </div>
+      </div>
+      <div class="card tight" style="margin:0;border-left:3px solid var(--warn);background:var(--panel2)">
+        <b style="color:var(--warn);font-size:13.5px">⚠️ 증상 2. IHX를 달았는데 냉수 온도가 안 떨어지고 전기만 더 먹습니다</b>
+        <div style="font-size:12.5px;color:var(--tx2);margin-top:6px">
+          <b>· 원인:</b> 흡입관 압력손실(ΔP)이 너무 큽니다. 흡입측 차압이 10 kPa를 넘으면 IHX로 얻은 엔탈피 이득이 모조리 소멸합니다.<br>
+          <b>· 즉시 조치:</b> IHX 전후 흡입 차압 게이지를 측정하고, 동축관 외경 또는 흡입 배관을 1단계 상향하여 <b>ΔP ≤ 5 kPa</b>를 확보하십시오.
+        </div>
+      </div>
+      <div class="card tight" style="margin:0;border-left:3px solid var(--bad);background:var(--panel2)">
+        <b style="color:var(--bad);font-size:13.5px">🚨 증상 3. 고수온 냉각수(39℃) 및 폭염 시 압축기 토출온도 알람</b>
+        <div style="font-size:12.5px;color:var(--tx2);margin-top:6px">
+          <b>· 원인:</b> 가스쿨러/응축기 온도가 높을 때 IHX 과열도가 그대로 토출온도로 전이되어 오일 관리한계(120℃)에 육박합니다.<br>
+          <b>· 즉시 조치:</b> IHX 액측에 <b>바이패스 솔레노이드 밸브</b>를 설치하여 고외기/고부하 시 액을 우회시키거나 압축기 회전수 상한을 일시 제한하십시오.
+        </div>
+      </div>
+      <div class="card tight" style="margin:0;border-left:3px solid var(--acc);background:var(--panel2)">
+        <b style="color:var(--acc);font-size:13.5px">❄️ 증상 4. 냉수 5℃ 운전 중 저부하 시 칠러 동파 방지 알람</b>
+        <div style="font-size:12.5px;color:var(--tx2);margin-top:6px">
+          <b>· 원인:</b> 부분부하에서 증발온도가 0℃ 이하로 급강하할 때 물 측 결빙 위험 발생.<br>
+          <b>· 즉시 조치:</b> 저압 차단 연동 스위치(LP Cut-out)를 최소 <b>T<sub>e</sub> ≥ 1.5 °C</b> 이상으로 설정하고, EEV 최소 개도 리미트를 안전 마진으로 확보하십시오.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 00.5 수냉식 칠러 배관 시공 및 센서 부착 3대 수칙 -->
+  <div class="card">
+    <h3 class="blk">00.5 수냉식 칠러 배관 시공 및 센서 부착 3대 수칙</h3>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="card tight" style="margin:0">
+        <b style="color:var(--ok);font-size:13px">수칙 1. EEV 과열도 센서 위치</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          [증발기 출구] ➔ <b>[센서 부착 ⭕]</b> ➔ [IHX] ➔ [압축기].<br>
+          배관 단면 기준 <b>2시~4시 또는 8시~10시 방향</b>에 체결해야 바닥에 흐르는 냉동기유 영향을 피하고 순수 가스 온도를 빠르고 정확하게 감지합니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0">
+        <b style="color:var(--acc);font-size:13px">수칙 2. 오일 리턴을 위한 배관 구배</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          IHX 전후 수평 흡입 배관은 압축기 방향으로 <b>1/100 ~ 1/200 하향 경사</b>를 반드시 유지해야 하며, 수직 상승관 길이가 2m 이상일 경우 <b>바닥 U-트랩(오일 트랩)</b>을 시공합니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0">
+        <b style="color:var(--warn);font-size:13px">수칙 3. 결로 방지 폐포형 단열재 시공</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          증발기에서 IHX까지의 저압 라인은 표면온도가 2~8℃로 매우 낮아 대기 중 수분이 결로되어 물방울이 떨어집니다. <b>두께 19mm 이상 고무발포 단열재</b>로 틈새 없이 밀착 시공해야 합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================================================================ 01 ================= -->
-<section class="tabpane active" id="s1">
+<section class="tabpane" id="s1">
   <div class="sechead">
     <span class="no">01</span><h2>Executive Summary</h2>
     <span class="desc">의사결정용 요약 — 도입 배경, 정량 효과, 제약, 권고안</span>
@@ -925,10 +1268,22 @@ var FLUIDS = {
          [20,0.8362,254.5,591.5],[30,1.0790,283.5,597.5],[40,1.3690,314.0,601.0],
          [50,1.7130,346.5,601.0],[60,2.1170,382.0,596.0],[70,2.5880,421.5,583.0],
          [80,3.1350,469.0,557.0],[90,3.7660,505.0,540.0],[96.74,4.2510,520.0,520.0]]
+  },
+  R1234ze: {
+    key:'R1234ze', name:'R1234ze / R1233ze', tag:'R1234ze', family:'HFO 단일 (사내 친환경 주력)', gwp:1, safety:'A2L',
+    M:114.04, Tcrit:109.36, Pcrit:3.635, transcritical:false,
+    cpL:1.42, cpV:0.96, cpVhi:1.15, cpLm:1.3900, Z:0.91, TdisLim:120,
+    color:'#06b6d4',
+    sat:[[-40,0.0355,147.2,360.5],[-30,0.0602,159.8,366.5],[-20,0.0973,172.6,372.4],
+         [-10,0.1506,185.7,378.2],[0,0.2246,199.1,383.7],[10,0.3245,212.8,388.9],
+         [20,0.4560,227.0,393.7],[30,0.6253,241.6,397.9],[40,0.8392,256.8,401.4],
+         [50,1.1052,272.7,403.9],[60,1.4312,289.5,405.0],[70,1.8268,307.4,404.1],
+         [80,2.3031,326.8,400.3],[90,2.8735,348.5,391.8],[100,3.5590,374.5,372.0],
+         [109.36,3.6349,390.0,390.0]]
   }
 };
 
-var FLUID_ORDER = ['R744','R32','R410A','R134a','R1234yf','R290'];
+var FLUID_ORDER = ['R134a','R1234ze','R744','R1234yf','R290','R32','R410A'];
 
 /* ---------- 초임계 엔트로피 표 생성 (등압선 ds = dh/T 적분) ---------- */
 function buildSC(f){
@@ -1168,7 +1523,7 @@ var f1=function(x,n){ if(!isFinite(x)) return '–'; return x.toFixed(n===undefi
 var sgn=function(x,n){ return (x>=0?'+':'')+f1(x,n); };
 
 /* ---------------- 상태 ---------------- */
-var S={fluid:'R410A',Te:5,Tc:45,SH:5,SC:3,eta:0.70,eps:0.5,dP:0,Pgc:8.5,Tgc:35,ihx:true,Qload:10};
+var S={fluid:'R134a',Te:2.5,Tc:41,SH:4,SC:3,eta:0.72,eps:0.55,dP:2,Pgc:8.5,Tgc:35,ihx:true,Qload:10,chilledMode:'5'};
 var CH={};                       // 차트 인스턴스
 var hasChart=(typeof Chart!=='undefined');
 
@@ -1807,15 +2162,97 @@ function syncLabels(){
   $('#fPgc').style.display=tr?'':'none';
   $('#fTgc').style.display=tr?'':'none';
 }
+function renderPID(){
+  var f=FLUIDS[S.fluid];
+  if($('#pidFluidName')) $('#pidFluidName').textContent=f.name;
+  var o=Of(S.fluid);
+  var i=runCycle(S.fluid,o,true);
+
+  if($('#svgTc')) $('#svgTc').textContent=f1(i.Tsat_c||S.Tc,1);
+  if($('#svgTe')) $('#svgTe').textContent=f1(i.Tsat_e||S.Te,1);
+  if($('#svgSt2')) $('#svgSt2').textContent="2′: "+f1(i.T2,1)+" °C";
+  if($('#svgSt3')) $('#svgSt3').textContent="3: "+f1(i.T3,1)+" °C";
+  if($('#svgSt3p')) $('#svgSt3p').textContent="3′: "+f1(i.T3p,1)+" °C (과냉+"+f1(i.dTsub,1)+"K)";
+  if($('#svgSt1')) $('#svgSt1').textContent="1: "+f1(i.T1,1)+" °C";
+  if($('#svgSt1p')) $('#svgSt1p').textContent="1′: "+f1(i.T1p,1)+" °C (과열+"+f1(i.dTsh,1)+"K)";
+  if($('#svgQihx')) $('#svgQihx').textContent=f1(i.q,1)+" kJ/kg";
+  if($('#svgEEV')) $('#svgEEV').textContent="건도 x="+f1(i.x4,2)+" (기포 0%)";
+
+  if(S.chilledMode==='10'){
+    if($('#svgChilledIn')) $('#svgChilledIn').textContent="냉수 In 17℃";
+    if($('#svgChilledOut')) $('#svgChilledOut').textContent="냉수 Out 10℃";
+    if($('#s0_chilledSummary')) $('#s0_chilledSummary').textContent="17.0 °C 입구 ➔ 10.0 °C 출구 (ΔT = 7.0 K)";
+    if($('#s0_teSummary')) $('#s0_teSummary').innerHTML="→ 증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C (접근온도차 2.5 K)";
+    if($('#waterChilledDesc')) $('#waterChilledDesc').innerHTML="입구 17.0 °C ➔ 출구 10.0 °C (ΔT = 7.0 K) ➔ <span class=\"mono\" style=\"color:var(--ok)\">증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C</span>";
+    if($('#s0_activeCondLabel')) $('#s0_activeCondLabel').textContent="냉수 10℃ / 냉각수 32➔39℃ 기준";
+  } else {
+    if($('#svgChilledIn')) $('#svgChilledIn').textContent="냉수 In 12℃";
+    if($('#svgChilledOut')) $('#svgChilledOut').textContent="냉수 Out 5℃";
+    if($('#s0_chilledSummary')) $('#s0_chilledSummary').textContent="12.0 °C 입구 ➔ 5.0 °C 출구 (ΔT = 7.0 K)";
+    if($('#s0_teSummary')) $('#s0_teSummary').innerHTML="→ 증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C (접근온도차 2.5 K)";
+    if($('#waterChilledDesc')) $('#waterChilledDesc').innerHTML="입구 12.0 °C ➔ 출구 5.0 °C (ΔT = 7.0 K) ➔ <span class=\"mono\" style=\"color:var(--ok)\">증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C</span>";
+    if($('#s0_activeCondLabel')) $('#s0_activeCondLabel').textContent="냉수 5℃ / 냉각수 32➔39℃ 기준";
+  }
+}
+
+function renderS0Compare(){
+  var tbody=$('#s0_compareTable tbody');
+  if(!tbody) return;
+  tbody.innerHTML='';
+  var targetFluids=['R134a','R1234ze'];
+  targetFluids.forEach(function(k){
+    if(!FLUIDS[k]) return;
+    var r=compare(k,Of(k));
+    var f=FLUIDS[k];
+    var marg=f.TdisLim-r.ihx.T2;
+    var verdict=(r.dCOP>=0.8)?'<span class="badge b-ok">적용 적극 권고</span>':'<span class="badge b-acc">조건부 권고</span>';
+    var comment=(k==='R1234ze')?'<b>용량 결손 보완 핵심</b> (VCC '+sgn(r.dVCC,1)+'% 회복)':'안정적 효율 개선 (+'+f1(r.dCOP,1)+'%)';
+    tbody.insertAdjacentHTML('beforeend',
+      '<tr><td><b style="color:'+f.color+';font-size:14px">'+f.name+'</b><br><span class="small">'+f.family+'</span></td>'+
+      '<td class="num">'+f1(r.base.COP,3)+'</td>'+
+      '<td class="num"><b style="color:var(--tx)">'+f1(r.ihx.COP,3)+'</b></td>'+
+      '<td class="num" style="color:'+(r.dCOP>=0?'var(--ok)':'var(--bad)')+'"><b>'+sgn(r.dCOP,2)+'%</b></td>'+
+      '<td class="num" style="color:var(--acc)"><b>'+sgn(r.dVCC,1)+'%</b></td>'+
+      '<td class="num">'+f1(r.dMdot,1)+'%</td>'+
+      '<td class="num">'+f1(r.ihx.T2,1)+' °C<br><span class="small">마진 '+f1(marg,0)+' K</span></td>'+
+      '<td>'+verdict+'<br><span class="small">'+comment+'</span></td></tr>'
+    );
+  });
+}
+
 function refresh(){
   syncLabels();
   renderKPI(); renderStates(); buildPh();
   renderCompare(); renderSens(); renderCO2(); renderRadar();
   renderCalc();
+  renderPID();
+  renderS0Compare();
   if(window.MathJax&&MathJax.typesetPromise) MathJax.typesetPromise().catch(function(){});
 }
 
 function bind(){
+  function applyChilledPreset(mode){
+    S.chilledMode=mode;
+    if(mode==='5'){
+      S.Te=2.5; S.Tc=41.0; S.SH=4.0; S.SC=3.0; S.eta=0.72; S.eps=0.55; S.dP=2;
+      var b5=$('#btnMode5'), b10=$('#btnMode10');
+      if(b5) b5.classList.add('on'); if(b10) b10.classList.remove('on');
+    } else {
+      S.Te=7.5; S.Tc=41.0; S.SH=4.0; S.SC=3.0; S.eta=0.74; S.eps=0.55; S.dP=2;
+      var b5=$('#btnMode5'), b10=$('#btnMode10');
+      if(b10) b10.classList.add('on'); if(b5) b5.classList.remove('on');
+    }
+    $('#Te').value=S.Te; $('#Tc').value=S.Tc; $('#SH').value=S.SH;
+    $('#SC').value=S.SC; $('#eta').value=S.eta; $('#eps').value=S.eps; $('#dP').value=S.dP;
+    refresh();
+  }
+  ['btnPreset5','panelBtn5','btnMode5'].forEach(function(id){
+    var el=$('#'+id); if(el) el.addEventListener('click',function(){ applyChilledPreset('5'); });
+  });
+  ['btnPreset10','panelBtn10','btnMode10'].forEach(function(id){
+    var el=$('#'+id); if(el) el.addEventListener('click',function(){ applyChilledPreset('10'); });
+  });
+
   var chips=$('#fluidChips');
   FLUID_ORDER.forEach(function(k){
     var f=FLUIDS[k];
@@ -1835,7 +2272,7 @@ function bind(){
     chips.appendChild(b);
   });
 
-  [['Te','Te',1],['Tc','Tc',1],['Pgc','Pgc',0],['Tgc','Tgc',0],
+  [['Te','Te',0],['Tc','Tc',0],['Pgc','Pgc',0],['Tgc','Tgc',0],
    ['eps','eps',0],['SH','SH',0],['SC','SC',0],['eta','eta',0],['dP','dP',1]].forEach(function(x){
     var el=$('#'+x[0]);
     el.addEventListener('input',function(){
@@ -1843,7 +2280,7 @@ function bind(){
       refresh();
     });
   });
-  $('#ihxOn').addEventListener('change',function(){ S.ihx=this.checked; buildPh(); renderStates(); });
+  $('#ihxOn').addEventListener('change',function(){ S.ihx=this.checked; buildPh(); renderStates(); renderPID(); });
   $('#showBase').addEventListener('change',buildPh);
   $('#showFill').addEventListener('change',buildPh);
   ['cSh','cSub','cDp'].forEach(function(id){
@@ -1859,10 +2296,12 @@ function bind(){
   $('#linkSub').addEventListener('change',renderCalc);
 
   $('#btnReset').addEventListener('click',function(){
-    S.Te=5;S.Tc=45;S.SH=5;S.SC=3;S.eta=0.70;S.eps=0.5;S.dP=0;S.Pgc=8.5;S.Tgc=35;
-    $('#Te').value=5;$('#Tc').value=45;$('#SH').value=5;$('#SC').value=3;
-    $('#eta').value=0.70;$('#eps').value=0.5;$('#dP').value=0;$('#Pgc').value=8.5;$('#Tgc').value=35;
+    S.Te=2.5;S.Tc=41;S.SH=4;S.SC=3;S.eta=0.72;S.eps=0.55;S.dP=2;S.Pgc=8.5;S.Tgc=35;S.chilledMode='5';
+    $('#Te').value=2.5;$('#Tc').value=41;$('#SH').value=4;$('#SC').value=3;
+    $('#eta').value=0.72;$('#eps').value=0.55;$('#dP').value=2;$('#Pgc').value=8.5;$('#Tgc').value=35;
     $('#cSh').value=16;$('#cDp').value=0;$('#linkSub').checked=true;
+    var b5=$('#btnMode5'), b10=$('#btnMode10');
+    if(b5) b5.classList.add('on'); if(b10) b10.classList.remove('on');
     refresh();
   });
   $('#btnPanel').addEventListener('click',function(){
