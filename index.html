@@ -352,17 +352,17 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
       <div style="font-size:12.5px;color:var(--tx3);margin-bottom:12px">용액 열교환기 (Solution Heat Exchanger, SHX)</div>
 
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px;margin-bottom:12px;font-size:13px">
-        <div style="color:var(--tx2);margin-bottom:4px"><b>· 맞교환 대상:</b> [제습탑 찬 용액 (25℃)] ⇄ [재생탑 뜨거운 용액 (70℃)]</div>
-        <div style="color:var(--tx2)"><b>· 설치 목적:</b> 제습을 위한 냉각열원과 탈습을 위한 가열열원의 <b>이중 동시 절감</b></div>
+        <div style="color:var(--tx2);margin-bottom:4px"><b>· 맞교환 대상:</b> [제습탑 찬 용액 (13~15℃)] ⇄ [재생탑 폐열회수액 (36~37℃)]</div>
+        <div style="color:var(--tx2)"><b>· 설치 목적:</b> 39℃ 칠러 폐열 단독 재생 실현 &amp; 칠러 제습 냉각부하 동시 75% 절감</div>
       </div>
 
       <ul class="tick" style="font-size:13.5px">
-        <li><b>재생기 가열 에너지 50~65% 대폭 삭감:</b> 25℃부터 끓일 것을 55℃까지 공짜로 예열하여 투입하므로 보일러/히터 가열비가 반토막 납니다.</li>
-        <li><b>제습기 냉각 부하 50~60% 동시 삭감:</b> 70℃로 들어갈 용액을 38℃로 미리 식혀주어 칠러 냉각기 전기료를 반토막 냅니다.</li>
+        <li><b>39℃ 저온 폐열 단독으로 100% 재생 실현 (가열비 0원):</b> 14℃ 찬 용액을 31℃까지 공짜로 예열하므로, 사내 칠러 냉각수 폐열(39℃)만으로 36~37℃ 재생온도에 도달합니다 (추가 보일러/전기 가열 75% 삭감).</li>
+        <li><b>제습기 냉각 부하 70~75% 동시 삭감:</b> 재생탑에서 나오는 36~37℃ 용액을 19~20℃로 미리 식혀주어, 칠러가 13~15℃까지 냉각하는 데 드는 압축기 전기료를 대폭 절감합니다.</li>
         <li><b>CrecoPlus 5100C 무부식성 덕에 원가 절감:</b> 비싼 티타늄 대신 <b>저렴한 SUS316 판형 열교환기</b>를 쓸 수 있어 설비비가 획기적으로 낮아집니다.</li>
       </ul>
       <div class="callout ok" style="margin-top:12px;font-size:12.5px">
-        <b>💡 실무 한줄 요약:</b> 제습기에서 열교환기는 선택이 아닌 <b>필수 중의 필수</b>입니다. (안 달면 가열비/냉방비 폭탄으로 상용화 불가)
+        <b>💡 실무 한줄 요약:</b> SHX의 사전 예열 없이는 39℃ 저온 폐열로 재생온도(36~37℃) 도달이 불가능하므로, 본 시스템에서 열교환기는 <b>저온 폐열 단독 재생을 성립시키는 절대적 생명선</b>입니다.
       </div>
     </div>
 
@@ -401,7 +401,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
         </div>
         <b>CrecoPlus 5100C 액체식 제습기</b>
         <p style="font-size:12.5px;color:var(--tx2);margin:6px 0 0">
-          가열 및 냉각 에너지를 50% 이상 동시에 삭감하므로, 열교환기 없이는 시스템 경제성이 성립하지 않습니다. (투자비 회수 1년 미만)
+          사내 칠러 39℃ 냉각수 폐열만으로 36~37℃ 재생을 구현하는 핵심 장치입니다. SHX 없이는 저온 폐열 단독 재생이 불가능하며, 가열비 0원 &amp; 냉각비 75% 절감으로 투자 회수 1년 미만입니다.
         </p>
       </div>
 
@@ -487,24 +487,24 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     <div class="grid g2" style="align-items:center">
       <div>
         <p style="font-size:14px;line-height:1.8;color:var(--tx2)">
-          액체식 제습 시스템은 구조적으로 상반된 두 온도를 요구합니다:
+          사내 CrecoPlus 5100C 제습 시스템의 실제 실무 운전 온도 스펙:
         </p>
         <ul class="tick">
-          <li><b>제습탑 (Processor):</b> 공기 중 습기를 빨아들이려면 용액 온도를 <b>차갑게 유지(15~25℃)</b>해야 합니다. (칠러 냉각열원 투입)</li>
-          <li><b>재생탑 (Regenerator):</b> 흡습한 수분을 밖으로 뱉어내려면 용액 온도를 <b>뜨겁게 가열(65~75℃)</b>해야 합니다. (보일러/폐열 가열열원 투입)</li>
+          <li><b>제습탑 (Processor):</b> 공기 중 수분을 강력히 흡습하기 위해 용액 온도를 <b>13~15℃ (기준 14℃)</b>로 차갑게 유지합니다. (칠러 냉수 열원 투입)</li>
+          <li><b>재생탑 (Regenerator):</b> 흡습한 수분을 탈습하기 위해 사내 <b>수냉식 칠러 응축기 폐열(39℃ 온수)만 단독 활용</b>하여 용액 온도를 <b>36~37℃ 이하</b>로 유지합니다. (보일러 등 별도 고온 열원 제로)</li>
         </ul>
         <div class="callout bad" style="margin-top:12px">
-          <b>열교환기가 없다면?</b><br>
-          제습탑에서 나온 25℃ 찬 용액을 재생기로 보낼 때 70℃까지 몽땅 가열해야 하고, 재생탑에서 나온 70℃ 뜨거운 용액을 제습기로 보낼 때 25℃까지 몽땅 냉각해야 합니다. ➔ <b>가열비와 냉방비가 동시에 폭발하여 상용화가 불가능</b>합니다.
+          <b>열교환기가 없다면? (39℃ 저온 폐열 단독 가동 불가능)</b><br>
+          제습탑에서 나온 14℃ 찬 용액을 39℃ 미온수 폐열만으로 36~37℃까지 올리는 것은 가용 온도차 제약(핀치 온도차 겨우 2~3 K)으로 인해 물리적으로 불가능합니다. 결국 고온 보일러나 전기를 추가 투입해야 해 "폐열 100% 친환경 제습"이 좌절됩니다.
         </div>
       </div>
       <div>
         <div class="callout ok" style="margin:0">
-          <b style="font-size:15px;color:var(--ok)">내부열교환기(SHX) 1대로 달성하는 "이중 에너지 절감"</b>
+          <b style="font-size:15px;color:var(--ok)">내부열교환기(SHX) 1대로 달성하는 "39℃ 폐열 100% 재생 &amp; 이중 절감"</b>
           <p style="font-size:13px;line-height:1.75;margin:8px 0 0;color:var(--tx2)">
-            재생탑에서 나오는 <b>70℃ 뜨거운 농축액</b>과 제습탑에서 나오는 <b>25℃ 차가운 희석액</b>을 1:1 대향류로 맞교환합니다.<br><br>
-            ① <b>가열원 50~65% 절감:</b> 찬 용액이 <b>53~56℃까지 공짜로 예열</b>되어 재생기로 들어가므로, 가열기는 55℃➔70℃ 구간만 살짝 덥히면 됩니다.<br>
-            ② <b>냉각원 50~60% 절감:</b> 뜨거운 용액이 <b>38~42℃까지 공짜로 예냉</b>되어 제습기로 들어가므로, 냉각기는 40℃➔25℃ 구간만 살짝 식히면 됩니다.
+            재생탑에서 나오는 <b>36~37℃ 농축액</b>과 제습탑에서 나오는 <b>13~15℃ 찬 희석액</b>을 1:1 대향류로 맞교환합니다.<br><br>
+            ① <b>가열열원 70~75% 절감:</b> 찬 용액이 <b>30.5~31.0℃까지 공짜로 사전 예열</b>되어 재생기로 들어가므로, 39℃ 폐열은 31℃➔36.5℃ 구간(단 5.5 K)만 살짝 덥히면 됩니다. ➔ <b>39℃ 저온 폐열만으로 100% 무연료 재생 성공!</b><br>
+            ② <b>냉각열원 70~75% 절감:</b> 36.5℃ 용액이 <b>19.5~20.0℃까지 공짜로 사전 예냉</b>되어 제습기로 들어가므로, 칠러 냉수 코일은 20℃➔14℃ 구간만 살짝 식히면 됩니다. ➔ <b>칠러 제습 냉방 전력 대폭 절감!</b>
           </p>
         </div>
       </div>
@@ -582,7 +582,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     <!-- 하부 수조 -->
     <rect x="10" y="245" width="120" height="60" rx="6" fill="color-mix(in srgb,#0284c7 25%,transparent)"/>
     <text x="70" y="272" fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle">찬 희석액 수조</text>
-    <text x="70" y="292" fill="var(--tx)" font-size="11" font-weight="700" text-anchor="middle">T = <tspan id="svgDesTprocText" fill="#38bdf8">25.0</tspan> °C</text>
+    <text x="70" y="292" fill="var(--tx)" font-size="11" font-weight="700" text-anchor="middle">T = <tspan id="svgDesTprocText" fill="#38bdf8">14.0</tspan> °C</text>
   </g>
 
   <!-- ================= 기기 2: 용액 열교환기 (SHX) ================= -->
@@ -634,47 +634,47 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     <!-- 하부 수조 -->
     <rect x="10" y="245" width="120" height="60" rx="6" fill="color-mix(in srgb,#ef4444 25%,transparent)"/>
     <text x="70" y="272" fill="#f87171" font-size="11" font-weight="700" text-anchor="middle">뜨거운 농축액 수조</text>
-    <text x="70" y="292" fill="var(--tx)" font-size="11" font-weight="700" text-anchor="middle">T = <tspan id="svgDesTregText" fill="#f87171">70.0</tspan> °C</text>
+    <text x="70" y="292" fill="var(--tx)" font-size="11" font-weight="700" text-anchor="middle">T = <tspan id="svgDesTregText" fill="#f87171">36.5</tspan> °C</text>
   </g>
 
   <!-- ================= 보조 기기: 히터 & 쿨러 ================= -->
   <!-- 보조 가열기 (Heater) -->
   <g transform="translate(630,73)">
     <circle cx="22" cy="22" r="22" fill="var(--panel)" stroke="#ef4444" stroke-width="2.5"/>
-    <text x="22" y="19" fill="#ef4444" font-size="10.5" font-weight="800" text-anchor="middle">보조히터</text>
-    <text x="22" y="32" fill="var(--tx3)" font-size="9" text-anchor="middle">(가열원)</text>
+    <text x="22" y="19" fill="#ef4444" font-size="10" font-weight="800" text-anchor="middle">39℃폐열</text>
+    <text x="22" y="32" fill="var(--tx3)" font-size="8.5" text-anchor="middle">(칠러응축열)</text>
   </g>
 
   <!-- 보조 냉각기 (Cooler) -->
   <g transform="translate(325,73)">
     <circle cx="22" cy="22" r="22" fill="var(--panel)" stroke="#0284c7" stroke-width="2.5"/>
-    <text x="22" y="19" fill="#38bdf8" font-size="10.5" font-weight="800" text-anchor="middle">보조쿨러</text>
-    <text x="22" y="32" fill="var(--tx3)" font-size="9" text-anchor="middle">(냉각원)</text>
+    <text x="22" y="19" fill="#38bdf8" font-size="10" font-weight="800" text-anchor="middle">칠러냉수</text>
+    <text x="22" y="32" fill="var(--tx3)" font-size="8.5" text-anchor="middle">(보조쿨러)</text>
   </g>
 
   <!-- ================= 실시간 상태 뱃지 (독립적 위치 배치) ================= -->
   <!-- 뱃지 1: 제습탑 출구 찬 희석액 -->
   <g transform="translate(255,325)">
     <rect width="130" height="24" rx="5" fill="var(--panel)" stroke="#0284c7" stroke-width="1.4"/>
-    <text x="65" y="16" fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle" id="svgDesTag1">찬 희석액 25.0℃</text>
+    <text x="65" y="16" fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle" id="svgDesTag1">찬 희석액 14.0℃</text>
   </g>
 
   <!-- 뱃지 2: SHX 통과 후 예열된 액 (히터 전단) -->
   <g transform="translate(525,115)">
     <rect width="140" height="24" rx="5" fill="var(--panel)" stroke="#a855f7" stroke-width="1.5"/>
-    <text x="70" y="16" fill="#c084fc" font-size="11" font-weight="700" text-anchor="middle" id="svgDesTag2">예열 56.5℃ (공짜!)</text>
+    <text x="70" y="16" fill="#c084fc" font-size="11" font-weight="700" text-anchor="middle" id="svgDesTag2">예열 30.9℃ (공짜!)</text>
   </g>
 
   <!-- 뱃지 3: 재생탑 출구 뜨거운 농축액 -->
   <g transform="translate(595,325)">
     <rect width="130" height="24" rx="5" fill="var(--panel)" stroke="#ef4444" stroke-width="1.4"/>
-    <text x="65" y="16" fill="#f87171" font-size="11" font-weight="700" text-anchor="middle" id="svgDesTag3">뜨거운 액 70.0℃</text>
+    <text x="65" y="16" fill="#f87171" font-size="11" font-weight="700" text-anchor="middle" id="svgDesTag3">폐열가열액 36.5℃</text>
   </g>
 
   <!-- 뱃지 4: SHX 통과 후 예냉된 액 (쿨러 전단) -->
   <g transform="translate(315,115)">
     <rect width="140" height="24" rx="5" fill="var(--panel)" stroke="#facc15" stroke-width="1.5"/>
-    <text x="70" y="16" fill="#facc15" font-size="11" font-weight="700" text-anchor="middle" id="svgDesTag4">예냉 38.5℃ (공짜!)</text>
+    <text x="70" y="16" fill="#facc15" font-size="11" font-weight="700" text-anchor="middle" id="svgDesTag4">예냉 19.6℃ (공짜!)</text>
   </g>
 </svg>
     </div>
@@ -693,24 +693,29 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
         <b style="font-size:13px">제습 시스템 운전 조건 조절</b>
         <div class="ctl-grid" style="margin-top:10px">
           <div class="field">
-            <label>제습탑 용액온도 (Processor) <span class="v" id="d_vTproc">25.0 °C</span></label>
-            <input type="range" id="d_Tproc" min="15" max="30" step="0.5" value="25">
+            <label>제습탑 용액온도 (Processor) <span class="v" id="d_vTproc">14.0 °C</span></label>
+            <input type="range" id="d_Tproc" min="10" max="20" step="0.5" value="14">
+            <span class="small" style="color:var(--tx3);font-size:10.5px">실무 스펙: 13℃ ~ 15℃ 내외</span>
           </div>
           <div class="field">
-            <label>재생탑 가열온도 (Regenerator) <span class="v" id="d_vTreg">70.0 °C</span></label>
-            <input type="range" id="d_Treg" min="55" max="85" step="1" value="70">
+            <label>재생탑 가열온도 (Regenerator) <span class="v" id="d_vTreg">36.5 °C</span></label>
+            <input type="range" id="d_Treg" min="28" max="42" step="0.5" value="36.5">
+            <span class="small" style="color:var(--tx3);font-size:10.5px">39℃ 칠러 폐열 활용: 37℃ 이하</span>
           </div>
           <div class="field">
-            <label>열교환기 유효도 ε (SHX) <span class="v" id="d_vEps">0.70</span></label>
-            <input type="range" id="d_Eps" min="0.4" max="0.85" step="0.05" value="0.70">
+            <label>열교환기 유효도 ε (SHX) <span class="v" id="d_vEps">0.75</span></label>
+            <input type="range" id="d_Eps" min="0.4" max="0.9" step="0.05" value="0.75">
+            <span class="small" style="color:var(--tx3);font-size:10.5px">SUS316 판형 통상 0.70 ~ 0.80</span>
           </div>
           <div class="field">
             <label>용액 순환 유량 <span class="v" id="d_vFlow">20 L/min</span></label>
             <input type="range" id="d_Flow" min="5" max="60" step="1" value="20">
+            <span class="small" style="color:var(--tx3);font-size:10.5px">시스템 설계 순환 유량</span>
           </div>
         </div>
-        <div class="small" style="margin-top:10px;color:var(--tx3)">
-          * 물성 기준: CrecoPlus 5100C 밀도 ρ ≈ 1,200 kg/m³, 비열 c<sub>p</sub> ≈ 2.5 kJ/kg·K.
+        <div class="small" style="margin-top:10px;color:var(--tx3);line-height:1.6">
+          * 물성 기준: CrecoPlus 5100C 밀도 ρ ≈ 1,200 kg/m³, 비열 c<sub>p</sub> ≈ 2.5 kJ/kg·K<br>
+          * 사내 연동: 재생 열원 = 칠러 냉각수 폐열(39℃ 온수) / 제습 냉각 = 칠러 냉수(5℃~10℃)
         </div>
       </div>
 
@@ -2781,7 +2786,7 @@ function renderDesiccant(){
   if($('#svgDesQshxText')) $('#svgDesQshxText').textContent = f1(Qshx, 1) + ' kW';
   if($('#svgDesTag1')) $('#svgDesTag1').textContent = '찬 희석액 ' + f1(Tproc, 1) + '℃';
   if($('#svgDesTag2')) $('#svgDesTag2').textContent = '예열 ' + f1(TregIn, 1) + '℃ (공짜!)';
-  if($('#svgDesTag3')) $('#svgDesTag3').textContent = '뜨거운 액 ' + f1(Treg, 1) + '℃';
+  if($('#svgDesTag3')) $('#svgDesTag3').textContent = '폐열가열액 ' + f1(Treg, 1) + '℃';
   if($('#svgDesTag4')) $('#svgDesTag4').textContent = '예냉 ' + f1(TprocIn, 1) + '℃ (공짜!)';
 
   if($('#d_kpiHeatPct')) $('#d_kpiHeatPct').innerHTML = f1(heatPct, 1) + '<span class="u">%</span>';
@@ -2881,6 +2886,10 @@ function bind(){
     $('#Te').value=2.5;$('#Tc').value=41;$('#SH').value=4;$('#SC').value=3;
     $('#eta').value=0.72;$('#eps').value=0.55;$('#dP').value=2;$('#Pgc').value=8.5;$('#Tgc').value=35;
     $('#cSh').value=16;$('#cDp').value=0;$('#linkSub').checked=true;
+    if($('#d_Tproc')) $('#d_Tproc').value = 14;
+    if($('#d_Treg')) $('#d_Treg').value = 36.5;
+    if($('#d_Eps')) $('#d_Eps').value = 0.75;
+    if($('#d_Flow')) $('#d_Flow').value = 20;
     var b5=$('#btnMode5'), b10=$('#btnMode10');
     if(b5) b5.classList.add('on'); if(b10) b10.classList.remove('on');
     refresh();
