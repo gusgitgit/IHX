@@ -249,24 +249,25 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
       <div class="brand">
         <div class="logo">IHX</div>
         <div>
-          <h1>수냉식 칠러 &amp; 내부 열교환기(IHX) 기술 검토 리포트</h1>
-          <div class="sub">R134a / R1234ze(R1233) · 냉수 5℃/10℃ (ΔT 7K) · 냉각탑 32➔39℃ · 현장 실무 가이드</div>
+          <h1>내부 열교환기(IHX/SHX) 종합 기술 검토 리포트</h1>
+          <div class="sub">액체식 제습기(CrecoPlus 5100C) · 수냉식 칠러(R134a/R1234ze) · 1분 실무 요약 · 현장 가이드</div>
         </div>
       </div>
       <div class="spacer"></div>
-      <button class="btn" id="btnPreset5" type="button" style="border-color:var(--ok);color:var(--ok);font-weight:700">🏢 사내 표준 (냉수 5℃)</button>
-      <button class="btn" id="btnPreset10" type="button" style="border-color:var(--acc);color:var(--acc);font-weight:700">🏢 사내 고온 (냉수 10℃)</button>
-      <button class="btn" id="btnPanel" type="button">⚙ 운전조건</button>
+      <button class="btn" id="btnPreset5" type="button" style="border-color:var(--ok);color:var(--ok);font-weight:700">❄️ 칠러 표준 (냉수 5℃)</button>
+      <button class="btn" id="btnPreset10" type="button" style="border-color:var(--acc);color:var(--acc);font-weight:700">❄️ 칠러 고온 (냉수 10℃)</button>
+      <button class="btn" id="btnPanel" type="button">⚙ 칠러 운전조건</button>
       <button class="btn" id="btnTheme" type="button">◐ 라이트</button>
     </div>
     <nav class="tabs" role="tablist" id="tabs">
-      <button role="tab" data-t="s0" aria-selected="true"><span class="n">00</span>수냉식 칠러 &amp; IHX 실무 입문</button>
-      <button role="tab" data-t="s1" aria-selected="false"><span class="n">01</span>Executive Summary</button>
-      <button role="tab" data-t="s2" aria-selected="false"><span class="n">02</span>작동원리 &amp; P-h 시뮬레이터</button>
-      <button role="tab" data-t="s3" aria-selected="false"><span class="n">03</span>냉매별 민감도</button>
-      <button role="tab" data-t="s4" aria-selected="false"><span class="n">04</span>트레이드오프 분석</button>
-      <button role="tab" data-t="s5" aria-selected="false"><span class="n">05</span>설계·제어 가이드라인</button>
-      <button role="tab" data-t="s6" aria-selected="false"><span class="n">06</span>결론 &amp; R&amp;D 제언</button>
+      <button role="tab" data-t="s_fast" aria-selected="true"><span class="n">00</span>⚡ 1분 실무 요약</button>
+      <button role="tab" data-t="s_desiccant" aria-selected="false"><span class="n">01</span>💧 액체식 제습기 (CrecoPlus)</button>
+      <button role="tab" data-t="s0" aria-selected="false"><span class="n">02</span>❄️ 수냉식 칠러 (R134a➔R1234ze)</button>
+      <button role="tab" data-t="s2" aria-selected="false"><span class="n">03</span>📈 P-h 선도 &amp; 작동 원리</button>
+      <button role="tab" data-t="s3" aria-selected="false"><span class="n">04</span>⚖️ 냉매별 판정 &amp; 비교</button>
+      <button role="tab" data-t="s4" aria-selected="false"><span class="n">05</span>🎛️ 트레이드오프 &amp; 리스크</button>
+      <button role="tab" data-t="s5" aria-selected="false"><span class="n">06</span>🛠️ 현장 시공 &amp; 트러블슈팅</button>
+      <button role="tab" data-t="s6" aria-selected="false"><span class="n">07</span>📋 R&amp;D 제언 &amp; 체크리스트</button>
     </nav>
   </div>
 </header>
@@ -321,10 +322,422 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
 
 <main class="wrap">
 
-<!-- ================================================================ 00 ================= -->
-<section class="tabpane active" id="s0">
+<!-- ================================================================ 00 : FAST-TRACK ================= -->
+<section class="tabpane active" id="s_fast">
   <div class="sechead">
-    <span class="no">00</span><h2>수냉식 칠러 &amp; 내부열교환기(IHX) 실무 가이드</h2>
+    <span class="no">00</span><h2>⚡ 1분 실무 핵심 요약 (Executive Fast-Track)</h2>
+    <span class="desc">수식 없이 30초 만에 이해하는 내부열교환기(IHX/SHX)의 존재 이유, 사내 2대 시스템 적용 효과, 의사결정 신호등</span>
+  </div>
+
+  <!-- 30초 정의 카드 -->
+  <div class="card" style="border-left:4px solid var(--acc);background:linear-gradient(135deg,var(--panel2),var(--panel))">
+    <h3 class="blk" style="margin-top:0">Q. 내부열교환기(IHX/SHX)란 무엇이고, 왜 다는가?</h3>
+    <p style="font-size:15px;line-height:1.8;color:var(--tx);margin:8px 0 0">
+      내부열교환기는 <b>"외부 전기나 가스를 단 1W도 더 쓰지 않고, 시스템 내부에서 버려질 뻔한 뜨거운 열과 차가운 냉기를 1:1로 맞교환해주는 공짜 열회수기"</b>입니다.<br>
+      칠러에서는 <b>"팽창밸브 기포 박멸 &amp; 냉방능력 8% 회복"</b>을, 액체식 제습기에서는 <b>"가열비와 냉방비를 동시에 50~65% 반토막 내는 이중 에너지 세이브"</b>를 만들어냅니다.
+    </p>
+  </div>
+
+  <!-- 사내 2대 시스템 1:1 비교 인포그래픽 -->
+  <h3 class="blk" style="margin-top:20px">사내 2대 적용 시스템 1:1 비교 인포그래픽</h3>
+  <div class="grid g2" style="margin-top:10px">
+
+    <!-- 시스템 1: 액체식 제습기 (CrecoPlus 5100C) -->
+    <div class="card" style="border:1px solid #06b6d4;background:var(--panel2);position:relative">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-ok" style="font-size:12px">시스템 1 · 신규 도입</span>
+        <button class="btn" onclick="document.querySelector('[data-t=s_desiccant]').click()" style="padding:4px 10px;font-size:11.5px;border-color:#06b6d4;color:#06b6d4">💧 상세 탭 바로가기 ➔</button>
+      </div>
+      <h3 style="font-size:18px;color:#06b6d4;margin-bottom:8px">💧 CrecoPlus 5100C 액체식 제습기</h3>
+      <div style="font-size:12.5px;color:var(--tx3);margin-bottom:12px">용액 열교환기 (Solution Heat Exchanger, SHX)</div>
+
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px;margin-bottom:12px;font-size:13px">
+        <div style="color:var(--tx2);margin-bottom:4px"><b>· 맞교환 대상:</b> [제습탑 찬 용액 (25℃)] ⇄ [재생탑 뜨거운 용액 (70℃)]</div>
+        <div style="color:var(--tx2)"><b>· 설치 목적:</b> 제습을 위한 냉각열원과 탈습을 위한 가열열원의 <b>이중 동시 절감</b></div>
+      </div>
+
+      <ul class="tick" style="font-size:13.5px">
+        <li><b>재생기 가열 에너지 50~65% 대폭 삭감:</b> 25℃부터 끓일 것을 55℃까지 공짜로 예열하여 투입하므로 보일러/히터 가열비가 반토막 납니다.</li>
+        <li><b>제습기 냉각 부하 50~60% 동시 삭감:</b> 70℃로 들어갈 용액을 38℃로 미리 식혀주어 칠러 냉각기 전기료를 반토막 냅니다.</li>
+        <li><b>CrecoPlus 5100C 무부식성 덕에 원가 절감:</b> 비싼 티타늄 대신 <b>저렴한 SUS316 판형 열교환기</b>를 쓸 수 있어 설비비가 획기적으로 낮아집니다.</li>
+      </ul>
+      <div class="callout ok" style="margin-top:12px;font-size:12.5px">
+        <b>💡 실무 한줄 요약:</b> 제습기에서 열교환기는 선택이 아닌 <b>필수 중의 필수</b>입니다. (안 달면 가열비/냉방비 폭탄으로 상용화 불가)
+      </div>
+    </div>
+
+    <!-- 시스템 2: 수냉식 칠러 (R134a ➔ R1234ze) -->
+    <div class="card" style="border:1px solid var(--acc);background:var(--panel2);position:relative">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span class="badge b-acc" style="font-size:12px">시스템 2 · 친환경 전환</span>
+        <button class="btn" onclick="document.querySelector('[data-t=s0]').click()" style="padding:4px 10px;font-size:11.5px;border-color:var(--acc);color:var(--acc)">❄️ 상세 탭 바로가기 ➔</button>
+      </div>
+      <h3 style="font-size:18px;color:var(--acc);margin-bottom:8px">❄️ 수냉식 칠러 냉매 사이클</h3>
+      <div style="font-size:12.5px;color:var(--tx3);margin-bottom:12px">흡입관 열교환기 (Suction-Line Heat Exchanger, SLHX/IHX)</div>
+
+      <div style="background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px;margin-bottom:12px;font-size:13px">
+        <div style="color:var(--tx2);margin-bottom:4px"><b>· 맞교환 대상:</b> [증발기 찬 가스 (6.5℃)] ⇄ [응축기 뜨거운 액체 (38℃)]</div>
+        <div style="color:var(--tx2)"><b>· 설치 목적:</b> 팽창 전단 과냉각 심화(기포 박멸) 및 친환경 냉매 체적능력 회복</div>
+      </div>
+
+      <ul class="tick" style="font-size:13.5px">
+        <li><b>팽창밸브(EEV) 앞단 기포(플래시가스) 0%:</b> 과냉각을 10~15 K 깊게 걸어 100% 순수 액체만 쏘아주므로 밸브 헌팅과 소음이 사라집니다.</li>
+        <li><b>친환경 냉매(R1234ze) 용량 결손 +6~8% 회복:</b> R134a 대비 부족한 체적능력을 회복시켜 압축기를 대형화하지 않고 드롭인 대체가 가능합니다.</li>
+        <li><b>압축기 액백(Liquid Carryover) 방지:</b> 증발기에서 덜 마른 가스를 바짝 말려주어 압축기 파손을 막아줍니다.</li>
+      </ul>
+      <div class="callout warn" style="margin-top:12px;font-size:12.5px">
+        <b>⚠️ 실무 주의점:</b> 흡입관 압력손실을 <b>ΔP ≤ 5 kPa</b> 이내로 억제해야 합니다. (관경을 너무 얇게 뽑으면 얻은 이득이 도로 날아감)
+      </div>
+    </div>
+  </div>
+
+  <!-- 한눈에 보는 의사결정 신호등 카드 -->
+  <div class="card" style="margin-top:18px">
+    <h3 class="blk">실무 의사결정 신호등 (달아야 할까? 말아야 할까?)</h3>
+    <div class="grid g3" style="margin-top:10px">
+      <div class="card tight" style="border-top:4px solid var(--ok);margin:0;background:var(--panel2)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+          <span style="font-size:18px">🟢</span> <b style="font-size:14px;color:var(--ok)">무조건 설치 (필수)</b>
+        </div>
+        <b>CrecoPlus 5100C 액체식 제습기</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:6px 0 0">
+          가열 및 냉각 에너지를 50% 이상 동시에 삭감하므로, 열교환기 없이는 시스템 경제성이 성립하지 않습니다. (투자비 회수 1년 미만)
+        </p>
+      </div>
+
+      <div class="card tight" style="border-top:4px solid var(--acc);margin:0;background:var(--panel2)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+          <span style="font-size:18px">🟢</span> <b style="font-size:14px;color:var(--acc)">적극 권장 (조건부)</b>
+        </div>
+        <b>수냉식 칠러 (R1234ze / R134a)</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:6px 0 0">
+          EEV 헌팅 방지와 용량 8% 회복 효과가 탁월합니다. 단, 흡입관 압력손실을 5 kPa 이하로 억제할 수 있도록 관경을 넉넉히 설계해야 합니다.
+        </p>
+      </div>
+
+      <div class="card tight" style="border-top:4px solid var(--bad);margin:0;background:var(--panel2)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+          <span style="font-size:18px">🔴</span> <b style="font-size:14px;color:var(--bad)">설치 비권고</b>
+        </div>
+        <b>일반 에어컨 공조기 (R32)</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:6px 0 0">
+          R32는 원래 온도가 높은 냉매이므로, IHX를 달면 토출온도가 120℃를 훌쩍 넘어 압축기 오일이 타고 고장 납니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ 01 : DESICCANT ================= -->
+<section class="tabpane" id="s_desiccant">
+  <div class="sechead">
+    <span class="no">01</span><h2>💧 CrecoPlus 5100C 액체식 제습 시스템 (LDDS) &amp; 내부열교환기</h2>
+    <span class="desc">친환경 이온성 액체 제습제 특성 · 제습기-재생기 이중 열회수 메커니즘 · 실시간 절감률 계산기</span>
+  </div>
+
+  <!-- 1. CrecoPlus 5100C 특성 카드 -->
+  <div class="card">
+    <h3 class="blk">1.1 왜 기존 염(LiCl/LiBr) 대신 CrecoPlus 5100C(이온성 액체)를 쓰는가?</h3>
+    <p style="font-size:13.5px;color:var(--tx2);margin-bottom:12px">
+      액체식 제습 시스템(Liquid Desiccant Dehumidification System)의 성패는 제습제 용액에 달려 있습니다. 사내에서 채택한 <b>CrecoPlus 5100C</b>는 기존 제습제의 3대 치명적 고질병을 완벽히 해결한 친환경 제습제입니다.
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>비교 항목</th>
+            <th>기존 무기염 수용액 (LiCl / LiBr)</th>
+            <th>CrecoPlus 5100C (친환경 이온성 액체)</th>
+            <th>실무 및 원가 영향</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>증기압 (기화 특성)</b></td>
+            <td class="num">미세 증기압 존재 (공기 중 액적/성분 비산)</td>
+            <td class="num" style="color:var(--ok)"><b>증기압 ≈ 0 (완전 비휘발성)</b></td>
+            <td>대기 중 소실 제로 ➔ <b>용액 보충 불필요 &amp; 실내 공기질 100% 안전</b></td>
+          </tr>
+          <tr>
+            <td><b>금속 부식성</b></td>
+            <td class="num" style="color:var(--bad)">극심한 부식 (배관, 펌프 부식)</td>
+            <td class="num" style="color:var(--ok)"><b>비부식성 (Non-corrosive)</b></td>
+            <td>고가 티타늄 대신 <b>일반 SUS316 판형 열교환기</b> 적용 가능 (원가 1/3 절감!)</td>
+          </tr>
+          <tr>
+            <td><b>결정화 (Crystallization)</b></td>
+            <td class="num" style="color:var(--bad)">저온/고농도 시 소금처럼 굳음</td>
+            <td class="num" style="color:var(--ok)"><b>무결정화 (No Crystallization)</b></td>
+            <td>겨울철 비가동 시에도 굳지 않아 <b>배관 막힘 및 노즐 막힘 사고 원천 차단</b></td>
+          </tr>
+          <tr>
+            <td><b>열적/화학적 안정성</b></td>
+            <td class="num">산화 및 슬러지 발생 우려</td>
+            <td class="num" style="color:var(--ok)"><b>탁월한 장수명 사이클</b></td>
+            <td>반영구적 순환 사용으로 유지관리비 극소화</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 2. 왜 내부열교환기(SHX)가 필수인가? -->
+  <div class="card">
+    <h3 class="blk">1.2 액체식 제습기에서 내부열교환기(SHX)의 역할 (Why)</h3>
+    <div class="grid g2" style="align-items:center">
+      <div>
+        <p style="font-size:14px;line-height:1.8;color:var(--tx2)">
+          액체식 제습 시스템은 구조적으로 상반된 두 온도를 요구합니다:
+        </p>
+        <ul class="tick">
+          <li><b>제습탑 (Processor):</b> 공기 중 습기를 빨아들이려면 용액 온도를 <b>차갑게 유지(15~25℃)</b>해야 합니다. (칠러 냉각열원 투입)</li>
+          <li><b>재생탑 (Regenerator):</b> 흡습한 수분을 밖으로 뱉어내려면 용액 온도를 <b>뜨겁게 가열(65~75℃)</b>해야 합니다. (보일러/폐열 가열열원 투입)</li>
+        </ul>
+        <div class="callout bad" style="margin-top:12px">
+          <b>열교환기가 없다면?</b><br>
+          제습탑에서 나온 25℃ 찬 용액을 재생기로 보낼 때 70℃까지 몽땅 가열해야 하고, 재생탑에서 나온 70℃ 뜨거운 용액을 제습기로 보낼 때 25℃까지 몽땅 냉각해야 합니다. ➔ <b>가열비와 냉방비가 동시에 폭발하여 상용화가 불가능</b>합니다.
+        </div>
+      </div>
+      <div>
+        <div class="callout ok" style="margin:0">
+          <b style="font-size:15px;color:var(--ok)">내부열교환기(SHX) 1대로 달성하는 "이중 에너지 절감"</b>
+          <p style="font-size:13px;line-height:1.75;margin:8px 0 0;color:var(--tx2)">
+            재생탑에서 나오는 <b>70℃ 뜨거운 농축액</b>과 제습탑에서 나오는 <b>25℃ 차가운 희석액</b>을 1:1 대향류로 맞교환합니다.<br><br>
+            ① <b>가열원 50~65% 절감:</b> 찬 용액이 <b>53~56℃까지 공짜로 예열</b>되어 재생기로 들어가므로, 가열기는 55℃➔70℃ 구간만 살짝 덥히면 됩니다.<br>
+            ② <b>냉각원 50~60% 절감:</b> 뜨거운 용액이 <b>38~42℃까지 공짜로 예냉</b>되어 제습기로 들어가므로, 냉각기는 40℃➔25℃ 구간만 살짝 식히면 됩니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. 인터랙티브 제습기 P&ID 배관도 -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px">
+      <h3 class="blk">1.3 CrecoPlus 5100C 제습 시스템 실시간 배관도 (How)</h3>
+      <span class="small" style="color:var(--tx3)">하단 계산기 슬라이더와 100% 실시간 연동됩니다.</span>
+    </div>
+
+    <div style="width:100%;overflow-x:auto;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 8px;margin-top:10px">
+      <svg viewBox="0 0 960 440" style="width:100%;min-width:780px;height:auto;display:block;font-family:var(--sans)">
+        <defs>
+          <linearGradient id="desColdPipe" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#38bdf8"/></linearGradient>
+          <linearGradient id="desHotPipe" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#ef4444"/><stop offset="100%" stop-color="#f87171"/></linearGradient>
+          <linearGradient id="desPreheat" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#a855f7"/><stop offset="100%" stop-color="#c084fc"/></linearGradient>
+          <linearGradient id="desPrecool" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#facc15"/><stop offset="100%" stop-color="#fb923c"/></linearGradient>
+        </defs>
+
+        <!-- 배관 선들 -->
+        <!-- 1. 제습탑 하부 찬 희석액 ➔ SHX (파랑) -->
+        <path d="M 230 350 L 380 350 L 380 230 L 430 230" fill="none" stroke="#0284c7" stroke-width="4.5" stroke-linecap="round"/>
+        <!-- 2. SHX 예열된 희석액 ➔ 가열 히터 ➔ 재생탑 상부 (보라) -->
+        <path d="M 530 230 L 590 230 L 590 100 L 730 100" fill="none" stroke="#a855f7" stroke-width="4.5" stroke-linecap="round"/>
+        <!-- 3. 재생탑 하부 뜨거운 농축액 ➔ SHX (빨강) -->
+        <path d="M 730 350 L 580 350 L 580 270 L 530 270" fill="none" stroke="#ef4444" stroke-width="4.5" stroke-linecap="round"/>
+        <!-- 4. SHX 예냉된 농축액 ➔ 쿨러 ➔ 제습탑 상부 (골드) -->
+        <path d="M 430 270 L 370 270 L 370 100 L 230 100" fill="none" stroke="#facc15" stroke-width="4.5" stroke-linecap="round"/>
+
+        <!-- ================= 기기 1: 제습탑 (Processor) ================= -->
+        <g transform="translate(90,60)">
+          <rect width="140" height="300" rx="12" fill="var(--panel)" stroke="#0284c7" stroke-width="2.5"/>
+          <rect x="6" y="6" width="128" height="288" rx="8" fill="color-mix(in srgb,#0284c7 10%,transparent)"/>
+          <text x="70" y="30" fill="var(--tx)" font-size="14" font-weight="800" text-anchor="middle">제습탑</text>
+          <text x="70" y="46" fill="var(--tx3)" font-size="11" text-anchor="middle">Processor (흡습)</text>
+          <!-- 충진층 표현 -->
+          <rect x="20" y="70" width="100" height="120" rx="4" fill="none" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="70" y="135" fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle">충진층 (Packing)</text>
+          <!-- 공기 입출구 -->
+          <path d="M -30 150 L 15 150" stroke="#38bdf8" stroke-width="3" marker-end="url(#arr)"/>
+          <text x="-40" y="145" fill="var(--tx2)" font-size="10.5">처리공기 In</text>
+          <path d="M 125 90 L 170 90" stroke="#34d399" stroke-width="3"/>
+          <text x="175" y="94" fill="#34d399" font-size="10.5" font-weight="700">건조공기 Out</text>
+          <!-- 하부 수조 -->
+          <rect x="10" y="240" width="120" height="50" rx="6" fill="color-mix(in srgb,#0284c7 25%,transparent)"/>
+          <text x="70" y="265" fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle">희석 용액 수조</text>
+          <text x="70" y="280" fill="var(--tx)" font-size="10.5" font-family="var(--mono)" text-anchor="middle">T = <span id="svgDesTprocText">25.0</span> °C</text>
+        </g>
+
+        <!-- ================= 기기 2: 내부열교환기 (SHX) ================= -->
+        <g transform="translate(430,170)">
+          <rect width="100" height="160" rx="10" fill="var(--panel)" stroke="var(--acc)" stroke-width="2.5" filter="url(#glow)"/>
+          <rect x="5" y="5" width="90" height="150" rx="6" fill="color-mix(in srgb,var(--acc) 15%,transparent)"/>
+          <text x="50" y="24" fill="var(--tx)" font-size="13" font-weight="800" text-anchor="middle">용액 열교환기</text>
+          <text x="50" y="38" fill="var(--tx3)" font-size="9.5" text-anchor="middle">SHX (SUS316)</text>
+
+          <!-- 대향류 흐름 표시 -->
+          <line x1="25" y1="50" x2="25" y2="140" stroke="#a855f7" stroke-width="6" stroke-linecap="round"/>
+          <text x="25" y="47" fill="#a855f7" font-size="9" font-weight="700" text-anchor="middle">예열↑</text>
+          <line x1="75" y1="50" x2="75" y2="140" stroke="#facc15" stroke-width="6" stroke-linecap="round"/>
+          <text x="75" y="148" fill="#facc15" font-size="9" font-weight="700" text-anchor="middle">예냉↓</text>
+
+          <!-- 열교환 파형 화살표 -->
+          <g stroke="#f472b6" stroke-width="2" stroke-dasharray="3,2">
+            <line x1="68" y1="80" x2="32" y2="80"/>
+            <line x1="68" y1="100" x2="32" y2="100"/>
+            <line x1="68" y1="120" x2="32" y2="120"/>
+          </g>
+          <text x="50" y="95" fill="#f472b6" font-size="10" font-weight="800" text-anchor="middle">열회수</text>
+          <text x="50" y="110" fill="var(--tx)" font-size="11" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgDesQshxText">-- kW</text>
+        </g>
+
+        <!-- ================= 기기 3: 재생탑 (Regenerator) ================= -->
+        <g transform="translate(730,60)">
+          <rect width="140" height="300" rx="12" fill="var(--panel)" stroke="#ef4444" stroke-width="2.5"/>
+          <rect x="6" y="6" width="128" height="288" rx="8" fill="color-mix(in srgb,#ef4444 10%,transparent)"/>
+          <text x="70" y="30" fill="var(--tx)" font-size="14" font-weight="800" text-anchor="middle">재생탑</text>
+          <text x="70" y="46" fill="var(--tx3)" font-size="11" text-anchor="middle">Regenerator (탈습)</text>
+          <!-- 충진층 표현 -->
+          <rect x="20" y="70" width="100" height="120" rx="4" fill="none" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+          <text x="70" y="135" fill="#f87171" font-size="11" font-weight="700" text-anchor="middle">탈습 충진층</text>
+          <!-- 공기 입출구 -->
+          <path d="M 680 150 L 725 150" stroke="#f87171" stroke-width="3"/>
+          <text x="660" y="145" fill="var(--tx2)" font-size="10.5">재생공기 In</text>
+          <path d="M 865 90 L 910 90" stroke="#94a3b8" stroke-width="3"/>
+          <text x="890" y="85" fill="#94a3b8" font-size="10.5">습기 배출 Out</text>
+          <!-- 하부 수조 -->
+          <rect x="10" y="240" width="120" height="50" rx="6" fill="color-mix(in srgb,#ef4444 25%,transparent)"/>
+          <text x="70" y="265" fill="#f87171" font-size="11" font-weight="700" text-anchor="middle">농축 용액 수조</text>
+          <text x="70" y="280" fill="var(--tx)" font-size="10.5" font-family="var(--mono)" text-anchor="middle">T = <span id="svgDesTregText">70.0</span> °C</text>
+        </g>
+
+        <!-- 보조 기기: 가열기 (Heater) & 냉각기 (Cooler) -->
+        <!-- 가열기 -->
+        <g transform="translate(630,70)">
+          <circle cx="20" cy="30" r="18" fill="var(--panel)" stroke="#ef4444" stroke-width="2"/>
+          <text x="20" y="34" fill="#ef4444" font-size="11" font-weight="800" text-anchor="middle">히터</text>
+          <text x="20" y="58" fill="var(--tx2)" font-size="9" text-anchor="middle">가열열원</text>
+        </g>
+        <!-- 냉각기 -->
+        <g transform="translate(290,70)">
+          <circle cx="20" cy="30" r="18" fill="var(--panel)" stroke="#0284c7" stroke-width="2"/>
+          <text x="20" y="34" fill="#0284c7" font-size="11" font-weight="800" text-anchor="middle">쿨러</text>
+          <text x="20" y="58" fill="var(--tx2)" font-size="9" text-anchor="middle">냉각열원</text>
+        </g>
+
+        <!-- 실시간 상태 태그들 -->
+        <!-- 태그 1: 제습탑 출구 찬 용액 -->
+        <g transform="translate(250,325)">
+          <rect width="115" height="22" rx="4" fill="var(--panel)" stroke="#0284c7" stroke-width="1.2"/>
+          <text x="57" y="15" fill="#38bdf8" font-size="10.5" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgDesTag1">찬 희석액 25.0℃</text>
+        </g>
+        <!-- 태그 2: SHX 통과 후 예열된 용액 -->
+        <g transform="translate(560,140)">
+          <rect width="135" height="22" rx="4" fill="var(--panel)" stroke="#a855f7" stroke-width="1.5"/>
+          <text x="67" y="15" fill="#c084fc" font-size="10.5" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgDesTag2">예열 56.5℃ (공짜!)</text>
+        </g>
+        <!-- 태그 3: 재생탑 출구 뜨거운 용액 -->
+        <g transform="translate(600,325)">
+          <rect width="115" height="22" rx="4" fill="var(--panel)" stroke="#ef4444" stroke-width="1.2"/>
+          <text x="57" y="15" fill="#f87171" font-size="10.5" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgDesTag3">뜨거운 액 70.0℃</text>
+        </g>
+        <!-- 태그 4: SHX 통과 후 예냉된 용액 -->
+        <g transform="translate(260,140)">
+          <rect width="135" height="22" rx="4" fill="var(--panel)" stroke="#facc15" stroke-width="1.5"/>
+          <text x="67" y="15" fill="#facc15" font-size="10.5" font-family="var(--mono)" font-weight="700" text-anchor="middle" id="svgDesTag4">예냉 38.5℃ (공짜!)</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 4. 실시간 에너지 절감 계산기 -->
+  <div class="card">
+    <h3 class="blk">1.4 CrecoPlus 5100C 제습 시스템 실시간 에너지 절감 계산기 (What)</h3>
+    <p style="font-size:13px;color:var(--tx2);margin-bottom:14px">
+      운전 조건(제습온도, 재생온도, 유효도, 유량)을 조절하면 SHX로 인해 아껴지는 <b>가열 및 냉각 에너지 절감량</b>이 실시간으로 계산됩니다.
+    </p>
+
+    <div class="grid g2" style="align-items:start">
+      <!-- 조작 컨트롤 -->
+      <div class="ctl" style="background:var(--panel2)">
+        <b style="font-size:13px">제습 시스템 운전 조건 조절</b>
+        <div class="ctl-grid" style="margin-top:10px">
+          <div class="field">
+            <label>제습탑 용액온도 (Processor) <span class="v" id="d_vTproc">25.0 °C</span></label>
+            <input type="range" id="d_Tproc" min="15" max="30" step="0.5" value="25">
+          </div>
+          <div class="field">
+            <label>재생탑 가열온도 (Regenerator) <span class="v" id="d_vTreg">70.0 °C</span></label>
+            <input type="range" id="d_Treg" min="55" max="85" step="1" value="70">
+          </div>
+          <div class="field">
+            <label>열교환기 유효도 ε (SHX) <span class="v" id="d_vEps">0.70</span></label>
+            <input type="range" id="d_Eps" min="0.4" max="0.85" step="0.05" value="0.70">
+          </div>
+          <div class="field">
+            <label>용액 순환 유량 <span class="v" id="d_vFlow">20 L/min</span></label>
+            <input type="range" id="d_Flow" min="5" max="60" step="1" value="20">
+          </div>
+        </div>
+        <div class="small" style="margin-top:10px;color:var(--tx3)">
+          * 물성 기준: CrecoPlus 5100C 밀도 ρ ≈ 1,200 kg/m³, 비열 c<sub>p</sub> ≈ 2.5 kJ/kg·K.
+        </div>
+      </div>
+
+      <!-- 실시간 절감 KPI 결과 -->
+      <div>
+        <div class="grid g2" id="desiccantKpiRow">
+          <div class="kpi pos">
+            <div class="lbl">재생기 가열열원 절감률</div>
+            <div class="val" id="d_kpiHeatPct">--<span class="u">%</span></div>
+            <div class="note">SHX 예열 덕분에 보일러/히터 부하 대폭 삭감</div>
+          </div>
+          <div class="kpi pos">
+            <div class="lbl">제습기 냉각열원 절감률</div>
+            <div class="val" id="d_kpiCoolPct">--<span class="u">%</span></div>
+            <div class="note">SHX 예냉 덕분에 칠러/냉각탑 부하 대폭 삭감</div>
+          </div>
+          <div class="kpi pos">
+            <div class="lbl">순간 회수 열량 (Q_SHX)</div>
+            <div class="val" id="d_kpiQshx">--<span class="u">kW</span></div>
+            <div class="note">공짜로 주고받는 열량</div>
+          </div>
+          <div class="kpi pos">
+            <div class="lbl">총 이중 에너지 절감량</div>
+            <div class="val" id="d_kpiTotalSave">--<span class="u">kW</span></div>
+            <div class="note">가열 절감 + 냉각 절감 합산</div>
+          </div>
+        </div>
+
+        <div class="card tight" style="margin-top:12px;background:var(--panel2)">
+          <div class="kv"><span class="k">재생탑 진입 전 예열 온도</span><span class="v" id="d_resTregIn" style="color:var(--ok)">-- °C</span></div>
+          <div class="kv"><span class="k">제습탑 진입 전 예냉 온도</span><span class="v" id="d_resTprocIn" style="color:var(--acc)">-- °C</span></div>
+          <div class="kv"><span class="k">미적용 시 요구 가열열량</span><span class="v" id="d_resHeatBase">-- kW</span></div>
+          <div class="kv"><span class="k">SHX 적용 후 실제 가열열량</span><span class="v" id="d_resHeatAct" style="color:var(--ok)">-- kW</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. 실무 시공 및 엔지니어링 체크리스트 -->
+  <div class="card">
+    <h3 class="blk">1.5 CrecoPlus 5100C 제습 시스템 현장 엔지니어링 수칙</h3>
+    <div class="grid g3" style="margin-top:10px">
+      <div class="card tight" style="margin:0">
+        <b style="color:var(--ok);font-size:13px">수칙 1. 열교환기 재질 선정 (원가 절감)</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          CrecoPlus 5100C는 <b>비부식성</b>이므로 고가의 티타늄 열교환기를 쓸 필요가 없습니다. <b>SUS316 브레이징 판형 열교환기(BPHE)</b>를 적용하여 제작 원가를 60% 이상 절감하십시오.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0">
+        <b style="color:var(--warn);font-size:13px">수칙 2. 점도 고려 채널 차압 관리</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          이온성 액체는 상온에서 물보다 점도가 다소 높습니다. 판형 열교환기 선정 시 채널 간격이 넉넉한 와이드 갭(Wide-gap) 타입을 선정하여 <b>차압 ΔP ≤ 30~50 kPa</b> 이내를 유지해야 펌프 동력 낭비를 막을 수 있습니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0">
+        <b style="color:var(--acc);font-size:13px">수칙 3. 가스켓 및 배관 밀봉</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          이온성 액체의 우수한 침투성을 고려하여 배관 조인트에는 <b>EPDM 또는 PTFE(테플론) 재질의 가스켓/씰링재</b>를 사용하고, 유량 밸런싱을 위한 바이패스 밸브를 구비합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ 02 : CHILLER ================= -->
+<section class="tabpane" id="s0">
+  <div class="sechead">
+    <span class="no">02</span><h2>❄️ 수냉식 칠러 &amp; 내부열교환기(IHX) 실무 가이드</h2>
     <span class="desc">사내 운전 스펙(냉수 5℃/10℃, 냉각탑 32➔39℃) 기반 필요성(Why) · 배관도(How) · 정량효과(What) · 현장 트러블슈팅</span>
   </div>
 
@@ -643,13 +1056,165 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
   </div>
 </section>
 
-<!-- ================================================================ 01 ================= -->
-<section class="tabpane" id="s1">
+
+<!-- ================================================================ 03 : THERMO ================= -->
+<section class="tabpane" id="s2">
   <div class="sechead">
-    <span class="no">01</span><h2>Executive Summary</h2>
-    <span class="desc">의사결정용 요약 — 도입 배경, 정량 효과, 제약, 권고안</span>
+    <span class="no">03</span><h2>📈 P-h 선도 &amp; 열역학적 작동 원리</h2>
+    <span class="desc">실무자를 위한 직관적 원리 · 실시간 P-h 선도 시뮬레이터 · 상태점 해석 및 판별식</span>
   </div>
 
+  <!-- 실무 직관 원리 30초 브리핑 카드 -->
+  <div class="card" style="border-left:4px solid var(--acc2);background:linear-gradient(135deg,var(--panel2),var(--panel))">
+    <h3 class="blk" style="margin-top:0">⚡ 30초 원리 브리핑: 내부열교환기(IHX)가 일하는 방식</h3>
+    <div class="grid g3" style="margin-top:12px;gap:14px">
+      <div style="background:var(--panel);padding:14px;border-radius:10px;border:1px solid var(--border)">
+        <b style="color:var(--ok);font-size:14px">① 고압측 이득 (과냉각 심화)</b>
+        <p style="font-size:13px;line-height:1.65;color:var(--tx2);margin:7px 0 0">
+          응축기에서 나온 고압 냉매액을 차가운 흡입가스로 미리 식혀줍니다.<br>
+          ➔ <b>팽창밸브 기포(플래시가스)가 100% 사라지고</b>, 증발기에서 뽑아낼 수 있는 순수 냉방능력(<i>q<sub>e</sub></i>)이 <b>1:1로 직접 늘어납니다.</b>
+        </p>
+      </div>
+      <div style="background:var(--panel);padding:14px;border-radius:10px;border:1px solid var(--border)">
+        <b style="color:var(--warn);font-size:14px">② 저압측 대가 (과열도 증가)</b>
+        <p style="font-size:13px;line-height:1.65;color:var(--tx2);margin:7px 0 0">
+          액을 식혀준 만큼 흡입가스가 열을 받아 데워진 상태로 압축기에 들어갑니다.<br>
+          ➔ <b>가스 부피(비체적)가 부풀어</b> 압축기가 가스를 밀어내는 데 드는 압축일(<i>w<sub>c</sub></i>)과 <b>토출온도가 상승</b>합니다.
+        </p>
+      </div>
+      <div style="background:var(--panel);padding:14px;border-radius:10px;border:1px solid var(--border)">
+        <b style="color:var(--acc);font-size:14px">③ 최종 판정 (누가 이기는가?)</b>
+        <p style="font-size:13px;line-height:1.65;color:var(--tx2);margin:7px 0 0">
+          <b>[냉방능력 증가율] &gt; [압축일 증가율]</b>이면 COP 상승!<br>
+          ➔ <b>R134a, R1234ze, R744:</b> 냉방 증가가 압축일을 압도하여 <b>효율 상승</b> (+1~8%)<br>
+          ➔ <b>R32, R410A:</b> 압축일과 토출온도만 치솟아 <b>효율 하락</b> (-2%)
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="blk">3.1 상태점 정의 및 회로 구성</h3>
+    <div class="grid g2">
+      <div>
+        <p style="font-size:13.5px;color:var(--tx2);line-height:1.75">
+          IHX는 <b>응축기(가스쿨러) 출구 고압 액</b>과 <b>증발기 출구 저압 증기</b>를 대향류로 열교환시킵니다.
+          두 유로는 동일 질량유량 <i>ṁ</i>을 공유하므로, 교환 열량 <i>Q<sub>IHX</sub></i>는 양측에서 <b>동일한 엔탈피 변화량</b>으로 나타납니다.
+        </p>
+        <p style="font-size:13.5px;color:var(--tx2);line-height:1.75">
+          동일 엔탈피 변화이지만 <b>온도 변화는 비대칭</b>입니다. 액측 비열이 증기측보다 크므로(<i>c<sub>p,l</sub> &gt; c<sub>p,v</sub></i>), 흡입 과열도 증가폭(ΔT<sub>sh</sub>)이 액 과냉각도 증가폭(ΔT<sub>sub</sub>)보다 항상 큽니다.
+        </p>
+        <!-- 수식 접기/펼치기 컨테이너 -->
+        <details style="margin-top:12px;border:1px solid var(--border);border-radius:10px;padding:12px 16px;background:var(--panel2)">
+          <summary style="cursor:pointer;font-weight:700;color:var(--acc2);font-size:13px">📐 상태점 에너지 수지 및 유효도 수식 (식 1, 2, 3 펼치기)</summary>
+          <div style="margin-top:12px">
+            <div class="eq">\[ \dot Q_{IHX}=\dot m\,(h_{3}-h_{3'})=\dot m\,(h_{1'}-h_{1}) \]<div class="cap">식 (1) — IHX 에너지 수지. 고압측 엔탈피 감소량 = 저압측 엔탈피 증가량</div></div>
+            <div class="eq">\[ \frac{\Delta T_{sh}}{\Delta T_{sub}}=\frac{c_{p,l}}{c_{p,v}}\;>\;1 \]<div class="cap">식 (2) — 과열/과냉 비대칭. 이 비율이 IHX 리스크(토출온도) 대비 이득(과냉각) 구조를 결정</div></div>
+            <div class="eq">\[ \varepsilon=\frac{\dot Q_{actual}}{\dot Q_{max}}=\frac{\dot m\,c_{p,v}(T_{1'}-T_{1})}{\dot m\,c_{p,min}(T_{3}-T_{1})}=\frac{T_{1'}-T_{1}}{T_{3}-T_{1}} \]<div class="cap">식 (3) — 열교환기 유효도 ε</div></div>
+          </div>
+        </details>
+      </div>
+      <div>
+        <h4 class="mini">상태점 실시간 계산 <span class="small" id="stCond"></span></h4>
+        <div class="tbl-wrap">
+          <table id="stateTbl">
+            <thead><tr><th>상태점</th><th>위치</th><th>T [°C]</th><th>P [MPa]</th><th>h [kJ/kg]</th><th>비고</th></tr></thead>
+            <tbody></tbody>
+            <caption>′ 표기는 IHX 적용 사이클. 기준 사이클(IHX OFF)과의 차이는 비고란에 표기.</caption>
+          </table>
+        </div>
+        <div class="callout"><b>회로 위상.</b> 팽창밸브 직전 상태가 <span class="stpt p">3′</span>로 이동하면 팽창 후 건도 <span class="mono">x<sub>4</sub></span>가 낮아집니다. 이는 곧 <b>증발기 유효 전열면적 확대</b>(2상 구간 증가)와 <b>분배기 유동 균일화</b>를 의미합니다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="blk">3.2 P-h 선도 시뮬레이터</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+      <span class="small">냉매·운전조건은 상단 <b>⚙ 운전조건</b> 패널에서 실시간 변경 가능합니다.</span>
+      <div class="spacer" style="flex:1"></div>
+      <label class="switch"><input type="checkbox" id="showBase" checked><span class="track"></span><span class="t">기준 사이클 중첩</span></label>
+      <label class="switch"><input type="checkbox" id="showFill" checked><span class="track"></span><span class="t">Δq<sub>e</sub> 음영</span></label>
+    </div>
+    <div class="chartbox h380"><canvas id="phChart"></canvas></div>
+    <div class="legend-note">
+      <span style="color:var(--acc2)">■</span> IHX 사이클 &nbsp;
+      <span style="color:var(--tx3)">┄</span> 기준 사이클(IHX OFF) &nbsp;
+      <span style="color:#facc15">━</span> IHX 고압측(과냉각 심화, 3→3′) &nbsp;
+      <span style="color:#34d399">━</span> IHX 저압측(과열도 증가, 1→1′) &nbsp;
+      · 세로축 로그 스케일. 회색 곡선은 포화 돔(임계점까지).
+    </div>
+    <div class="grid g4" style="margin-top:16px" id="phKpi"></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="card">
+      <h3 class="blk">3.3 고압측: 과냉각 심화 → 증발 엔탈피차 확대</h3>
+      <p style="font-size:13.5px;color:var(--tx2)">팽창은 등엔탈피(<i>h<sub>4</sub>=h<sub>3</sub></i>)이므로, 고압 액을 <i>Q<sub>IHX</sub></i>만큼 냉각하면 그 값이 <b>1:1로 냉동효과에 직접 가산</b>됩니다.</p>
+      <p style="font-size:13.5px;color:var(--tx2)">팽창 후 건도가 낮아져 팽창밸브 기포(플래시가스)가 억제되며, 실측 건도 변화는 아래 표와 같습니다.</p>
+      <div class="tbl-wrap"><table id="qeTbl"><thead><tr><th>항목</th><th>IHX OFF</th><th>IHX ON</th><th>Δ</th></tr></thead><tbody></tbody></table></div>
+      <details style="margin-top:12px;border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--panel2)">
+        <summary style="cursor:pointer;font-weight:700;color:var(--acc2);font-size:13px">📐 고압측 엔탈피 및 건도 수식 (식 4, 5 펼치기)</summary>
+        <div style="margin-top:10px">
+          <div class="eq">\[ q_{e}'=h_{1}-h_{4'}=(h_{1}-h_{3})+q_{IHX}=q_{e}+q_{IHX} \]<div class="cap">식 (4) — 냉동효과 증가분 = IHX 교환 열량</div></div>
+          <div class="eq">\[ x_{4'}=\frac{h_{3}-q_{IHX}-h_{f}(T_e)}{h_{fg}(T_e)}\;<\;x_{4} \]<div class="cap">식 (5) — 팽창밸브 출구 건도 공식</div></div>
+        </div>
+      </details>
+    </div>
+
+    <div class="card">
+      <h3 class="blk">3.4 저압측: 과열도 증가 → 흡입 비체적·압축일 증가</h3>
+      <p style="font-size:13.5px;color:var(--tx2)">흡입 증기 과열은 <b>비체적 증가</b>(가스 팽창)와 <b>압축일 증가</b>를 동반합니다. 등엔트로피 압축에서 흡입온도 상승에 따른 압축일 증가량은 아래 표와 같이 산출됩니다.</p>
+      <div class="tbl-wrap"><table id="wcTbl"><thead><tr><th>항목</th><th>IHX OFF</th><th>IHX ON</th><th>Δ</th></tr></thead><tbody></tbody></table></div>
+      <details style="margin-top:12px;border:1px solid var(--border);border-radius:10px;padding:10px 14px;background:var(--panel2)">
+        <summary style="cursor:pointer;font-weight:700;color:var(--acc2);font-size:13px">📐 저압측 압축일 및 COP 유도식 (식 6, 7 펼치기)</summary>
+        <div style="margin-top:10px">
+          <div class="eq">\[ \Delta w_{s}\;\simeq\;q_{IHX}\left(\frac{T_{2s}}{T_{1}}-1\right)\;\equiv\;q_{IHX}\,\Phi \]<div class="cap">식 (6) — 고압측 c<sub>p</sub>가 소거되는 압축일 증폭 계수 Φ</div></div>
+          <p style="font-size:12.5px;color:var(--tx2)">유도: 등압선상에서 Δs = c<sub>p,lo</sub>ΔT<sub>1</sub>/T<sub>1</sub> = c<sub>p,hi</sub>ΔT<sub>2s</sub>/T<sub>2s</sub> 이므로 Δh<sub>2s</sub>=(T<sub>2s</sub>/T<sub>1</sub>)q<sub>IHX</sub>, Δw<sub>s</sub>=Δh<sub>2s</sub>−q<sub>IHX</sub>.</p>
+          <div class="eq">\[ \mathrm{COP}=\frac{q_{e}'}{w_{c}}=\frac{h_{1}-h_{4'}}{h_{2'}-h_{1'}}=\frac{q_e+q_{IHX}}{(w_s+q_{IHX}\Phi)/\eta_{is}} \]<div class="cap">식 (7) — IHX 적용 사이클 COP</div></div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 class="blk">3.5 개선/악화 판별식 — 실무 1초 스크리닝</h3>
+    <div class="callout ok" style="margin-top:4px">
+      <b>실무 판정 1초 결론:</b> 압축비가 낮고 냉매 비열비 <i>k</i>가 1에 가까울수록 IHX 효율이 극대화됩니다.<br>
+      ➔ <b>R134a, R1234ze, R744:</b> 사이클 COP가 임계 한계값보다 작아 <b>무조건 개선 판정 (합격 ✓)</b><br>
+      ➔ <b>R32, R410A:</b> 비열비가 너무 높아 <b>효율 손실 판정 (불합격 ✗)</b>
+    </div>
+    <div class="grid g2" style="margin-top:12px">
+      <div>
+        <div class="tbl-wrap"><table id="critTbl">
+          <thead><tr><th>냉매</th><th>P<sub>c</sub>/P<sub>e</sub></th><th>Φ</th><th>1/Φ (임계 COP)</th><th>COP<sub>s</sub> (실제)</th><th>판별</th></tr></thead>
+          <tbody></tbody>
+          <caption>COP<sub>s</sub> &lt; 1/Φ 이면 IHX가 COP를 개선. 현재 전역 운전조건 기준 실시간 계산.</caption>
+        </table></div>
+      </div>
+      <div>
+        <details style="border:1px solid var(--border);border-radius:10px;padding:12px 16px;background:var(--panel2)">
+          <summary style="cursor:pointer;font-weight:700;color:var(--acc2);font-size:13px">📐 단일 무차원 판별 부등식 유도 (식 8 펼치기)</summary>
+          <div style="margin-top:10px">
+            <p style="font-size:12.5px;color:var(--tx2)">식 (7)을 기준 사이클과 비교하면 q<sub>IHX</sub>가 소거되어 판별식이 도출됩니다:</p>
+            <div class="eq">\[ \boxed{\;\mathrm{COP}_{s}=\frac{q_e}{w_s}<\frac{1}{\Phi}=\left[\left(\frac{P_c}{P_e}\right)^{\frac{k-1}{k}}-1\right]^{-1}} \]<div class="cap">식 (8) — 판별식. 압축기 효율 η<sub>is</sub>는 양변에서 소거되어 부호에 무영향</div></div>
+            <p style="font-size:12px;color:var(--tx3)">Φ는 "흡입 엔탈피 1 kJ 추가 시 압축일이 몇 kJ 늘어나는가"의 증폭률입니다.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ================================================================ 04 : REFRIGERANTS ================= -->
+<section class="tabpane" id="s3">
+
+  <div class="sechead">
+    <span class="no">04</span><h2>⚖️ 냉매별 판정 &amp; 민감도 종합 비교</h2>
+    <span class="desc">7대 주요 냉매 실시간 판정 매트릭스 · 핵심 KPI · 바 차트 · 유효도(ε) &amp; 증발온도 스윕 · CO2 초임계 해석</span>
+  </div>
+
+  
+  <!-- 상단: 3-Line Recommendation, KPI, 냉매별 종합 판정표 (구 s1 통합) -->
   <div class="card">
     <h3 class="blk">3-Line Recommendation</h3>
     <ol style="margin:0;padding-left:20px;font-size:14.5px;line-height:1.85">
@@ -681,144 +1246,27 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     </div>
   </div>
 
-  <div class="card">
-    <h3 class="blk">해석 모델 및 검증 범위 <span class="badge b-neu">Methodology</span></h3>
-    <div class="grid g2">
-      <div>
-        <ul class="tick">
-          <li><b>물성:</b> IIR 기준(<span class="mono">h<sub>f</sub></span>(0 °C)=200 kJ/kg, <span class="mono">s<sub>f</sub></span>(0 °C)=1.0)의 포화표 앵커점을 <b>단조 3차 보간(PCHIP)</b>으로 연결한 축소차수 모델. 과열영역은 압력대별 평균 <span class="mono">c<sub>p</sub></span> 적분(<span class="mono">dh=c<sub>p</sub>dT, ds=c<sub>p</sub>dT/T</span>).</li>
-          <li><b>압축:</b> 이상기체 지수 <span class="mono">k</span>를 쓰지 않고 <b>등엔트로피 종점을 s로 직접 역산</b>. 실제기체 <span class="mono">c<sub>p</sub></span> 편차가 IHX 민감도에 올바르게 반영된다.</li>
-          <li><b>R744 초임계:</b> <span class="mono">h(P,T)</span> 표에 등압 관계 <span class="mono">ds = dh/T</span>를 적분해 <span class="mono">s(P,T)</span>를 생성.</li>
-          <li><b>캘리브레이션:</b> 냉매별 상수 1개를 5/45 °C 이론 COP에 정합. R744는 최적 가스쿨러 압력이 Liao 상관식(<span class="mono">P<sub>opt</sub>=(2.778−0.0157T<sub>e</sub>)T<sub>gc</sub>−9.34</span>)과 일치하도록 추가 정합.</li>
-        </ul>
-      </div>
-      <div>
-        <div class="callout bad"><b>사용 한계 (중요).</b> 본 모델은 <b>경향·민감도 분석용</b>이다. 절대 COP는 REFPROP 대비 수 % 오차를 가지며, 특히 R744 의사임계 근방과 혼합냉매 글라이드는 단순화되어 있다. <b>제품 사이징·성능 보증에는 사용하지 말 것</b> — 최종 설계는 REFPROP/CoolProp 기반 재계산과 시작품 실측으로 확정한다.</div>
-        <h4 class="mini">모델 검증 대조군 (문헌 정성 경향)</h4>
-        <ul class="tick" style="font-size:13px">
-          <li>Domanski &amp; Didion (1994), Klein·Reindl·Brownell (2000): <b>R32·암모니아 계열 불리, R134a·R600a·R404A 계열 유리</b> — 본 모델 재현 ✓</li>
-          <li>R744 트랜스크리티컬 IHX 이득이 가스쿨러 출구온도 상승에 따라 증대, 최적 고압이 하향 이동 — 본 모델 재현 ✓</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- ================================================================ 02 ================= -->
-<section class="tabpane" id="s2">
-  <div class="sechead">
-    <span class="no">02</span><h2>열역학적 작동 원리 및 사이클 메커니즘</h2>
-    <span class="desc">상태점 정의 · 엔탈피차 확대 · 압축일 증가 · 개선 판별식</span>
-  </div>
-
-  <div class="card">
-    <h3 class="blk">2.1 상태점 정의 및 회로 구성</h3>
-    <div class="grid g2">
-      <div>
-        <p style="font-size:13.5px;color:var(--tx2)">IHX는 <b>응축기(가스쿨러) 출구 고압 액</b>과 <b>증발기 출구 저압 증기</b>를 대향류로 열교환시킨다. 두 유로는 동일 질량유량 <span class="mono">ṁ</span>을 공유하므로, 교환 열량 <span class="mono">Q<sub>IHX</sub></span>는 양측에서 <b>동일한 엔탈피 변화량</b>으로 나타난다.</p>
-        <div class="eq">\[ \dot Q_{IHX}=\dot m\,(h_{3}-h_{3'})=\dot m\,(h_{1'}-h_{1}) \]<div class="cap">식 (1) — IHX 에너지 수지. 고압측 엔탈피 감소량 = 저압측 엔탈피 증가량</div></div>
-        <p style="font-size:13.5px;color:var(--tx2)">동일 엔탈피 변화이지만 <b>온도 변화는 비대칭</b>이다. 액측 정압비열이 증기측보다 크므로(<span class="mono">c<sub>p,l</sub> &gt; c<sub>p,v</sub></span>), 흡입 과열도 증가폭이 과냉각도 증가폭보다 항상 크다.</p>
-        <div class="eq">\[ \frac{\Delta T_{sh}}{\Delta T_{sub}}=\frac{c_{p,l}}{c_{p,v}}\;>\;1 \]<div class="cap">식 (2) — 과열/과냉 비대칭. 이 비율이 IHX 리스크(토출온도) 대비 이득(과냉각) 구조를 결정한다</div></div>
-        <div class="eq">\[ \varepsilon=\frac{\dot Q_{actual}}{\dot Q_{max}}=\frac{\dot m\,c_{p,v}(T_{1'}-T_{1})}{\dot m\,c_{p,min}(T_{3}-T_{1})}=\frac{T_{1'}-T_{1}}{T_{3}-T_{1}} \]<div class="cap">식 (3) — 열교환기 유효도. 통상 증기측이 <span class="mono">C<sub>min</sub></span>이므로 증기측 온도상승 기준으로 정의</div></div>
-      </div>
-      <div>
-        <h4 class="mini">상태점 실시간 계산 <span class="small" id="stCond"></span></h4>
-        <div class="tbl-wrap">
-          <table id="stateTbl">
-            <thead><tr><th>상태점</th><th>위치</th><th>T [°C]</th><th>P [MPa]</th><th>h [kJ/kg]</th><th>비고</th></tr></thead>
-            <tbody></tbody>
-            <caption>′ 표기는 IHX 적용 사이클. 기준 사이클(IHX OFF)과의 차이는 비고란에 표기.</caption>
-          </table>
-        </div>
-        <div class="callout"><b>회로 위상.</b> 팽창밸브 직전 상태가 <span class="stpt p">3′</span>로 이동하면 팽창 후 건도 <span class="mono">x<sub>4</sub></span>가 낮아진다. 이는 곧 <b>증발기 유효 전열면적 확대</b>(2상 구간 증가)와 <b>분배기 유동 균일화</b>를 의미한다.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3 class="blk">2.2 P-h 선도 시뮬레이터</h3>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
-      <span class="small">냉매·운전조건은 상단 <b>⚙ 운전조건</b> 패널에서 변경합니다.</span>
-      <div class="spacer" style="flex:1"></div>
-      <label class="switch"><input type="checkbox" id="showBase" checked><span class="track"></span><span class="t">기준 사이클 중첩</span></label>
-      <label class="switch"><input type="checkbox" id="showFill" checked><span class="track"></span><span class="t">Δq<sub>e</sub> 음영</span></label>
-    </div>
-    <div class="chartbox h380"><canvas id="phChart"></canvas></div>
-    <div class="legend-note">
-      <span style="color:var(--acc2)">■</span> IHX 사이클 &nbsp;
-      <span style="color:var(--tx3)">┄</span> 기준 사이클(IHX OFF) &nbsp;
-      <span style="color:#facc15">━</span> IHX 고압측(과냉각 심화, 3→3′) &nbsp;
-      <span style="color:#34d399">━</span> IHX 저압측(과열도 증가, 1→1′) &nbsp;
-      · 세로축 로그 스케일. 회색 곡선은 포화 돔(임계점까지).
-    </div>
-    <div class="grid g4" style="margin-top:16px" id="phKpi"></div>
-  </div>
-
-  <div class="grid g2">
-    <div class="card">
-      <h3 class="blk">2.3 고압측: 과냉각 심화 → 증발 엔탈피차 확대</h3>
-      <p style="font-size:13.5px;color:var(--tx2)">팽창은 등엔탈피(<span class="mono">h<sub>4</sub>=h<sub>3</sub></span>)이므로, 고압 액을 <span class="mono">Q<sub>IHX</sub></span>만큼 냉각하면 그 값이 <b>1:1로 냉동효과에 가산</b>된다.</p>
-      <div class="eq">\[ q_{e}'=h_{1}-h_{4'}=(h_{1}-h_{3})+q_{IHX}=q_{e}+q_{IHX} \]<div class="cap">식 (4) — 냉동효과 증가분은 IHX 열량과 정확히 같다</div></div>
-      <p style="font-size:13.5px;color:var(--tx2)">팽창 후 건도는 다음과 같이 감소하며, 이는 플래시가스 저감의 정량 지표다.</p>
-      <div class="eq">\[ x_{4'}=\frac{h_{3}-q_{IHX}-h_{f}(T_e)}{h_{fg}(T_e)}\;<\;x_{4} \]<div class="cap">식 (5) — 팽창밸브 출구 건도. 현재 조건 결과는 아래 표 참조</div></div>
-      <div class="tbl-wrap"><table id="qeTbl"><thead><tr><th>항목</th><th>IHX OFF</th><th>IHX ON</th><th>Δ</th></tr></thead><tbody></tbody></table></div>
-    </div>
-
-    <div class="card">
-      <h3 class="blk">2.4 저압측: 과열도 증가 → 흡입 비체적·압축일 증가</h3>
-      <p style="font-size:13.5px;color:var(--tx2)">흡입 증기 과열은 <b>비체적 증가</b>(체적효율 관점의 손실)와 <b>압축일 증가</b>를 동반한다. 등엔트로피 압축에서 흡입온도 <span class="mono">ΔT</span> 상승에 대한 일 증가분은 다음의 간명한 형태를 갖는다.</p>
-      <div class="eq">\[ \Delta w_{s}\;\simeq\;q_{IHX}\left(\frac{T_{2s}}{T_{1}}-1\right)\;\equiv\;q_{IHX}\,\Phi \]<div class="cap">식 (6) — 고압측 <span class="mono">c<sub>p</sub></span>가 소거되는 것이 핵심. 실제기체에서도 근사적으로 성립</div></div>
-      <p style="font-size:13.5px;color:var(--tx2)">유도: 등압선상에서 <span class="mono">Δs = c<sub>p,lo</sub>ΔT<sub>1</sub>/T<sub>1</sub> = c<sub>p,hi</sub>ΔT<sub>2s</sub>/T<sub>2s</sub></span> 이므로 <span class="mono">Δh<sub>2s</sub>=c<sub>p,hi</sub>ΔT<sub>2s</sub>=(T<sub>2s</sub>/T<sub>1</sub>)·c<sub>p,lo</sub>ΔT<sub>1</sub>=(T<sub>2s</sub>/T<sub>1</sub>)q<sub>IHX</sub></span> 이고, <span class="mono">Δw<sub>s</sub>=Δh<sub>2s</sub>−q<sub>IHX</sub></span>.</p>
-      <div class="eq">\[ \mathrm{COP}=\frac{q_{e}'}{w_{c}}=\frac{h_{1}-h_{4'}}{h_{2'}-h_{1'}}=\frac{q_e+q_{IHX}}{(w_s+q_{IHX}\Phi)/\eta_{is}} \]<div class="cap">식 (7) — IHX 적용 사이클 COP</div></div>
-      <div class="tbl-wrap"><table id="wcTbl"><thead><tr><th>항목</th><th>IHX OFF</th><th>IHX ON</th><th>Δ</th></tr></thead><tbody></tbody></table></div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h3 class="blk">2.5 개선/악화 판별식 — 단일 부등식 스크리닝</h3>
-    <p style="font-size:13.5px;color:var(--tx2)">식 (7)을 기준 사이클과 비교하면 <span class="mono">q<sub>IHX</sub></span>가 소거되고, IHX가 COP를 개선할 조건은 <b>냉매 물성과 압축비만의 함수</b>로 축약된다.</p>
-    <div class="eq">\[ \frac{q_e+q_{IHX}}{w_s+q_{IHX}\Phi}>\frac{q_e}{w_s}\;\;\Longleftrightarrow\;\; w_s\,q_{IHX}>q_e\,q_{IHX}\,\Phi \;\;\Longleftrightarrow\;\; \boxed{\;\mathrm{COP}_{s}=\frac{q_e}{w_s}<\frac{1}{\Phi}=\left[\left(\frac{P_c}{P_e}\right)^{\frac{k-1}{k}}-1\right]^{-1}} \]<div class="cap">식 (8) — 판별식. 좌변은 사이클 성능, 우변은 냉매·압축비 특성. 압축기 효율 <span class="mono">η<sub>is</sub></span>는 양변에서 소거되어 <b>부호에 영향을 주지 않는다</b>.</div></div>
-    <div class="grid g2">
-      <div>
-        <div class="callout ok"><b>물리적 해석.</b> <span class="mono">Φ</span>는 "흡입 엔탈피 1 kJ 추가 시 압축일이 몇 kJ 늘어나는가"의 증폭률이다. <span class="mono">Φ</span>가 작을수록(=압축비가 낮고 <span class="mono">k</span>가 1에 가까울수록) 추가된 열이 값싸게 압축되어 IHX가 유리하다. 반대로 <b>R32처럼 <span class="mono">k</span>가 크고 <span class="mono">c<sub>p</sub>/c<sub>v</sub></span>가 높은 냉매는 <span class="mono">Φ</span>가 커져 불리</b>하다.</div>
-      </div>
-      <div>
-        <div class="tbl-wrap"><table id="critTbl">
-          <thead><tr><th>냉매</th><th>P<sub>c</sub>/P<sub>e</sub></th><th>Φ</th><th>1/Φ (임계 COP)</th><th>COP<sub>s</sub> (실제)</th><th>판별</th></tr></thead>
-          <tbody></tbody>
-          <caption>COP<sub>s</sub> &lt; 1/Φ 이면 IHX가 COP를 개선. 현재 전역 운전조건 기준.</caption>
-        </table></div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- ================================================================ 03 ================= -->
-<section class="tabpane" id="s3">
-  <div class="sechead">
-    <span class="no">03</span><h2>냉매별 민감도 및 특성 차이</h2>
-    <span class="desc">왜 냉매마다 부호가 뒤바뀌는가 — cp 비, 잠열, k, 팽창손실의 상호작용</span>
-  </div>
-
-  <div class="card">
-    <h3 class="blk">3.1 냉매별 IHX 효과 종합 비교</h3>
+<div class="card">
+    <h3 class="blk">7.1 냉매별 IHX 효과 종합 비교</h3>
     <div class="chartbox h380"><canvas id="barChart"></canvas></div>
     <div class="legend-note">좌축: 변화율 [%] · 우축: 토출온도 상승 [K]. R744는 초임계 운전(가스쿨러 P/T)이므로 응축온도 대신 가스쿨러 조건을 사용한다.</div>
   </div>
 
   <div class="grid g2">
     <div class="card">
-      <h3 class="blk">3.2 유효도 ε 스윕 — 이득의 포화 특성</h3>
+      <h3 class="blk">7.2 유효도 ε 스윕 — 이득의 포화 특성</h3>
       <div class="chartbox h300"><canvas id="sensChart"></canvas></div>
       <div class="legend-note">ε 증가에 따른 ΔCOP[%]. <b>부호는 ε과 무관하게 냉매가 결정</b>하며, ε은 크기만 스케일한다(식 8 참조). R744는 ε≈0.6 이후 이득 증가가 둔화된다.</div>
     </div>
     <div class="card">
-      <h3 class="blk">3.3 증발온도 스윕 — 저온일수록 유리해지는 이유</h3>
+      <h3 class="blk">7.3 증발온도 스윕 — 저온일수록 유리해지는 이유</h3>
       <div class="chartbox h300"><canvas id="teChart"></canvas></div>
       <div class="legend-note">증발온도가 낮아질수록 <span class="mono">T<sub>3</sub>−T<sub>1</sub></span>(가용 온도차)가 커져 <span class="mono">q<sub>IHX</sub>/q<sub>e</sub></span>가 급증한다. R134a·R1234yf가 저온 냉동(−20 °C 급)에서 IHX 적용 대표 사례인 근거.</div>
     </div>
   </div>
 
   <div class="card">
-    <h3 class="blk">3.4 냉매 물성 인자 테이블</h3>
+    <h3 class="blk">4.4 냉매 물성 인자 테이블</h3>
     <div class="tbl-wrap">
       <table id="propTbl">
         <thead><tr><th>냉매</th><th>분류 / GWP</th><th>M [kg/kmol]</th><th>T<sub>crit</sub> [°C]</th><th>c<sub>p,l</sub></th><th>c<sub>p,v</sub></th><th>c<sub>p,l</sub>/c<sub>p,v</sub></th><th>ΔT<sub>sh</sub>/ΔT<sub>sub</sub></th><th>토출한계</th></tr></thead>
@@ -830,7 +1278,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
 
   <div class="grid g2">
     <div class="card">
-      <h3 class="blk">3.5 R744 (CO₂) — 초임계 사이클에서 효과가 극대화되는 원리</h3>
+      <h3 class="blk">4.5 R744 (CO₂) — 초임계 사이클에서 효과가 극대화되는 원리</h3>
       <ul class="tick">
         <li><b>의사임계(pseudo-critical) 근방의 <span class="mono">c<sub>p</sub></span> 피크.</b> 가스쿨러 출구는 임계압 이상·임계온도 근방으로, <span class="mono">c<sub>p</sub></span>가 3~8 kJ/kg·K까지 치솟는다. 따라서 <b>미소한 온도강하로도 엔탈피가 급감</b>한다. 반대로 흡입 증기측 <span class="mono">c<sub>p,v</sub>≈2.2</span>가 <span class="mono">C<sub>min</sub></span>이 되어 열량은 증기측이 제한한다.</li>
         <li><b>기저 냉동효과가 작다.</b> 임계점 근방 팽창은 손실이 커 팽창 후 건도가 <span class="mono">x<sub>4</sub>≈0.35</span>에 이른다. <span class="mono">q<sub>e</sub></span>가 작으므로 동일한 <span class="mono">q<sub>IHX</sub></span>가 만드는 <b>상대 증가율 <span class="mono">q<sub>IHX</sub>/q<sub>e</sub></span>가 15~20%로 최대</b>가 된다.</li>
@@ -843,7 +1291,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     </div>
 
     <div class="card">
-      <h3 class="blk">3.6 R32 / R410A — COP 이득 없음, 토출온도가 지배 변수</h3>
+      <h3 class="blk">4.6 R32 / R410A — COP 이득 없음, 토출온도가 지배 변수</h3>
       <ul class="tick">
         <li><b>높은 <span class="mono">k=c<sub>p</sub>/c<sub>v</sub></span>.</b> R32는 <span class="mono">k≈1.24</span>로 압축 시 온도상승이 가파르다. <span class="mono">Φ=(P<sub>c</sub>/P<sub>e</sub>)<sup>(k−1)/k</sup>−1</span>가 커져 임계 COP <span class="mono">1/Φ</span>가 4 근처까지 낮아지고, 실제 <span class="mono">COP<sub>s</sub>≈5.4</span>가 이를 초과 → <b>판별식 불만족(악화)</b>.</li>
         <li><b>이미 높은 기저 토출온도.</b> 5/45 °C·η<sub>is</sub>=0.70에서 R32 토출은 이미 89 °C 수준이다. ε=0.5 IHX 적용 시 +15 K가 가산되어 104 °C에 도달, 통상 관리 상한 115 °C 대비 <b>여유가 11 K로 축소</b>된다.</li>
@@ -856,7 +1304,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
 
   <div class="grid g2">
     <div class="card">
-      <h3 class="blk">3.7 HFO / 저GWP 냉매 (R1234yf, R1234ze)</h3>
+      <h3 class="blk">4.7 HFO / 저GWP 냉매 (R1234yf, R1234ze)</h3>
       <ul class="tick">
         <li><b>본 검토군 중 COP 이득이 가장 안정적.</b> 낮은 <span class="mono">k(≈1.09)</span> → 작은 <span class="mono">Φ</span> → 높은 임계 COP(<span class="mono">1/Φ≈6</span>). 판별식을 넉넉히 만족한다.</li>
         <li><b>잠열이 작아(≈163 kJ/kg @0 °C) 기저 <span class="mono">q<sub>e</sub></span>가 작다.</b> 동일 IHX 열량의 상대 기여가 커져 R134a보다 큰 개선률을 보인다.</li>
@@ -893,16 +1341,40 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
       </div>
     </div>
   </div>
+
+
+  <!-- 하단: 해석 모델 및 검증 범위 (Methodology) -->
+  <div class="card">
+    <h3 class="blk">해석 모델 및 검증 범위 <span class="badge b-neu">Methodology</span></h3>
+    <div class="grid g2">
+      <div>
+        <ul class="tick">
+          <li><b>물성:</b> IIR 기준(<span class="mono">h<sub>f</sub></span>(0 °C)=200 kJ/kg, <span class="mono">s<sub>f</sub></span>(0 °C)=1.0)의 포화표 앵커점을 <b>단조 3차 보간(PCHIP)</b>으로 연결한 축소차수 모델. 과열영역은 압력대별 평균 <span class="mono">c<sub>p</sub></span> 적분(<span class="mono">dh=c<sub>p</sub>dT, ds=c<sub>p</sub>dT/T</span>).</li>
+          <li><b>압축:</b> 이상기체 지수 <span class="mono">k</span>를 쓰지 않고 <b>등엔트로피 종점을 s로 직접 역산</b>. 실제기체 <span class="mono">c<sub>p</sub></span> 편차가 IHX 민감도에 올바르게 반영된다.</li>
+          <li><b>R744 초임계:</b> <span class="mono">h(P,T)</span> 표에 등압 관계 <span class="mono">ds = dh/T</span>를 적분해 <span class="mono">s(P,T)</span>를 생성.</li>
+          <li><b>캘리브레이션:</b> 냉매별 상수 1개를 5/45 °C 이론 COP에 정합. R744는 최적 가스쿨러 압력이 Liao 상관식(<span class="mono">P<sub>opt</sub>=(2.778−0.0157T<sub>e</sub>)T<sub>gc</sub>−9.34</span>)과 일치하도록 추가 정합.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="callout bad"><b>사용 한계 (중요).</b> 본 모델은 <b>경향·민감도 분석용</b>이다. 절대 COP는 REFPROP 대비 수 % 오차를 가지며, 특히 R744 의사임계 근방과 혼합냉매 글라이드는 단순화되어 있다. <b>제품 사이징·성능 보증에는 사용하지 말 것</b> — 최종 설계는 REFPROP/CoolProp 기반 재계산과 시작품 실측으로 확정한다.</div>
+        <h4 class="mini">모델 검증 대조군 (문헌 정성 경향)</h4>
+        <ul class="tick" style="font-size:13px">
+          <li>Domanski &amp; Didion (1994), Klein·Reindl·Brownell (2000): <b>R32·암모니아 계열 불리, R134a·R600a·R404A 계열 유리</b> — 본 모델 재현 ✓</li>
+          <li>R744 트랜스크리티컬 IHX 이득이 가스쿨러 출구온도 상승에 따라 증대, 최적 고압이 하향 이동 — 본 모델 재현 ✓</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </section>
-<!-- ================================================================ 04 ================= -->
+<!-- ================================================================ 05 : TRADEOFF ================= -->
 <section class="tabpane" id="s4">
   <div class="sechead">
-    <span class="no">04</span><h2>상세 장단점 분석 (In-depth Trade-off)</h2>
+    <span class="no">05</span><h2>🎛️ 상세 트레이드오프 분석 &amp; 실시간 시뮬레이터</h2>
     <span class="desc">이득 메커니즘 · 신뢰성 리스크 · 흡입 ΔP 역효과 정량화</span>
   </div>
 
   <div class="card">
-    <h3 class="blk">4.1 트레이드오프 계산기</h3>
+    <h3 class="blk">7.1 트레이드오프 계산기</h3>
     <div class="grid g2" style="align-items:start">
       <div>
         <div class="ctl" style="background:var(--panel)">
@@ -944,7 +1416,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
 
   <div class="grid g2">
     <div class="card">
-      <h3 class="blk">4.2 장점 (Benefits) — 메커니즘 기반</h3>
+      <h3 class="blk">7.2 장점 (Benefits) — 메커니즘 기반</h3>
 
       <h4 class="mini">① 팽창밸브 전단 완전 액상화 → 플래시가스 방지</h4>
       <p style="font-size:13.5px;color:var(--tx2)">액관 압력손실·상승배관 정압손실·주위 입열로 <span class="mono">P</span>가 국소 포화압 이하로 내려가면 플래시가스가 발생한다. 이는 팽창밸브 유효 유량계수 <span class="mono">C<sub>d</sub></span>를 급변시켜 <b>유량 맥동과 EEV 헌팅</b>을 유발한다. IHX가 부여하는 <span class="mono">ΔT<sub>sub</sub></span>는 이 여유(subcooling margin)를 직접 확보한다.</p>
@@ -961,7 +1433,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     </div>
 
     <div class="card">
-      <h3 class="blk">4.3 단점 및 시스템 리스크 (Risks &amp; Bottlenecks)</h3>
+      <h3 class="blk">7.3 단점 및 시스템 리스크 (Risks &amp; Bottlenecks)</h3>
 
       <h4 class="mini">① 압축기 토출온도 과상승 — 최대 리스크</h4>
       <ul class="tick bad">
@@ -993,15 +1465,15 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     </div>
   </div>
 </section>
-<!-- ================================================================ 05 ================= -->
+<!-- ================================================================ 06 : FIELD ================= -->
 <section class="tabpane" id="s5">
   <div class="sechead">
-    <span class="no">05</span><h2>설계 및 제어 관점 엔지니어링 가이드라인</h2>
+    <span class="no">06</span><h2>🛠️ 현장 시공 엔지니어링 가이드라인 &amp; 트러블슈팅</h2>
     <span class="desc">형식 선정 · 과열도 센싱 · 토출온도 회피 대책</span>
   </div>
 
   <div class="card">
-    <h3 class="blk">5.1 흡입 라인 차압 최소화 설계 원칙</h3>
+    <h3 class="blk">7.1 흡입 라인 차압 최소화 설계 원칙</h3>
     <div class="callout"><b>설계 예산 우선 원칙.</b> IHX 설계는 "유효도 ε를 얼마로 할까"가 아니라 <b>"허용 가능한 흡입 ΔP는 몇 kPa인가"에서 출발</b>해야 한다. §4 계산 결과상 HFC/HFO/HC 계열의 손익분기는 <b>ΔP ≈ 10 kPa</b>이며, 실무 목표는 <b>ΔP ≤ 5 kPa (포화온도 환산 ≤ 0.3 K)</b>로 설정할 것을 권고한다.</div>
     <div class="tbl-wrap">
       <table>
@@ -1032,7 +1504,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
   </div>
 
   <div class="card">
-    <h3 class="blk">5.2 과열도 제어 — EEV 센싱 위치 선정</h3>
+    <h3 class="blk">7.2 과열도 제어 — EEV 센싱 위치 선정</h3>
     <div class="callout warn"><b>핵심 함정.</b> IHX 적용 후 <b>압축기 흡입 과열도(1′)</b>는 IHX가 만든 인위적 과열을 포함한다. 이 지점을 EEV 제어 피드백으로 쓰면 제어기가 <b>증발기 과열도를 실제보다 크게 인식</b>하여 밸브를 과도 개방하고, 결국 <b>증발기 출구 습증기 → 압축기 액백</b>으로 진행한다.</div>
     <div class="tbl-wrap">
       <table>
@@ -1054,7 +1526,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
   </div>
 
   <div class="card">
-    <h3 class="blk">5.3 토출온도 리미트 회피 대책</h3>
+    <h3 class="blk">7.3 토출온도 리미트 회피 대책</h3>
     <div class="grid g3">
       <div class="card tight" style="margin:0">
         <h4 class="mini" style="margin-top:0">① 액 인젝션 (Liquid / Vapor Injection)</h4>
@@ -1091,16 +1563,16 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
   </div>
 </section>
 
-<!-- ================================================================ 06 ================= -->
+<!-- ================================================================ 07 : ROADMAP ================= -->
 <section class="tabpane" id="s6">
   <div class="sechead">
-    <span class="no">06</span><h2>결론 및 R&amp;D 추진 제언</h2>
+    <span class="no">07</span><h2>📋 결론 및 R&amp;D 추진 제언 · 종합 체크리스트</h2>
     <span class="desc">적용 권고 조합 · 시작품 검증 계획</span>
   </div>
 
   <div class="grid g2">
     <div class="card">
-      <h3 class="blk">6.1 적용 추천 조합</h3>
+      <h3 class="blk">7.1 적용 추천 조합</h3>
       <div class="tbl-wrap">
         <table>
           <thead><tr><th>우선순위</th><th>냉매 / 사이클</th><th>운전조건</th><th>권장 ε</th><th>기대 ΔCOP</th><th>필수 동반 대책</th></tr></thead>
@@ -1119,7 +1591,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     </div>
 
     <div class="card">
-      <h3 class="blk">6.2 시작품 검증 핵심 측정 파라미터 체크리스트</h3>
+      <h3 class="blk">7.2 시작품 검증 핵심 측정 파라미터 체크리스트</h3>
       <p class="small">항목을 클릭하면 진행 상태가 브라우저에 저장됩니다.</p>
       <h4 class="mini">A. IHX 자체 성능 (ε 검증)</h4>
       <div id="chk"></div>
@@ -1127,7 +1599,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
   </div>
 
   <div class="card">
-    <h3 class="blk">6.3 검증 계획 및 판정 기준</h3>
+    <h3 class="blk">7.3 검증 계획 및 판정 기준</h3>
     <div class="grid g3">
       <div>
         <h4 class="mini">Phase 1 — 부품 단품 (4주)</h4>
@@ -2220,6 +2692,54 @@ function renderS0Compare(){
   });
 }
 
+function renderDesiccant(){
+  if(!$('#d_Tproc')) return;
+  var Tproc = parseFloat($('#d_Tproc').value);
+  var Treg = parseFloat($('#d_Treg').value);
+  var eps = parseFloat($('#d_Eps').value);
+  var flowLpm = parseFloat($('#d_Flow').value);
+
+  $('#d_vTproc').textContent = f1(Tproc, 1) + ' °C';
+  $('#d_vTreg').textContent = f1(Treg, 1) + ' °C';
+  $('#d_vEps').textContent = f1(eps, 2);
+  $('#d_vFlow').textContent = flowLpm + ' L/min';
+
+  var rho = 1200; // CrecoPlus 5100C 밀도 kg/m3
+  var cp = 2.5; // kJ/kg.K
+  var mdot = (flowLpm / 60000) * rho; // kg/s
+
+  var dTmax = Math.max(0, Treg - Tproc);
+  var Qshx = eps * mdot * cp * dTmax; // kW
+
+  var TregIn = Tproc + eps * dTmax;
+  var TprocIn = Treg - eps * dTmax;
+
+  var QheatBase = mdot * cp * dTmax;
+  var QheatAct = mdot * cp * Math.max(0, Treg - TregIn);
+
+  var heatPct = QheatBase > 0 ? ((QheatBase - QheatAct) / QheatBase * 100) : 0;
+  var coolPct = heatPct;
+  var totalSave = Qshx * 2;
+
+  if($('#svgDesTprocText')) $('#svgDesTprocText').textContent = f1(Tproc, 1);
+  if($('#svgDesTregText')) $('#svgDesTregText').textContent = f1(Treg, 1);
+  if($('#svgDesQshxText')) $('#svgDesQshxText').textContent = f1(Qshx, 1) + ' kW';
+  if($('#svgDesTag1')) $('#svgDesTag1').textContent = '찬 희석액 ' + f1(Tproc, 1) + '℃';
+  if($('#svgDesTag2')) $('#svgDesTag2').textContent = '예열 ' + f1(TregIn, 1) + '℃ (공짜!)';
+  if($('#svgDesTag3')) $('#svgDesTag3').textContent = '뜨거운 액 ' + f1(Treg, 1) + '℃';
+  if($('#svgDesTag4')) $('#svgDesTag4').textContent = '예냉 ' + f1(TprocIn, 1) + '℃ (공짜!)';
+
+  if($('#d_kpiHeatPct')) $('#d_kpiHeatPct').innerHTML = f1(heatPct, 1) + '<span class="u">%</span>';
+  if($('#d_kpiCoolPct')) $('#d_kpiCoolPct').innerHTML = f1(coolPct, 1) + '<span class="u">%</span>';
+  if($('#d_kpiQshx')) $('#d_kpiQshx').innerHTML = f1(Qshx, 1) + '<span class="u">kW</span>';
+  if($('#d_kpiTotalSave')) $('#d_kpiTotalSave').innerHTML = f1(totalSave, 1) + '<span class="u">kW</span>';
+
+  if($('#d_resTregIn')) $('#d_resTregIn').textContent = f1(TregIn, 1) + ' °C (+' + f1(TregIn - Tproc, 1) + ' K 예열)';
+  if($('#d_resTprocIn')) $('#d_resTprocIn').textContent = f1(TprocIn, 1) + ' °C (-' + f1(Treg - TprocIn, 1) + ' K 예냉)';
+  if($('#d_resHeatBase')) $('#d_resHeatBase').textContent = f1(QheatBase, 1) + ' kW';
+  if($('#d_resHeatAct')) $('#d_resHeatAct').textContent = f1(QheatAct, 1) + ' kW (절감 -' + f1(Qshx, 1) + ' kW)';
+}
+
 function refresh(){
   syncLabels();
   renderKPI(); renderStates(); buildPh();
@@ -2227,6 +2747,7 @@ function refresh(){
   renderCalc();
   renderPID();
   renderS0Compare();
+  renderDesiccant();
   if(window.MathJax&&MathJax.typesetPromise) MathJax.typesetPromise().catch(function(){});
 }
 
@@ -2294,6 +2815,11 @@ function bind(){
     });
   });
   $('#linkSub').addEventListener('change',renderCalc);
+
+  ['d_Tproc','d_Treg','d_Eps','d_Flow'].forEach(function(id){
+    var el=$('#'+id);
+    if(el) el.addEventListener('input',renderDesiccant);
+  });
 
   $('#btnReset').addEventListener('click',function(){
     S.Te=2.5;S.Tc=41;S.SH=4;S.SC=3;S.eta=0.72;S.eps=0.55;S.dP=2;S.Pgc=8.5;S.Tgc=35;S.chilledMode='5';
