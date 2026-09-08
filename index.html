@@ -264,8 +264,8 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
         </div>
       </div>
       <div class="spacer"></div>
-      <button class="btn" id="btnPreset5" type="button" style="border-color:var(--ok);color:var(--ok);font-weight:700">❄️ 칠러 표준 (냉수 5℃)</button>
-      <button class="btn" id="btnPreset10" type="button" style="border-color:var(--acc);color:var(--acc);font-weight:700">❄️ 칠러 고온 (냉수 10℃)</button>
+      <button class="btn" id="btnPreset5" type="button" style="border-color:var(--ok);color:var(--ok);font-weight:700">❄️ LT 칠러 (5℃ 저온용)</button>
+      <button class="btn" id="btnPreset10" type="button" style="border-color:var(--acc);color:var(--acc);font-weight:700">❄️ HT 칠러 (10℃ 고온용)</button>
       <button class="btn" id="btnPanel" type="button">⚙ 칠러 운전조건</button>
       <button class="btn" id="btnTheme" type="button">◐ 라이트</button>
     </div>
@@ -299,7 +299,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
           <span class="badge b-neu">연동: 탭 02 ~ 06</span>
         </div>
         <p class="panel-subtitle">
-          사내 중앙 수냉식 칠러(냉수 5℃/10℃, 냉각탑 32➔39℃)의 냉매(R134a ➔ R1234ze/R1233ze) 사이클을 실시간 시뮬레이션합니다.<br>
+          사내 독립 2기 운용: <b>5℃용 LT(저온) 칠러</b> &amp; <b>10℃용 HT(고온) 칠러</b> (냉각탑 32➔39℃ 공통 연동 · 탭 02~06 실시간 반영)<br>
           <span style="color:var(--tx3);font-size:11.5px">※ 탭 02~06의 성능 계산과 P-h 선도에 즉시 반영됩니다. (※ 01번 액체식 제습기는 해당 탭 내 독립 계산기를 사용합니다.)</span>
         </p>
       </div>
@@ -318,14 +318,14 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     <div class="panel-water-card">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
         <div style="font-size:13px;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:6px">
-          <span>🏢 사내 칠러 운전 모드 원터치 선택:</span>
+          <span>🏢 사내 대상 칠러 호기 선택 (독립 2기 운용):</span>
         </div>
         <div style="display:flex;gap:8px">
           <button class="btn on" id="panelBtn5" type="button" style="padding:6px 14px;font-size:12px;font-weight:700">
-            ❄️ 냉수 5℃ 표준 모드
+            ❄️ LT 칠러 (5℃ 저온용)
           </button>
           <button class="btn" id="panelBtn10" type="button" style="padding:6px 14px;font-size:12px;font-weight:700">
-            ❄️ 냉수 10℃ 고온 모드
+            ❄️ HT 칠러 (10℃ 고온용)
           </button>
         </div>
       </div>
@@ -365,7 +365,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span>증발온도 (T<sub>e</sub>)</span>
             <span class="v" id="vTe"></span>
           </label>
-          <div class="field-desc">칠러 냉수(5℃) 제조용 냉매온도 (접근온도차 -2.5K)</div>
+          <div class="field-desc">LT 5℃(또는 HT 10℃) 냉수 제조용 냉매온도 (접근온도차 -2.5K)</div>
           <input type="range" id="Te" min="-30" max="15" step="0.5" value="2.5">
         </div>
 
@@ -498,10 +498,10 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
         <button class="btn" onclick="document.querySelector('[data-t=s0]').click()" style="padding:4px 10px;font-size:11.5px;border-color:var(--acc);color:var(--acc)">❄️ 상세 탭 바로가기 ➔</button>
       </div>
       <h3 style="font-size:18px;color:var(--acc);margin-bottom:8px">❄️ 수냉식 칠러 냉매 사이클</h3>
-      <div style="font-size:12.5px;color:var(--tx3);margin-bottom:12px">흡입관 열교환기 (Suction-Line Heat Exchanger, SLHX/IHX)</div>
+      <div style="font-size:12.5px;color:var(--tx3);margin-bottom:12px">흡입관 열교환기 (Suction-Line Heat Exchanger, SLHX/IHX) · 사내 LT(5℃) 및 HT(10℃) 2대 운용</div>
 
       <div style="background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:12px;margin-bottom:12px;font-size:13px">
-        <div style="color:var(--tx2);margin-bottom:4px"><b>· 맞교환 대상:</b> [증발기 찬 가스 (6.5℃)] ⇄ [응축기 뜨거운 액체 (38℃)]</div>
+        <div style="color:var(--tx2);margin-bottom:4px"><b>· 적용 대상:</b> 사내 LT 칠러(저온 5℃ 냉수) &amp; HT 칠러(고온 10℃ 냉수) 독립 2기</div>
         <div style="color:var(--tx2)"><b>· 설치 목적:</b> 팽창 전단 과냉각 심화(기포 박멸) 및 친환경 냉매 체적능력 회복</div>
       </div>
 
@@ -840,7 +840,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
         </div>
         <div class="small" style="margin-top:10px;color:var(--tx3);line-height:1.6">
           * 물성 기준: CrecoPlus 5100C 밀도 ρ ≈ 1,200 kg/m³, 비열 c<sub>p</sub> ≈ 2.5 kJ/kg·K<br>
-          * 사내 연동: 재생 열원 = 칠러 냉각수 폐열(39℃ 온수) / 제습 냉각 = 칠러 냉수(5℃~10℃)
+          * 사내 연동: 재생 열원 = 칠러 냉각수 폐열(39℃ 온수) / 제습 냉각 = 칠러 냉수(LT 5℃ 또는 HT 10℃)
         </div>
       </div>
 
@@ -909,7 +909,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
 <section class="tabpane" id="s0">
   <div class="sechead">
     <span class="no">02</span><h2>❄️ 수냉식 칠러 &amp; 내부열교환기(IHX) 실무 가이드</h2>
-    <span class="desc">사내 운전 스펙(냉수 5℃/10℃, 냉각탑 32➔39℃) 기반 필요성(Why) · 배관도(How) · 정량효과(What) · 현장 트러블슈팅</span>
+    <span class="desc">사내 2대 독립 칠러 [LT 5℃ &amp; HT 10℃, 냉각탑 32➔39℃] 기반 필요성(Why) · 배관도(How) · 정량효과(What) · 현장 트러블슈팅</span>
   </div>
 
   <!-- 사내 운전조건 퀵 토글 카드 -->
@@ -917,19 +917,19 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
       <div>
         <div style="display:flex;align-items:center;gap:8px">
-          <span class="badge b-acc" style="font-size:12px">사내 시스템 연동</span>
-          <b style="font-size:15px;color:var(--tx)">수냉식 칠러 운전 모드 선택</b>
+          <span class="badge b-acc" style="font-size:12px">사내 독립 2기 연동</span>
+          <b style="font-size:15px;color:var(--tx)">수냉식 칠러 대상 호기 선택 (LT 5℃ vs HT 10℃)</b>
         </div>
         <div style="font-size:13px;color:var(--tx2);margin-top:4px">
-          버튼을 클릭하면 사내 표준 온도 스펙(물-냉매 접근온도차 반영)으로 실시간 계산기가 자동 전환됩니다.
+          사내에 각각 독립 설치된 5℃용 저온 칠러(LT)와 10℃용 고온 칠러(HT) 중 검토할 기기를 선택합니다.
         </div>
       </div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <button class="btn on" id="btnMode5" type="button" style="padding:8px 16px;font-size:13px">
-          🏢 <b>사내 표준 (냉수 5℃)</b> <span class="small" style="opacity:.85">12➔5℃ / 32➔39℃</span>
+          🏢 <b>LT 칠러 (5℃ 저온용)</b> <span class="small" style="opacity:.85">12➔5℃ / 32➔39℃</span>
         </button>
         <button class="btn" id="btnMode10" type="button" style="padding:8px 16px;font-size:13px">
-          🏢 <b>사내 고온 (냉수 10℃)</b> <span class="small" style="opacity:.85">17➔10℃ / 32➔39℃</span>
+          🏢 <b>HT 칠러 (10℃ 고온용)</b> <span class="small" style="opacity:.85">17➔10℃ / 32➔39℃</span>
         </button>
       </div>
     </div>
@@ -943,6 +943,11 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
   <!-- 00.1 필요성 (Why) -->
   <div class="card">
     <h3 class="blk">00.1 왜 우리 수냉식 칠러에 IHX가 절실한가? (Why)</h3>
+    <div class="callout" style="margin-top:10px;margin-bottom:14px;font-size:13px;line-height:1.6">
+      <b>💡 사내 이원화 칠러 체계 (LT 5℃ 칠러 vs HT 10℃ 칠러) 비교 분석:</b><br>
+      · <b>LT 칠러 (저온 5℃ 전용):</b> 심랭 제습 및 공정 냉각 담당 ➔ 증발온도가 낮아(T<sub>e</sub> ≈ 2.5 °C) 기저 압축비가 높으므로, <b>IHX 도입에 따른 체적능력 회복(+7.8%) 및 팽창밸브 기포 박멸 효과가 가장 극대화</b>됩니다.<br>
+      · <b>HT 칠러 (고온 10℃ 전용):</b> 일반 공조 현열 부하 담당 ➔ 높은 증발온도(T<sub>e</sub> ≈ 7.5 °C)로 기본 사이클 자체의 효율이 우수(COP 6.0+)하며, IHX는 고부하 시 액백 방지 및 밸브 안정성 확보에 기여합니다.
+    </div>
     <div class="grid g3" style="margin-top:12px">
       <div class="card tight" style="margin:0;background:var(--panel2)">
         <div style="font-size:13px;font-weight:700;color:var(--acc);margin-bottom:6px">① 친환경 냉매(R1234ze) 용량 저하 보완</div>
@@ -1173,7 +1178,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
         <tbody>
           <!-- JS에서 실시간 계산 주입 -->
         </tbody>
-        <caption>위 표는 상단 운전조건 및 냉수 모드(5℃/10℃)에 따라 즉시 재계산됩니다.</caption>
+        <caption>위 표는 상단 운전조건 및 선택한 칠러 호기(LT 5℃ / HT 10℃)에 따라 즉시 재계산됩니다.</caption>
       </table>
     </div>
   </div>
@@ -2837,18 +2842,18 @@ function renderPID(){
 
   if(S.chilledMode==='10'){
     if($('#svgChilledIn')) $('#svgChilledIn').textContent="냉수 In 17℃";
-    if($('#svgChilledOut')) $('#svgChilledOut').textContent="냉수 Out 10℃";
-    if($('#s0_chilledSummary')) $('#s0_chilledSummary').textContent="17.0 °C 입구 ➔ 10.0 °C 출구 (ΔT = 7.0 K)";
+    if($('#svgChilledOut')) $('#svgChilledOut').textContent="HT 냉수 Out 10℃";
+    if($('#s0_chilledSummary')) $('#s0_chilledSummary').textContent="[HT 칠러] 17.0 °C 입구 ➔ 10.0 °C 출구 (ΔT = 7.0 K)";
     if($('#s0_teSummary')) $('#s0_teSummary').innerHTML="→ 증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C (접근온도차 2.5 K)";
-    if($('#waterChilledDesc')) $('#waterChilledDesc').innerHTML="입구 17.0 °C ➔ 출구 10.0 °C (ΔT = 7.0 K) ➔ <span class=\"mono\" style=\"color:var(--ok)\">증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C</span>";
-    if($('#s0_activeCondLabel')) $('#s0_activeCondLabel').textContent="냉수 10℃ / 냉각수 32➔39℃ 기준";
+    if($('#waterChilledDesc')) $('#waterChilledDesc').innerHTML="<b>[HT 칠러 (고온 10℃용)]</b> 입구 17.0 °C ➔ 출구 10.0 °C (ΔT = 7.0 K) ➔ <span class=\"mono\" style=\"color:var(--ok);font-weight:700\">증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C</span> (접근온도차 2.5 K)";
+    if($('#s0_activeCondLabel')) $('#s0_activeCondLabel').textContent="HT 칠러 (냉수 10℃) / 냉각수 32➔39℃ 기준";
   } else {
     if($('#svgChilledIn')) $('#svgChilledIn').textContent="냉수 In 12℃";
-    if($('#svgChilledOut')) $('#svgChilledOut').textContent="냉수 Out 5℃";
-    if($('#s0_chilledSummary')) $('#s0_chilledSummary').textContent="12.0 °C 입구 ➔ 5.0 °C 출구 (ΔT = 7.0 K)";
+    if($('#svgChilledOut')) $('#svgChilledOut').textContent="LT 냉수 Out 5℃";
+    if($('#s0_chilledSummary')) $('#s0_chilledSummary').textContent="[LT 칠러] 12.0 °C 입구 ➔ 5.0 °C 출구 (ΔT = 7.0 K)";
     if($('#s0_teSummary')) $('#s0_teSummary').innerHTML="→ 증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C (접근온도차 2.5 K)";
-    if($('#waterChilledDesc')) $('#waterChilledDesc').innerHTML="입구 12.0 °C ➔ 출구 5.0 °C (ΔT = 7.0 K) ➔ <span class=\"mono\" style=\"color:var(--ok)\">증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C</span>";
-    if($('#s0_activeCondLabel')) $('#s0_activeCondLabel').textContent="냉수 5℃ / 냉각수 32➔39℃ 기준";
+    if($('#waterChilledDesc')) $('#waterChilledDesc').innerHTML="<b>[LT 칠러 (저온 5℃용)]</b> 입구 12.0 °C ➔ 출구 5.0 °C (ΔT = 7.0 K) ➔ <span class=\"mono\" style=\"color:var(--ok);font-weight:700\">증발온도 T<sub>e</sub> ≈ "+f1(S.Te,1)+" °C</span> (접근온도차 2.5 K)";
+    if($('#s0_activeCondLabel')) $('#s0_activeCondLabel').textContent="LT 칠러 (냉수 5℃) / 냉각수 32➔39℃ 기준";
   }
 }
 
