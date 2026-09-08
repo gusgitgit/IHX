@@ -240,6 +240,16 @@ html[data-theme="light"] .btn.on{color:#fff}
 html[data-theme="light"] .logo{color:#fff}
 html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
 @media print{header.top,nav.tabs,.ctl{display:none}section.tabpane{display:block!important}}
+
+/* 개선된 운전조건 패널 전용 스타일 */
+.panel-chiller{background:linear-gradient(180deg,var(--panel2),color-mix(in srgb,var(--panel2) 85%,var(--panel)));border:1px solid var(--line);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
+.panel-header{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid var(--line)}
+.panel-title{font-size:15px;font-weight:700;color:var(--tx)}
+.panel-subtitle{font-size:12.5px;color:var(--tx2);margin:4px 0 0;line-height:1.5}
+.panel-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.panel-water-card{background:color-mix(in srgb,var(--acc) 6%,transparent);border:1px solid color-mix(in srgb,var(--acc) 30%,transparent);border-radius:11px;padding:12px 16px;margin-bottom:12px}
+.field-desc{font-size:11px;color:var(--tx3);margin-bottom:6px;line-height:1.35}
+.btn.on{background:var(--acc)!important;color:#04121f!important;border-color:var(--acc)!important;font-weight:700!important}
 </style>
 </head>
 <body>
@@ -272,50 +282,165 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
   </div>
 </header>
 
-<!-- ============ 전역 운전조건 패널 ============ -->
+<!-- ============ 수냉식 칠러 운전조건 시뮬레이터 패널 ============ -->
 <div class="wrap" style="padding-top:16px">
   <div class="warnbar" id="cdnWarn">
     ⚠ 외부 CDN(Chart.js / MathJax) 로딩에 실패했습니다. 차트와 수식이 표시되지 않을 수 있으며, 수치 표와 계산 결과는 정상 동작합니다.
   </div>
-  <div class="ctl" id="panel">
-    <!-- 사내 수냉식 시스템 매핑 배너 -->
-    <div style="background:color-mix(in srgb,var(--acc) 10%,transparent);border:1px solid var(--acc);border-radius:10px;padding:12px 16px;margin-bottom:14px">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
-        <div>
-          <b style="color:var(--acc);font-size:13.5px">🏢 사내 수냉식 칠러 시스템 운전조건 연동</b>
-          <span class="small" style="margin-left:8px;color:var(--tx2)">중간 열매체 물(Water) · 냉수 ΔT 7K · 냉각탑 ΔT 7K</span>
+
+  <div class="ctl panel-chiller" id="panel">
+    <!-- 1. 패널 상단: 목적 안내 및 원터치 제어 -->
+    <div class="panel-header">
+      <div class="panel-title-area">
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span style="font-size:18px">❄️</span>
+          <span class="panel-title">수냉식 칠러 냉매 사이클 시뮬레이터</span>
+          <span class="badge b-acc">사내 운전표준 연동</span>
+          <span class="badge b-neu">연동: 탭 02 ~ 06</span>
         </div>
-        <div style="display:flex;gap:6px">
-          <button class="btn" id="panelBtn5" type="button" style="padding:4px 10px;font-size:11.5px">냉수 5℃ 모드</button>
-          <button class="btn" id="panelBtn10" type="button" style="padding:4px 10px;font-size:11.5px">냉수 10℃ 모드</button>
-        </div>
+        <p class="panel-subtitle">
+          사내 중앙 수냉식 칠러(냉수 5℃/10℃, 냉각탑 32➔39℃)의 냉매(R134a ➔ R1234ze/R1233ze) 사이클을 실시간 시뮬레이션합니다.<br>
+          <span style="color:var(--tx3);font-size:11.5px">※ 탭 02~06의 성능 계산과 P-h 선도에 즉시 반영됩니다. (※ 01번 액체식 제습기는 해당 탭 내 독립 계산기를 사용합니다.)</span>
+        </p>
       </div>
-      <div class="grid g2" style="margin-top:8px;font-size:12.5px;color:var(--tx2)">
-        <div><b>· 냉각수(응축기 ➔ 냉각탑):</b> 입구 32.0 °C ➔ 출구 39.0 °C (ΔT = 7.0 K) ➔ <span class="mono" style="color:var(--acc)">응축온도 T<sub>c</sub> ≈ 41.0 °C</span> (접근온도차 2.0 K)</div>
-        <div><b>· 냉수(칠러 부하측):</b> <span id="waterChilledDesc">입구 12.0 °C ➔ 출구 5.0 °C (ΔT = 7.0 K) ➔ <span class="mono" style="color:var(--ok)">증발온도 T<sub>e</sub> ≈ 2.5 °C</span></span></div>
+      <div class="panel-actions">
+        <label class="switch" title="내부열교환기(IHX) 적용 여부를 전환합니다">
+          <input type="checkbox" id="ihxOn" checked><span class="track"></span><span class="t">IHX 가동</span>
+        </label>
+        <button class="btn" id="btnReset" type="button" title="사내 표준 기준조건으로 초기화">↺ 기준조건 복귀</button>
+        <button class="btn" id="btnToggleSliders" type="button" style="border-color:var(--acc);color:var(--acc);font-weight:600" title="상세 슬라이더 표시 전환">
+          ⚙️ 상세 운전변수 <span id="sliderToggleArrow">▼</span>
+        </button>
       </div>
     </div>
 
-    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:13px">
-      <b style="font-size:13px">전역 운전조건</b>
-      <span class="small">— 모든 탭의 차트·표·계산기가 이 조건을 공유합니다.</span>
-      <div class="spacer" style="flex:1"></div>
-      <label class="switch" title="IHX 적용/미적용 전환">
-        <input type="checkbox" id="ihxOn" checked><span class="track"></span><span class="t">IHX ON</span>
-      </label>
-      <button class="btn" id="btnReset" type="button">기준조건 복귀</button>
+    <!-- 2. 사내 공정 수냉 조건 & 원터치 모드 선택 -->
+    <div class="panel-water-card">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
+        <div style="font-size:13px;font-weight:700;color:var(--tx);display:flex;align-items:center;gap:6px">
+          <span>🏢 사내 칠러 운전 모드 원터치 선택:</span>
+        </div>
+        <div style="display:flex;gap:8px">
+          <button class="btn on" id="panelBtn5" type="button" style="padding:6px 14px;font-size:12px;font-weight:700">
+            ❄️ 냉수 5℃ 표준 모드
+          </button>
+          <button class="btn" id="panelBtn10" type="button" style="padding:6px 14px;font-size:12px;font-weight:700">
+            ❄️ 냉수 10℃ 고온 모드
+          </button>
+        </div>
+      </div>
+
+      <div class="grid g2" style="font-size:12.5px;line-height:1.6;color:var(--tx2);background:var(--panel);border-radius:9px;padding:11px 15px;border:1px solid var(--line)">
+        <div>
+          <b>· 칠러 부하측 냉수(부하 순환):</b><br>
+          <span id="waterChilledDesc">입구 12.0 °C ➔ 출구 5.0 °C (ΔT = 7.0 K) ➔ <span class="mono" style="color:var(--ok);font-weight:700">증발온도 T<sub>e</sub> ≈ 2.5 °C</span> (접근온도차 2.5 K)</span>
+        </div>
+        <div>
+          <b>· 응축기 방열측 냉각수(냉각탑 순환):</b><br>
+          입구 32.0 °C ➔ 출구 39.0 °C (ΔT = 7.0 K) ➔ <span class="mono" style="color:var(--acc);font-weight:700">응축온도 T<sub>c</sub> ≈ 41.0 °C</span> (접근온도차 2.0 K)
+          <div style="font-size:11.5px;color:var(--tx3);margin-top:2px">💡 출구 39.0 °C 온수는 액체식 제습기(탭 01) 재생열원으로 100% 회수 활용됩니다.</div>
+        </div>
+      </div>
     </div>
-    <div class="chips" style="margin-bottom:14px" id="fluidChips"></div>
-    <div class="ctl-grid">
-      <div class="field"><label>증발온도 <span class="v" id="vTe"></span></label><input type="range" id="Te" min="-30" max="15" step="0.5" value="2.5"></div>
-      <div class="field" id="fTc"><label>응축온도 <span class="v" id="vTc"></span></label><input type="range" id="Tc" min="30" max="65" step="0.5" value="41"></div>
-      <div class="field" id="fPgc" style="display:none"><label>가스쿨러 압력 <span class="v" id="vPgc"></span></label><input type="range" id="Pgc" min="7.6" max="11.9" step="0.1" value="8.5"></div>
-      <div class="field" id="fTgc" style="display:none"><label>가스쿨러 출구온도 <span class="v" id="vTgc"></span></label><input type="range" id="Tgc" min="28" max="45" step="0.5" value="35"></div>
-      <div class="field"><label>IHX 유효도 ε <span class="v" id="vEps"></span></label><input type="range" id="eps" min="0" max="0.9" step="0.05" value="0.55"></div>
-      <div class="field"><label>증발기 출구 과열도 <span class="v" id="vSH"></span></label><input type="range" id="SH" min="0" max="12" step="0.5" value="4"></div>
-      <div class="field" id="fSC"><label>응축기 출구 과냉각도 <span class="v" id="vSC"></span></label><input type="range" id="SC" min="0" max="10" step="0.5" value="3"></div>
-      <div class="field"><label>압축기 등엔트로피효율 <span class="v" id="vEta"></span></label><input type="range" id="eta" min="0.5" max="0.85" step="0.01" value="0.72"></div>
-      <div class="field"><label title="IHX 삽입으로 추가되는 흡입측 손실. 기준 사이클에는 적용되지 않습니다.">흡입관 ΔP <span style="font-weight:400">(IHX 부가분)</span> <span class="v" id="vDP"></span></label><input type="range" id="dP" min="0" max="60" step="1" value="2"></div>
+
+    <!-- 3. 시뮬레이션 대상 냉매 선택 Bar -->
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 0 6px">
+      <div style="font-size:12.5px;font-weight:700;color:var(--tx);white-space:nowrap">
+        🧪 분석 대상 냉매:
+      </div>
+      <div class="chips" id="fluidChips"></div>
+      <span class="small" style="color:var(--tx3);font-size:11.5px">
+        (사내 기존: <b style="color:var(--tx2)">R134a</b> ➔ 차세대 친환경: <b style="color:var(--acc)">R1234ze / R1233ze</b>)
+      </span>
+    </div>
+
+    <!-- 4. 상세 운전변수 미세조절 (슬라이더 영역, 펼치기/접기 가능) -->
+    <div id="panelSliders" style="display:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line2)">
+      <div style="font-size:12px;color:var(--tx2);margin-bottom:12px;font-weight:600">
+        ⚙️ 실무자를 위한 상세 운전변수 미세조절 (슬라이더 변경 시 탭 02~06의 사이클 계산에 실시간 반영됩니다):
+      </div>
+      <div class="ctl-grid">
+        <div class="field">
+          <label>
+            <span>증발온도 (T<sub>e</sub>)</span>
+            <span class="v" id="vTe"></span>
+          </label>
+          <div class="field-desc">칠러 냉수(5℃) 제조용 냉매온도 (접근온도차 -2.5K)</div>
+          <input type="range" id="Te" min="-30" max="15" step="0.5" value="2.5">
+        </div>
+
+        <div class="field" id="fTc">
+          <label>
+            <span>응축온도 (T<sub>c</sub>)</span>
+            <span class="v" id="vTc"></span>
+          </label>
+          <div class="field-desc">냉각탑 냉각수(39℃) 방열 냉매온도 (+2.0K 마진)</div>
+          <input type="range" id="Tc" min="30" max="65" step="0.5" value="41">
+        </div>
+
+        <div class="field" id="fPgc" style="display:none">
+          <label>
+            <span>가스쿨러 압력 (P<sub>gc</sub>)</span>
+            <span class="v" id="vPgc"></span>
+          </label>
+          <div class="field-desc">초임계 운전 시 고압측 방열 압력 (CO2/R744 전용)</div>
+          <input type="range" id="Pgc" min="7.6" max="11.9" step="0.1" value="8.5">
+        </div>
+
+        <div class="field" id="fTgc" style="display:none">
+          <label>
+            <span>가스쿨러 출구온도 (T<sub>gc</sub>)</span>
+            <span class="v" id="vTgc"></span>
+          </label>
+          <div class="field-desc">가스쿨러 냉각 후 출구 냉매온도 (CO2/R744 전용)</div>
+          <input type="range" id="Tgc" min="28" max="45" step="0.5" value="35">
+        </div>
+
+        <div class="field">
+          <label>
+            <span>IHX 유효도 (ε)</span>
+            <span class="v" id="vEps"></span>
+          </label>
+          <div class="field-desc">내부열교환기 열회수 성능 (실무 권장 0.50~0.60)</div>
+          <input type="range" id="eps" min="0" max="0.9" step="0.05" value="0.55">
+        </div>
+
+        <div class="field">
+          <label>
+            <span>증발기 출구 과열도 (SH)</span>
+            <span class="v" id="vSH"></span>
+          </label>
+          <div class="field-desc">압축기 액 유입(액백·Liquid Back) 방지 안전 마진</div>
+          <input type="range" id="SH" min="0" max="12" step="0.5" value="4">
+        </div>
+
+        <div class="field" id="fSC">
+          <label>
+            <span>응축기 출구 과냉각도 (SC)</span>
+            <span class="v" id="vSC"></span>
+          </label>
+          <div class="field-desc">팽창밸브(EEV) 전단 기포(Flash Gas) 방지 마진</div>
+          <input type="range" id="SC" min="0" max="10" step="0.5" value="3">
+        </div>
+
+        <div class="field">
+          <label>
+            <span>압축기 효율 (η<sub>is</sub>)</span>
+            <span class="v" id="vEta"></span>
+          </label>
+          <div class="field-desc">등엔트로피 효율 (사내 스크류/터보 기준 약 0.72)</div>
+          <input type="range" id="eta" min="0.5" max="0.85" step="0.01" value="0.72">
+        </div>
+
+        <div class="field">
+          <label title="IHX 삽입으로 추가되는 흡입측 손실. 기준 사이클에는 적용되지 않습니다.">
+            <span>흡입관 손실 (ΔP)</span>
+            <span class="v" id="vDP"></span>
+          </label>
+          <div class="field-desc">IHX 저압측 통과 시 배관 마찰 압력 강하 (부가분)</div>
+          <input type="range" id="dP" min="0" max="60" step="1" value="2">
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -2816,19 +2941,25 @@ function bind(){
     S.chilledMode=mode;
     if(mode==='5'){
       S.Te=2.5; S.Tc=41.0; S.SH=4.0; S.SC=3.0; S.eta=0.72; S.eps=0.55; S.dP=2;
-      var b5=$('#btnMode5'), b10=$('#btnMode10');
-      if(b5) b5.classList.add('on'); if(b10) b10.classList.remove('on');
     } else {
       S.Te=7.5; S.Tc=41.0; S.SH=4.0; S.SC=3.0; S.eta=0.74; S.eps=0.55; S.dP=2;
-      var b5=$('#btnMode5'), b10=$('#btnMode10');
-      if(b10) b10.classList.add('on'); if(b5) b5.classList.remove('on');
     }
+    ['btnPreset5','panelBtn5','btnMode5'].forEach(function(id){
+      var el=$('#'+id); if(el){ if(mode==='5') el.classList.add('on'); else el.classList.remove('on'); }
+    });
+    ['btnPreset10','panelBtn10','btnMode10'].forEach(function(id){
+      var el=$('#'+id); if(el){ if(mode==='10') el.classList.add('on'); else el.classList.remove('on'); }
+    });
     $('#Te').value=S.Te; $('#Tc').value=S.Tc; $('#SH').value=S.SH;
     $('#SC').value=S.SC; $('#eta').value=S.eta; $('#eps').value=S.eps; $('#dP').value=S.dP;
     refresh();
   }
   ['btnPreset5','panelBtn5','btnMode5'].forEach(function(id){
-    var el=$('#'+id); if(el) el.addEventListener('click',function(){ applyChilledPreset('5'); });
+    var el=$('#'+id);
+    if(el){
+      el.classList.add('on');
+      el.addEventListener('click',function(){ applyChilledPreset('5'); });
+    }
   });
   ['btnPreset10','panelBtn10','btnMode10'].forEach(function(id){
     var el=$('#'+id); if(el) el.addEventListener('click',function(){ applyChilledPreset('10'); });
@@ -2890,13 +3021,34 @@ function bind(){
     if($('#d_Treg')) $('#d_Treg').value = 36.5;
     if($('#d_Eps')) $('#d_Eps').value = 0.75;
     if($('#d_Flow')) $('#d_Flow').value = 20;
-    var b5=$('#btnMode5'), b10=$('#btnMode10');
-    if(b5) b5.classList.add('on'); if(b10) b10.classList.remove('on');
+    ['btnPreset5','panelBtn5','btnMode5'].forEach(function(id){
+      var el=$('#'+id); if(el) el.classList.add('on');
+    });
+    ['btnPreset10','panelBtn10','btnMode10'].forEach(function(id){
+      var el=$('#'+id); if(el) el.classList.remove('on');
+    });
     refresh();
   });
+  var btnToggle = $('#btnToggleSliders');
+  var sliderBox = $('#panelSliders');
+  if(btnToggle && sliderBox){
+    btnToggle.addEventListener('click', function(){
+      var isHidden = (sliderBox.style.display==='none');
+      sliderBox.style.display = isHidden ? '' : 'none';
+      var arrow = $('#sliderToggleArrow');
+      if(arrow) arrow.textContent = isHidden ? '▲' : '▼';
+    });
+  }
   $('#btnPanel').addEventListener('click',function(){
     var p=$('#panel');
-    p.style.display=(p.style.display==='none')?'':'none';
+    var isHidden = (p.style.display==='none');
+    p.style.display = isHidden ? '' : 'none';
+    if(isHidden){
+      var ps = $('#panelSliders');
+      if(ps) ps.style.display = '';
+      var arrow = $('#sliderToggleArrow');
+      if(arrow) arrow.textContent = '▲';
+    }
   });
   $('#btnTheme').addEventListener('click',function(){
     var r=document.documentElement;
