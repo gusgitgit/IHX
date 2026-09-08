@@ -272,12 +272,13 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     <nav class="tabs" role="tablist" id="tabs">
       <button role="tab" data-t="s_fast" aria-selected="true"><span class="n">00</span>⚡ 1분 실무 요약</button>
       <button role="tab" data-t="s_desiccant" aria-selected="false"><span class="n">01</span>💧 액체식 제습기 (CrecoPlus)</button>
-      <button role="tab" data-t="s0" aria-selected="false"><span class="n">02</span>❄️ 수냉식 칠러 (R134a➔R1234ze)</button>
-      <button role="tab" data-t="s2" aria-selected="false"><span class="n">03</span>📈 P-h 선도 &amp; 작동 원리</button>
-      <button role="tab" data-t="s3" aria-selected="false"><span class="n">04</span>⚖️ 냉매별 판정 &amp; 비교</button>
-      <button role="tab" data-t="s4" aria-selected="false"><span class="n">05</span>🎛️ 트레이드오프 &amp; 리스크</button>
-      <button role="tab" data-t="s5" aria-selected="false"><span class="n">06</span>🛠️ 현장 시공 &amp; 트러블슈팅</button>
-      <button role="tab" data-t="s6" aria-selected="false"><span class="n">07</span>📋 R&amp;D 제언 &amp; 체크리스트</button>
+      <button role="tab" data-t="s0" aria-selected="false"><span class="n">02</span>❄️ 수냉식 칠러 (LT/HT 체계)</button>
+      <button role="tab" data-t="s_centrifugal" aria-selected="false"><span class="n">03</span>🌀 3,100 RT 터보 칠러</button>
+      <button role="tab" data-t="s2" aria-selected="false"><span class="n">04</span>📈 P-h 선도 &amp; 작동 원리</button>
+      <button role="tab" data-t="s3" aria-selected="false"><span class="n">05</span>⚖️ 냉매별 판정 &amp; 비교</button>
+      <button role="tab" data-t="s4" aria-selected="false"><span class="n">06</span>🎛️ 트레이드오프 &amp; 리스크</button>
+      <button role="tab" data-t="s5" aria-selected="false"><span class="n">07</span>🛠️ 현장 시공 &amp; 트러블슈팅</button>
+      <button role="tab" data-t="s6" aria-selected="false"><span class="n">08</span>📋 R&amp;D 제언 &amp; 체크리스트</button>
     </nav>
   </div>
 </header>
@@ -1247,10 +1248,414 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
 </section>
 
 
-<!-- ================================================================ 03 : THERMO ================= -->
+<!-- ================================================================ 03 : CENTRIFUGAL 3100 RT ================= -->
+<section class="tabpane" id="s_centrifugal">
+  <div class="sechead">
+    <span class="no">03</span><h2>🌀 3,100 RT 대형 원심식(Centrifugal/터보) 칠러 이코노마이저 분석</h2>
+    <span class="desc">3,100 RT 초대형 수냉식 터보 칠러(HT 10℃ / LT 5℃)의 2단 압축 + 플래시 이코노마이저 사이클 · SLHX 적용 불가 이유 · 실시간 계산기 &amp; P&ID</span>
+  </div>
+
+  <!-- 실무 직관 핵심 브리핑 카드 -->
+  <div class="card" style="border-left:4px solid var(--acc);background:linear-gradient(135deg,var(--panel2),var(--panel))">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+      <div>
+        <h3 class="blk" style="margin-top:0">⚡ 30초 실무 결론: 3,100 RT 대형 터보 칠러와 내부열교환기(IHX)</h3>
+        <p style="font-size:14.5px;line-height:1.75;color:var(--tx);margin:8px 0 0">
+          <b>Q. 3,100 RT급 대형 Centrifugal(터보) 칠러에도 IHX를 적용할 수 있는가?</b><br>
+          <b>A. "네, 가능하며 전 세계 모든 3,000 RT급 대형 터보 칠러(Trane, Carrier, York, LG 등)의 필수 표준 사양입니다."</b><br>
+          단, 소형 스크롤/스크류 칠러에서 쓰이는 <b>"흡입관 직결식 열교환기(SLHX)"는 절대 적용할 수 없으며</b>, 
+          반드시 <b>"2단 터보 압축 + 플래시 탱크 이코노마이저(Flash Tank Economizer)"</b> 사이클로 구현해야 합니다.
+        </p>
+      </div>
+      <div style="background:var(--panel);border:1px solid var(--acc);border-radius:10px;padding:12px 18px;text-align:center;min-width:200px">
+        <div style="font-size:11.5px;color:var(--tx3);font-weight:700">3,100 RT 연간 절감 효과</div>
+        <div style="font-size:24px;font-weight:700;color:var(--ok);font-family:var(--mono);margin:4px 0" id="c_summarySaveBadge">~1.40 억원/년</div>
+        <div style="font-size:11px;color:var(--tx2)">COP +18.4% ↑ · 전력 절감 ~291 kW</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. 소형 SLHX vs 대형 터보 플래시 이코노마이저 1:1 비교 카드 -->
+  <div class="card">
+    <h3 class="blk">03.1 왜 3,100 RT에는 스크롤/스크류 방식(흡입관 직결 SLHX)을 쓸 수 없는가?</h3>
+    <p style="font-size:13.5px;color:var(--tx2);margin:6px 0 14px">
+      스크롤/스크류와 같은 <b>용적식(Positive Displacement) 압축기</b>와 3,100 RT급 <b>원심식(Dynamic Centrifugal) 압축기</b>는 압축 메커니즘 자체가 근본적으로 다릅니다.
+    </p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:20%">구분</th>
+            <th style="width:40%">소형 스크롤 / 스크류 방식 (흡입관 SLHX 직결)</th>
+            <th style="width:40%;color:var(--acc)">대형 3,100 RT 터보 방식 (2단 플래시 이코노마이저) ⭕ 권장</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>열교환 메커니즘</b></td>
+            <td>증발기 출구 저압 흡입가스 ⇄ 응축기 출구 고압 액체 (판형 열교환기 대향류)</td>
+            <td><b style="color:var(--ok)">응축액 1차 플래시 팽창 ➔ 증발 가스를 2단 압축기 중간단으로 직분사</b></td>
+          </tr>
+          <tr>
+            <td><b>1단 흡입관 압력강하</b></td>
+            <td><span class="badge b-bad">ΔP = 2~5 kPa 발생</span> (압축비 상승에 따른 동력 손실)</td>
+            <td><span class="badge b-ok">ΔP = 0.0 kPa (손실 전무)</span> 증발기에서 1단 임펠러로 무저항 직결!</td>
+          </tr>
+          <tr>
+            <td><b>흡입 가스 상태 &amp; 밀도</b></td>
+            <td>과열도 대폭 상승(ΔTsh = +10~15 K) ➔ <b>가스 밀도 4~6% 저하</b></td>
+            <td><span class="badge b-ok">포화 건증기(SH ≈ 0~1 K) 흡입</span> ➔ <b>최대 기체 밀도 유지</b></td>
+          </tr>
+          <tr>
+            <td><b>터보 임펠러 공기역학</b></td>
+            <td><span class="badge b-bad">치명적</span> (밀도 저하로 동일 양정 형성 불가, 서지 마진 급감)</td>
+            <td><span class="badge b-ok">완벽 보존</span> (공력 설계점 유지 + 2단 입구 디슈퍼히팅 냉각)</td>
+          </tr>
+          <tr>
+            <td><b>배관 관경 &amp; 설치성</b></td>
+            <td>배관경 50~100A (비교적 소형, 판형 SLHX 설치 용이)</td>
+            <td>3,100 RT 흡입관은 <b>500~700A(20~28인치)</b> ➔ 플래시 탱크가 훨씬 컴팩트하고 저렴</td>
+          </tr>
+          <tr>
+            <td><b>3,100 RT 냉동능력 증대</b></td>
+            <td>적용 불가 (압력손실 페널티가 과냉각 이득을 초과)</td>
+            <td><b style="color:var(--ok)">+6.5% ~ +8.2% 증대 (약 200 ~ 255 RT 추가 확보!)</b></td>
+          </tr>
+          <tr>
+            <td><b>시스템 COP 개선율</b></td>
+            <td>적용 불가 (오히려 COP -1~2% 저하 위험)</td>
+            <td><b style="color:var(--ok)">+5.5% ~ +7.5% 대폭 향상 (기저 5.8 ➔ 6.25+)</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card tight" style="margin:0;background:var(--panel2);border-top:3px solid var(--bad)">
+        <b style="color:var(--bad);font-size:13px">① 17,000 m³/h 거대 유량 &amp; ΔP 치명성</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          3,100 RT 칠러는 1초에 약 4.7 m³의 증기를 흡입합니다. 거대한 배관에 판형 열교환기를 달아 단 3 kPa만 압력손실이 생겨도 원심 임펠러의 양정 요구치가 급상승하여 전력비가 수천만 원 낭비됩니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0;background:var(--panel2);border-top:3px solid var(--bad)">
+        <b style="color:var(--bad);font-size:13px">② 흡입 과열도(SH) 상승 시 서지(Surge) 조기 발생</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          원심 압축기는 기체 역학적(Aerodynamics)으로 회전하는 날개 속도로 압력을 형성하므로 가스 밀도에 극도로 민감합니다. 가스가 뜨거워지면 동일 압력비를 못 내고 <b>부분부하 시 서지(진동·파손)</b> 영역으로 조기 추락합니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0;background:var(--panel2);border-top:3px solid var(--ok)">
+        <b style="color:var(--ok);font-size:13px">③ 플래시 이코노마이저의 완벽한 해법</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          1단 흡입관은 저항 없이 그대로 두고(ΔP = 0), 플래시 탱크에서 끓어오른 차가운 증기만 <b>2단 임펠러 입구로 직분사</b>하므로 1단 효율을 100% 지키면서 2단 압축일을 크게 깎아줍니다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. 대형 3,100 RT 2단 터보 + 플래시 이코노마이저 P&ID 배관도 -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px">
+      <h3 class="blk" style="margin:0">03.2 대형 3,100 RT 2단 터보 칠러 &amp; 플래시 이코노마이저 P&amp;ID 배관도</h3>
+      <span class="small" style="color:var(--tx3)">사내 3,100 RT 터보 칠러 실시간 사이클 배관도 (아래 시뮬레이터와 실시간 연동)</span>
+    </div>
+    <p style="font-size:13.5px;color:var(--tx2);margin:6px 0 12px">
+      응축액 1차 팽창 ➔ <b>플래시 탱크에서 17 K 심층 과냉각 액체 분리</b> ➔ <b>플래시 가스는 2단 임펠러 입구로 분사되어 디슈퍼히팅</b>을 수행합니다.
+    </p>
+
+    <!-- SVG 다이어그램 삽입 -->
+    <div style="width:100%;overflow-x:auto;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px 12px;margin:14px 0">
+      <svg viewBox="0 0 940 440" width="100%" height="auto" style="max-width:940px;display:block;margin:0 auto;font-family:inherit">
+        <defs>
+          <marker id="c_arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--acc)"/>
+          </marker>
+          <marker id="c_arr_hot" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#ef4444"/>
+          </marker>
+          <marker id="c_arr_flash" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#facc15"/>
+          </marker>
+          <marker id="c_arr_cool" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284c7"/>
+          </marker>
+          <linearGradient id="c_flashGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--panel2)"/>
+            <stop offset="50%" stop-color="color-mix(in srgb, var(--acc) 15%, transparent)"/>
+            <stop offset="100%" stop-color="color-mix(in srgb, var(--acc) 45%, transparent)"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 1. 2단 원심식(터보) 압축기 -->
+        <g transform="translate(180, 50)">
+          <rect x="0" y="20" width="240" height="90" rx="14" fill="var(--panel)" stroke="var(--line2)" stroke-width="2.5"/>
+          <rect x="70" y="32" width="100" height="66" rx="8" fill="var(--panel2)" stroke="var(--acc)" stroke-width="1.5"/>
+          <text x="120" y="62" fill="var(--tx)" font-size="12" font-weight="700" text-anchor="middle">고효율 VFD 모터</text>
+          <text x="120" y="80" fill="var(--tx3)" font-size="10" text-anchor="middle" id="c_svgMotorLabel">10,900 kW (3,100 RT)</text>
+
+          <!-- 1단 임펠러 -->
+          <circle cx="25" cy="65" r="32" fill="var(--panel)" stroke="#0284c7" stroke-width="2.5"/>
+          <text x="25" y="60" fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle">1단</text>
+          <text x="25" y="75" fill="var(--tx2)" font-size="9.5" text-anchor="middle">임펠러</text>
+
+          <!-- 2단 임펠러 -->
+          <circle cx="215" cy="65" r="32" fill="var(--panel)" stroke="#ef4444" stroke-width="2.5"/>
+          <text x="215" y="60" fill="#f87171" font-size="11" font-weight="700" text-anchor="middle">2단</text>
+          <text x="215" y="75" fill="var(--tx2)" font-size="9.5" text-anchor="middle">임펠러</text>
+
+          <!-- 중간단 연결 덕트 및 주입 포트 -->
+          <path d="M 57 65 L 183 65" stroke="var(--line2)" stroke-width="6"/>
+          <circle cx="120" cy="110" r="7" fill="#facc15" stroke="var(--panel)" stroke-width="1.5"/>
+          <text x="120" y="128" fill="#facc15" font-size="10" font-weight="700" text-anchor="middle" id="c_svgPmidLabel">중간단 주입 (Pmid ≈ 0.63 MPa)</text>
+        </g>
+
+        <!-- 2. 수냉식 쉘앤튜브 응축기 -->
+        <g transform="translate(620, 50)">
+          <rect x="0" y="0" width="220" height="90" rx="14" fill="var(--panel)" stroke="#f87171" stroke-width="2.5"/>
+          <text x="110" y="28" fill="#f87171" font-size="13" font-weight="700" text-anchor="middle">쉘앤튜브 응축기 (Condenser)</text>
+          <text x="110" y="46" fill="var(--tx2)" font-size="10.5" text-anchor="middle" id="c_svgCondLabel">포화 응축 (Tc ≈ 41.0 °C / 1.05 MPa)</text>
+
+          <!-- 냉각수 입출구 -->
+          <path d="M 40 -25 L 40 0" stroke="#0284c7" stroke-width="3" marker-end="url(#c_arr_cool)"/>
+          <text x="40" y="-30" fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle">냉각수 In 32℃</text>
+
+          <path d="M 180 0 L 180 -25" stroke="#ef4444" stroke-width="3" marker-end="url(#c_arr_hot)"/>
+          <text x="180" y="-30" fill="#f87171" font-size="10" font-weight="700" text-anchor="middle">냉각탑 Out 39℃</text>
+        </g>
+
+        <!-- 3. 플래시 탱크 이코노마이저 -->
+        <g transform="translate(530, 200)">
+          <rect x="0" y="0" width="160" height="150" rx="16" fill="url(#c_flashGrad)" stroke="#facc15" stroke-width="2.8"/>
+          <text x="80" y="24" fill="#facc15" font-size="12.5" font-weight="700" text-anchor="middle">플래시 탱크 이코노마이저</text>
+          <text x="80" y="40" fill="var(--tx2)" font-size="10" text-anchor="middle">(Flash Economizer Tank)</text>
+
+          <line x1="10" y1="85" x2="150" y2="85" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="80" y="68" fill="#facc15" font-size="10" font-weight="600" text-anchor="middle">플래시 가스 분리구역</text>
+          <text x="80" y="112" fill="#38bdf8" font-size="10.5" font-weight="700" text-anchor="middle" id="c_svgTsubText">과냉각 액체 (Tmid ≈ 24.3℃)</text>
+          <text x="80" y="128" fill="var(--ok)" font-size="10" font-weight="700" text-anchor="middle" id="c_svgDtsubText">ΔTsub = 16.8 K 심층 과냉각!</text>
+        </g>
+
+        <!-- 4. 만액식 쉘앤튜브 증발기 -->
+        <g transform="translate(140, 270)">
+          <rect x="0" y="0" width="260" height="100" rx="14" fill="var(--panel)" stroke="#0284c7" stroke-width="2.5"/>
+          <text x="130" y="28" fill="#38bdf8" font-size="13" font-weight="700" text-anchor="middle">만액식 쉘앤튜브 증발기 (Evaporator)</text>
+          <text x="130" y="46" fill="var(--tx2)" font-size="10.5" text-anchor="middle" id="c_svgEvapLabel">냉매 비등 (Te ≈ 7.5 °C / 0.38 MPa)</text>
+
+          <!-- 냉수 입출구 -->
+          <path d="M 50 100 L 50 130" stroke="#059669" stroke-width="3"/>
+          <text x="50" y="145" fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" id="c_svgChilledIn">냉수 In 17℃</text>
+
+          <path d="M 210 130 L 210 100" stroke="#0284c7" stroke-width="3"/>
+          <text x="210" y="145" fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle" id="c_svgChilledOut">HT 냉수 Out 10℃</text>
+        </g>
+
+        <!-- 5. 배관 연결선 -->
+        <!-- (1) 압축기 2단 토출 ➔ 응축기 -->
+        <path d="M 425 115 L 620 115" stroke="#ef4444" stroke-width="3.5" marker-end="url(#c_arr_hot)"/>
+
+        <!-- (2) 응축기 출구 ➔ 1차 팽창 ➔ 플래시 탱크 -->
+        <path d="M 730 140 L 730 220 L 690 220" stroke="#f87171" stroke-width="3" marker-end="url(#c_arr_hot)"/>
+        <circle cx="710" cy="220" r="9" fill="var(--panel)" stroke="#f87171" stroke-width="1.8"/>
+        <text x="710" y="204" fill="#f87171" font-size="9" text-anchor="middle">1차 팽창</text>
+
+        <!-- (3) 플래시 탱크 상부 ➔ 2단 압축기 중간단 (디슈퍼히팅 가스 주입) -->
+        <path d="M 610 200 L 610 165 L 300 165" stroke="#facc15" stroke-width="3" stroke-dasharray="5 3" marker-end="url(#c_arr_flash)"/>
+        <rect x="375" y="152" width="180" height="20" rx="4" fill="var(--panel)" stroke="#facc15" stroke-width="1.2"/>
+        <text x="465" y="166" fill="#facc15" font-size="9.5" font-weight="700" text-anchor="middle">플래시 가스 주입 (2단 디슈퍼히팅)</text>
+
+        <!-- (4) 플래시 탱크 하부 ➔ 2차 팽창 ➔ 증발기 -->
+        <path d="M 530 320 L 400 320" stroke="#38bdf8" stroke-width="3.5" marker-end="url(#c_arr_cool)"/>
+        <circle cx="450" cy="320" r="9" fill="var(--panel)" stroke="#38bdf8" stroke-width="1.8"/>
+        <text x="450" y="304" fill="#38bdf8" font-size="9" text-anchor="middle">2차 팽창</text>
+
+        <!-- (5) 증발기 ➔ 1단 압축기 흡입관 (무저항 직결, ΔP = 0) -->
+        <path d="M 205 270 L 205 145" stroke="#0284c7" stroke-width="5" marker-end="url(#c_arr_cool)"/>
+        <rect x="80" y="195" width="120" height="24" rx="5" fill="var(--panel)" stroke="#0284c7" stroke-width="1.4"/>
+        <text x="140" y="211" fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle">흡입관 ΔP = 0 kPa ⭕</text>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 3. 3,100 RT 전용 대형 터보 이코노마이저 실시간 계산기 -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+      <div>
+        <h3 class="blk" style="margin:0">03.3 3,100 RT 대형 터보 칠러 전용 실시간 성능 &amp; 경제성 시뮬레이터</h3>
+        <div class="small" style="color:var(--tx3)">사내 칠러 용량, 운전시간, 전력단가를 조절하여 정량적 절감 효과를 즉시 산출합니다.</div>
+      </div>
+      <div class="badge b-acc" id="c_activeChillerBadge">HT 칠러 (냉수 17➔10℃) / 3,100 RT 기준</div>
+    </div>
+
+    <!-- 컨트롤 바 -->
+    <div class="ctl" style="background:var(--panel2);margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font-size:12.5px;font-weight:700;color:var(--tx)">🏢 대상 칠러 선택:</span>
+          <button class="btn on" id="c_btnHT" type="button" style="padding:5px 14px;font-size:12px;font-weight:700">❄️ HT 칠러 (10℃ 고온용)</button>
+          <button class="btn" id="c_btnLT" type="button" style="padding:5px 14px;font-size:12px;font-weight:700">❄️ LT 칠러 (5℃ 저온용)</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span style="font-size:12.5px;font-weight:700;color:var(--tx)">🧪 대상 냉매:</span>
+          <button class="btn on" id="c_btnR134a" type="button" style="padding:4px 10px;font-size:11.5px">R134a (기존)</button>
+          <button class="btn" id="c_btnR1234ze" type="button" style="padding:4px 10px;font-size:11.5px">R1234ze (친환경)</button>
+          <button class="btn" id="c_btnR1233ze" type="button" style="padding:4px 10px;font-size:11.5px">R1233ze (저압 친환경)</button>
+        </div>
+      </div>
+
+      <div class="ctl-grid">
+        <div class="field">
+          <label>
+            <span>칠러 정격 냉동용량</span>
+            <span class="v" id="v_c_rt">3,100 RT</span>
+          </label>
+          <div class="field-desc">사내 터보 칠러 냉방 용량 (1 RT ≈ 3.517 kW)</div>
+          <input type="range" id="c_rt" min="2000" max="4000" step="50" value="3100">
+        </div>
+
+        <div class="field">
+          <label>
+            <span>이코노마이저 구조</span>
+            <span class="v" id="v_c_eco">플래시 탱크형</span>
+          </label>
+          <div class="field-desc">플래시 탱크(권장 표준) vs 판형 서브쿨러형</div>
+          <select id="c_eco_type" style="padding:5px 8px;font-size:12px;border-radius:6px;background:var(--panel);color:var(--tx);border:1px solid var(--line2)">
+            <option value="flash" selected>플래시 탱크형 (Flash Tank - 표준, ΔT=0K)</option>
+            <option value="plate">간접 판형 서브쿨러형 (Plate Subcooler, ΔT=2K)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>
+            <span>연간 운전시간</span>
+            <span class="v" id="v_c_hours">4,000 시간</span>
+          </label>
+          <div class="field-desc">공장 가동 패턴 (주야 연속 또는 피크 가동)</div>
+          <input type="range" id="c_hours" min="1500" max="8000" step="250" value="4000">
+        </div>
+
+        <div class="field">
+          <label>
+            <span>산업용 전력 단가</span>
+            <span class="v" id="v_c_rate">120 원/kWh</span>
+          </label>
+          <div class="field-desc">사내 수전 계약 전력 요금 (계절/부하 평균)</div>
+          <input type="range" id="c_rate" min="80" max="220" step="5" value="120">
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI 결과 매트릭스 -->
+    <div class="grid g4" style="margin-bottom:16px">
+      <div class="kpi pos">
+        <div class="lbl">냉동 능력 증대 (추가 확보)</div>
+        <div class="val" id="c_kpiCapGain">+16.2 <span class="u">%</span></div>
+        <div class="note" id="c_kpiAddedRt">+501 RT 냉방 용량 무료 추가</div>
+      </div>
+      <div class="kpi pos">
+        <div class="lbl">시스템 COP 향상률</div>
+        <div class="val" id="c_kpiCopGain">+18.4 <span class="u">%</span></div>
+        <div class="note" id="c_kpiCopText">기저 5.81 ➔ 이코노 6.88</div>
+      </div>
+      <div class="kpi pos">
+        <div class="lbl">연간 전기요금 절감액</div>
+        <div class="val" id="c_kpiCostSaved">1.40 <span class="u">억원/년</span></div>
+        <div class="note" id="c_kpiPowerSaved">소비전력 -291 kW 연속 절감</div>
+      </div>
+      <div class="kpi pos">
+        <div class="lbl">연간 온실가스 감축량</div>
+        <div class="val" id="c_kpiCo2Saved">557 <span class="u">tCO₂/년</span></div>
+        <div class="note">소나무 약 84,000그루 식재 효과</div>
+      </div>
+    </div>
+
+    <!-- 정밀 사이클 상태점 표 -->
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>항목</th>
+            <th>기저 1단 터보 (단순 사이클)</th>
+            <th>2단 압축 + 플래시 이코노마이저 사이클</th>
+            <th>실무 엔지니어링 해석</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>중간 플래시 압력 (Pmid)</b></td>
+            <td class="num">- (단일 압축)</td>
+            <td class="num" id="c_tblPmid">0.63 MPa (Tmid ≈ 24.3 °C)</td>
+            <td>1단/2단 최적 기하평균 압력비 배분 (\( P_{\mathrm{mid}} = \sqrt{P_e \cdot P_c} \))</td>
+          </tr>
+          <tr>
+            <td><b>팽창 직전 액체 온도</b></td>
+            <td class="num" id="c_tblTliqBase">41.0 °C (과냉각 없음)</td>
+            <td class="num" id="c_tblTliqEco" style="color:var(--ok)">24.3 °C (ΔTsub = 16.8 K)</td>
+            <td><b>16.8 K의 깊은 과냉각</b>으로 증발기 입구 플래시 가스 손실 제로화</td>
+          </tr>
+          <tr>
+            <td><b>1단 흡입관 압력강하 (ΔP)</b></td>
+            <td class="num">0.0 kPa</td>
+            <td class="num" style="color:var(--ok)">0.0 kPa (손실 없음)</td>
+            <td>흡입관 열교환기가 없으므로 1단 임펠러 공기역학적 양정 손실 0%</td>
+          </tr>
+          <tr>
+            <td><b>소요 동력 (kW/RT)</b></td>
+            <td class="num" id="c_tblKwRtBase">0.605 kW/RT</td>
+            <td class="num" id="c_tblKwRtEco" style="color:var(--ok)">0.511 kW/RT</td>
+            <td>1 RT 냉방을 만드는 데 드는 전력이 <b>15.6% 절감</b></td>
+          </tr>
+          <tr>
+            <td><b>친환경 냉매(R1234ze/R1233ze) 호환성</b></td>
+            <td>체적능력 15~20% 결손 (임펠러 대형화 필요)</td>
+            <td style="color:var(--ok)"><b>체적능력 결손 100% 상쇄 (프레임 유지 드롭인)</b></td>
+            <td>기존 R134a 3,100 RT 칠러 프레임 그대로 친환경 전환 가능</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 4. 실무 엔지니어링 & 시공 체크리스트 -->
+  <div class="card">
+    <h3 class="blk">03.4 3,100 RT 대형 터보 이코노마이저 현장 시공 &amp; 운전 4대 수칙</h3>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card tight" style="margin:0;background:var(--panel2)">
+        <b style="color:var(--acc);font-size:13px">수칙 1. 플래시 탱크 액면 제어 신뢰성 확보 (캐리오버 방지)</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          플래시 탱크 내 액면이 지나치게 상승하면 액체 냉매가 플래시 증기 라인을 타고 <b>2단 임펠러로 넘어가 액압축 파손(Liquid Ingestion)</b>을 일으킬 수 있습니다.
+          신뢰성 높은 <b>듀얼 파일럿 플로트 밸브 또는 차압식 레벨센서 + 고속 전동 제어 밸브</b>를 설치하고, 탱크 상부에 <b>와이어메시 데미스터(Demister, 액적 분리기)</b>를 필수 내장해야 합니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0;background:var(--panel2)">
+        <b style="color:var(--ok);font-size:13px">수칙 2. 터보 압축기 오일 회수 (Eductor Oil Return) 연동</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          만액식 쉘앤튜브 증발기에서는 냉동기유가 액체 냉매 상부에 농축됩니다.
+          고압 액체 라인의 압력을 구동원으로 사용하는 <b>이젝터(Eductor) 오일 회수 시스템</b>을 설치하여, 압축기 오일 섬프로 냉동기유가 지속적으로 자동 회수되도록 구성합니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0;background:var(--panel2)">
+        <b style="color:var(--warn);font-size:13px">수칙 3. 부분부하 시 IGV 및 인버터(VFD) 서지(Surge) 방지 제어</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          부하율이 30% 이하로 떨어지면 중간단 압력(\( P_{\mathrm{mid}} \))이 낮아져 2단 임펠러의 서지 마진이 줄어들 수 있습니다.
+          DDC 컨트롤러가 <b>입구 가이드 베인(IGV) 각도와 VFD 주파수를 동시 제어</b>하며, 필요 시 핫가스 바이패스를 연동하여 어떤 저부하에서도 서지 없는 무진동 운전을 보장해야 합니다.
+        </p>
+      </div>
+      <div class="card tight" style="margin:0;background:var(--panel2)">
+        <b style="color:var(--tx);font-size:13px">수칙 4. 중간 가스 주입 라인 음향 맥동 및 진동 절연</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:4px 0 0">
+          플래시 가스가 2단 임펠러로 고속 유입될 때 기류 소음 및 음향 공진이 발생할 수 있습니다.
+          주입 배관에 <b>유선형 노즐 디퓨저</b>를 적용하고, 압축기 케이싱 연결부에 <b>플렉시블 조인트 및 방진 행거</b>를 시공하여 기계실 소음을 80 dBA 이하로 억제합니다.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================================================================ 04 : THERMO ================= -->
 <section class="tabpane" id="s2">
   <div class="sechead">
-    <span class="no">03</span><h2>📈 P-h 선도 &amp; 열역학적 작동 원리</h2>
+    <span class="no">04</span><h2>📈 P-h 선도 &amp; 열역학적 작동 원리</h2>
     <span class="desc">실무자를 위한 직관적 원리 · 실시간 P-h 선도 시뮬레이터 · 상태점 해석 및 판별식</span>
   </div>
 
@@ -1395,11 +1800,11 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     </div>
   </div>
 </section>
-<!-- ================================================================ 04 : REFRIGERANTS ================= -->
+<!-- ================================================================ 05 : REFRIGERANTS ================= -->
 <section class="tabpane" id="s3">
 
   <div class="sechead">
-    <span class="no">04</span><h2>⚖️ 냉매별 판정 &amp; 민감도 종합 비교</h2>
+    <span class="no">05</span><h2>⚖️ 냉매별 판정 &amp; 민감도 종합 비교</h2>
     <span class="desc">7대 주요 냉매 실시간 판정 매트릭스 · 핵심 KPI · 바 차트 · 유효도(ε) &amp; 증발온도 스윕 · CO2 초임계 해석</span>
   </div>
 
@@ -1556,10 +1961,10 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     </div>
   </div>
 </section>
-<!-- ================================================================ 05 : TRADEOFF ================= -->
+<!-- ================================================================ 06 : TRADEOFF ================= -->
 <section class="tabpane" id="s4">
   <div class="sechead">
-    <span class="no">05</span><h2>🎛️ 상세 트레이드오프 분석 &amp; 실시간 시뮬레이터</h2>
+    <span class="no">06</span><h2>🎛️ 상세 트레이드오프 분석 &amp; 실시간 시뮬레이터</h2>
     <span class="desc">이득 메커니즘 · 신뢰성 리스크 · 흡입 ΔP 역효과 정량화</span>
   </div>
 
@@ -1655,10 +2060,10 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
     </div>
   </div>
 </section>
-<!-- ================================================================ 06 : FIELD ================= -->
+<!-- ================================================================ 07 : FIELD ================= -->
 <section class="tabpane" id="s5">
   <div class="sechead">
-    <span class="no">06</span><h2>🛠️ 현장 시공 엔지니어링 가이드라인 &amp; 트러블슈팅</h2>
+    <span class="no">07</span><h2>🛠️ 현장 시공 엔지니어링 가이드라인 &amp; 트러블슈팅</h2>
     <span class="desc">형식 선정 · 과열도 센싱 · 토출온도 회피 대책</span>
   </div>
 
@@ -1753,10 +2158,10 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
   </div>
 </section>
 
-<!-- ================================================================ 07 : ROADMAP ================= -->
+<!-- ================================================================ 08 : ROADMAP ================= -->
 <section class="tabpane" id="s6">
   <div class="sechead">
-    <span class="no">07</span><h2>📋 결론 및 R&amp;D 추진 제언 · 종합 체크리스트</h2>
+    <span class="no">08</span><h2>📋 결론 및 R&amp;D 추진 제언 · 종합 체크리스트</h2>
     <span class="desc">적용 권고 조합 · 시작품 검증 계획</span>
   </div>
 
@@ -2930,6 +3335,111 @@ function renderDesiccant(){
   if($('#d_resHeatAct')) $('#d_resHeatAct').textContent = f1(QheatAct, 1) + ' kW (절감 -' + f1(Qshx, 1) + ' kW)';
 }
 
+
+/* ================= 3,100 RT CENTRIFUGAL CHILLER SIMULATOR ================= */
+var C_STATE = {
+  mode: 'HT',
+  fluid: 'R134a',
+  rt: 3100,
+  ecoType: 'flash',
+  hours: 4000,
+  rate: 120
+};
+
+function renderCentrifugal(){
+  var S_c = C_STATE;
+  var Te = (S_c.mode === 'HT') ? 7.5 : 2.5;
+  var Tc = 41.0;
+
+  var Pe, Pc, h1, h4, cpL;
+  if(S_c.fluid === 'R134a'){
+    Pe = (S_c.mode === 'HT') ? 0.380 : 0.320;
+    Pc = 1.050;
+    h1 = 405.0; h4 = 258.0; cpL = 1.42;
+  } else if(S_c.fluid === 'R1234ze'){
+    Pe = (S_c.mode === 'HT') ? 0.295 : 0.248;
+    Pc = 0.810;
+    h1 = 392.0; h4 = 259.0; cpL = 1.38;
+  } else {
+    Pe = (S_c.mode === 'HT') ? 0.085 : 0.070;
+    Pc = 0.245;
+    h1 = 385.0; h4 = 250.0; cpL = 1.35;
+  }
+
+  var Pmid = Math.sqrt(Pe * Pc);
+  var Tmid = Te + (Tc - Te) * (Math.log(Pmid / Pe) / Math.log(Pc / Pe));
+  var dTsub = Tc - Tmid;
+  if(S_c.ecoType === 'plate'){
+    Tmid += 2.0;
+    dTsub -= 2.0;
+  }
+  var h5 = h4 - cpL * dTsub;
+
+  var qe_base = h1 - h4;
+  var qe_eco = h1 - h5;
+  var cap_gain_pct = (qe_eco - qe_base) / qe_base * 100;
+  var added_rt = S_c.rt * (cap_gain_pct / 100);
+
+  var eta_is = 0.78;
+  var pr_base = Pc / Pe;
+  var w_base = 0.185 * h1 * (Math.pow(pr_base, 0.23) - 1) / eta_is;
+  var cop_base = qe_base / w_base;
+
+  var pr1 = Pmid / Pe;
+  var w1 = 0.185 * h1 * (Math.pow(pr1, 0.23) - 1) / eta_is;
+  var pr2 = Pc / Pmid;
+  var w2 = 0.185 * (h1 + w1 * 0.7) * (Math.pow(pr2, 0.23) - 1) / eta_is;
+  var x_flash = (S_c.ecoType === 'flash') ? ((h4 - h5) / (h1 - h5 + 30)) : 0.07;
+  var w_tot_eco = w1 + w2 / (1.0 - x_flash * 0.5);
+  var cop_eco = qe_eco / w_tot_eco;
+  var cop_gain_pct = (cop_eco - cop_base) / cop_base * 100;
+
+  var Q_base_kW = S_c.rt * 3.51685;
+  var P_base_kW = Q_base_kW / cop_base;
+  var P_eco_kW = Q_base_kW / cop_eco;
+  var P_saved_kW = P_base_kW - P_eco_kW;
+
+  var annual_kwh_saved = P_saved_kW * S_c.hours;
+  var annual_cost_saved = annual_kwh_saved * S_c.rate;
+  var annual_co2_saved = (annual_kwh_saved * 0.4781) / 1000.0;
+
+  if($('#v_c_rt')) $('#v_c_rt').textContent = f1(S_c.rt, 0) + ' RT';
+  if($('#v_c_hours')) $('#v_c_hours').textContent = f1(S_c.hours, 0) + ' 시간';
+  if($('#v_c_rate')) $('#v_c_rate').textContent = f1(S_c.rate, 0) + ' 원/kWh';
+  if($('#v_c_eco')) $('#v_c_eco').textContent = (S_c.ecoType === 'flash') ? '플래시 탱크형' : '판형 서브쿨러형';
+
+  if($('#c_activeChillerBadge')){
+    $('#c_activeChillerBadge').textContent = (S_c.mode === 'HT' ? 'HT 칠러 (냉수 17➔10℃)' : 'LT 칠러 (냉수 12➔5℃)') + ' / ' + f1(S_c.rt, 0) + ' RT 기준';
+  }
+
+  if($('#c_summarySaveBadge')){
+    $('#c_summarySaveBadge').textContent = '~' + f1(annual_cost_saved / 100000000, 2) + ' 억원/년';
+  }
+
+  if($('#c_kpiCapGain')) $('#c_kpiCapGain').innerHTML = '+' + f1(cap_gain_pct, 1) + ' <span class="u">%</span>';
+  if($('#c_kpiAddedRt')) $('#c_kpiAddedRt').textContent = '+' + f1(added_rt, 0) + ' RT 냉방 용량 무료 추가';
+  if($('#c_kpiCopGain')) $('#c_kpiCopGain').innerHTML = '+' + f1(cop_gain_pct, 1) + ' <span class="u">%</span>';
+  if($('#c_kpiCopText')) $('#c_kpiCopText').textContent = '기저 ' + f1(cop_base, 2) + ' ➔ 이코노 ' + f1(cop_eco, 2);
+  if($('#c_kpiCostSaved')) $('#c_kpiCostSaved').innerHTML = f1(annual_cost_saved / 100000000, 2) + ' <span class="u">억원/년</span>';
+  if($('#c_kpiPowerSaved')) $('#c_kpiPowerSaved').textContent = '소비전력 -' + f1(P_saved_kW, 0) + ' kW 연속 절감';
+  if($('#c_kpiCo2Saved')) $('#c_kpiCo2Saved').innerHTML = f1(annual_co2_saved, 0) + ' <span class="u">tCO₂/년</span>';
+
+  if($('#c_tblPmid')) $('#c_tblPmid').textContent = f1(Pmid, 2) + ' MPa (Tmid ≈ ' + f1(Tmid, 1) + ' °C)';
+  if($('#c_tblTliqBase')) $('#c_tblTliqBase').textContent = f1(Tc, 1) + ' °C (과냉각 없음)';
+  if($('#c_tblTliqEco')) $('#c_tblTliqEco').textContent = f1(Tmid, 1) + ' °C (ΔTsub = ' + f1(dTsub, 1) + ' K)';
+  if($('#c_tblKwRtBase')) $('#c_tblKwRtBase').textContent = f1(3.51685 / cop_base, 3) + ' kW/RT';
+  if($('#c_tblKwRtEco')) $('#c_tblKwRtEco').textContent = f1(3.51685 / cop_eco, 3) + ' kW/RT';
+
+  if($('#c_svgMotorLabel')) $('#c_svgMotorLabel').textContent = f1(Q_base_kW, 0) + ' kW (' + f1(S_c.rt, 0) + ' RT)';
+  if($('#c_svgPmidLabel')) $('#c_svgPmidLabel').textContent = '중간단 주입 (Pmid ≈ ' + f1(Pmid, 2) + ' MPa)';
+  if($('#c_svgCondLabel')) $('#c_svgCondLabel').textContent = '포화 응축 (Tc ≈ 41.0 °C / ' + f1(Pc, 2) + ' MPa)';
+  if($('#c_svgTsubText')) $('#c_svgTsubText').textContent = '과냉각 액체 (Tmid ≈ ' + f1(Tmid, 1) + '℃)';
+  if($('#c_svgDtsubText')) $('#c_svgDtsubText').textContent = 'ΔTsub = ' + f1(dTsub, 1) + ' K 심층 과냉각!';
+  if($('#c_svgEvapLabel')) $('#c_svgEvapLabel').textContent = '냉매 비등 (Te ≈ ' + f1(Te, 1) + ' °C / ' + f1(Pe, 2) + ' MPa)';
+  if($('#c_svgChilledIn')) $('#c_svgChilledIn').textContent = (S_c.mode === 'HT') ? '냉수 In 17℃' : '냉수 In 12℃';
+  if($('#c_svgChilledOut')) $('#c_svgChilledOut').textContent = (S_c.mode === 'HT') ? 'HT 냉수 Out 10℃' : 'LT 냉수 Out 5℃';
+}
+
 function refresh(){
   syncLabels();
   renderKPI(); renderStates(); buildPh();
@@ -2938,6 +3448,7 @@ function refresh(){
   renderPID();
   renderS0Compare();
   renderDesiccant();
+  renderCentrifugal();
   if(window.MathJax&&MathJax.typesetPromise) MathJax.typesetPromise().catch(function(){});
 }
 
@@ -3065,7 +3576,68 @@ function bind(){
     refresh();
   });
 
-  $$('#tabs button').forEach(function(b){
+
+  // Centrifugal Chiller Bindings
+  if($('#c_btnHT')) {
+    $('#c_btnHT').addEventListener('click', function(){
+      C_STATE.mode = 'HT';
+      this.classList.add('on');
+      $('#c_btnLT').classList.remove('on');
+      renderCentrifugal();
+    });
+  }
+  if($('#c_btnLT')) {
+    $('#c_btnLT').addEventListener('click', function(){
+      C_STATE.mode = 'LT';
+      this.classList.add('on');
+      $('#c_btnHT').classList.remove('on');
+      renderCentrifugal();
+    });
+  }
+
+  ['R134a', 'R1234ze', 'R1233ze'].forEach(function(fld){
+    var btn = $('#c_btn' + fld);
+    if(btn){
+      btn.addEventListener('click', function(){
+        C_STATE.fluid = fld;
+        ['R134a', 'R1234ze', 'R1233ze'].forEach(function(x){
+          var b = $('#c_btn' + x);
+          if(b){ if(x === fld) b.classList.add('on'); else b.classList.remove('on'); }
+        });
+        renderCentrifugal();
+      });
+    }
+  });
+
+  if($('#c_rt')) {
+    $('#c_rt').addEventListener('input', function(){
+      C_STATE.rt = parseInt(this.value, 10);
+      renderCentrifugal();
+    });
+  }
+
+  if($('#c_eco_type')) {
+    $('#c_eco_type').addEventListener('change', function(){
+      C_STATE.ecoType = this.value;
+      renderCentrifugal();
+    });
+  }
+
+  if($('#c_hours')) {
+    $('#c_hours').addEventListener('input', function(){
+      C_STATE.hours = parseInt(this.value, 10);
+      renderCentrifugal();
+    });
+  }
+
+  if($('#c_rate')) {
+    $('#c_rate').addEventListener('input', function(){
+      C_STATE.rate = parseInt(this.value, 10);
+      renderCentrifugal();
+    });
+  }
+
+    $$('#tabs button').forEach(function(b){
     b.addEventListener('click',function(){
       $$('#tabs button').forEach(function(x){ x.setAttribute('aria-selected','false'); });
       b.setAttribute('aria-selected','true');
