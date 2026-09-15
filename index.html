@@ -82,7 +82,10 @@ header.top{
 .btn.on{background:var(--acc);color:#04121f;border-color:var(--acc)}
 
 /* 탭 */
-nav.tabs{display:flex;gap:4px;overflow-x:auto;border-top:1px solid var(--line);padding:6px 0;scrollbar-width:thin}
+nav.tabs{display:flex;gap:4px;overflow-x:auto;border-top:1px solid var(--line);padding:6px 0;scrollbar-width:thin;position:relative;-webkit-overflow-scrolling:touch}
+/* 모바일 탭 스크롤 힌트 그라디언트 */
+.tabs-wrap{position:relative}
+.tabs-wrap::after{content:"";position:absolute;right:0;top:0;bottom:0;width:48px;background:linear-gradient(90deg,transparent,var(--bg));pointer-events:none;z-index:2;border-radius:0 0 8px 0}
 nav.tabs button{
   border:0;background:transparent;color:var(--tx3);font-family:inherit;font-size:13px;font-weight:600;
   padding:8px 14px;border-radius:8px;cursor:pointer;white-space:nowrap;transition:.15s;
@@ -234,12 +237,36 @@ footer{border-top:1px solid var(--line);padding:22px 0 40px;color:var(--tx3);fon
   .sechead h2{font-size:18px}
   body{font-size:14px}
   .kpi .val{font-size:22px}
+  nav.tabs button{padding:6px 10px;font-size:11.5px}
+  nav.tabs button .n{font-size:10px;margin-right:4px}
 }
+/* 라이트 모드 SVG 텍스트 가독성 보강 (저대비 색상 진하게) */
+html[data-theme="light"] svg text[fill="#facc15"]{fill:#a16207!important}
+html[data-theme="light"] svg text[fill="#34d399"]{fill:#047857!important}
+html[data-theme="light"] svg text[fill="#38bdf8"]{fill:#0369a1!important}
+html[data-theme="light"] svg text[fill="#f87171"]{fill:#b91c1c!important}
+html[data-theme="light"] svg text[fill="#c084fc"]{fill:#7c3aed!important}
+html[data-theme="light"] svg text[fill="#fb923c"]{fill:#c2410c!important}
+html[data-theme="light"] svg text[fill="#f472b6"]{fill:#be185d!important}
+html[data-theme="light"] svg text[fill="#94a3b8"]{fill:#475569!important}
+html[data-theme="light"] svg text[fill="#ef4444"]{fill:#b91c1c!important}
+html[data-theme="light"] svg .badge-rect{stroke-opacity:0.6}
 html[data-theme="light"] .chip[aria-pressed="true"],
 html[data-theme="light"] .btn.on{color:#fff}
 html[data-theme="light"] .logo{color:#fff}
 html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
-@media print{header.top,nav.tabs,.ctl{display:none}section.tabpane{display:block!important}}
+@media print{
+  header.top,nav.tabs,.ctl,.tabs-wrap::after{display:none}
+  section.tabpane{display:block!important;page-break-before:always}
+  section.tabpane:first-of-type{page-break-before:avoid}
+  .card{break-inside:avoid}
+  .grid{display:block}
+  .grid>*{margin-bottom:12px}
+  body{font-size:12px;color:#000;background:#fff}
+  .sechead h2{font-size:18px}
+  .kpi{border:1px solid #ccc}
+  canvas{max-height:300px}
+}
 
 /* 개선된 운전조건 패널 전용 스타일 */
 .panel-chiller{background:linear-gradient(180deg,var(--panel2),color-mix(in srgb,var(--panel2) 85%,var(--panel)));border:1px solid var(--line);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow)}
@@ -268,8 +295,9 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
       <button class="btn" id="btnPreset10" type="button" style="border-color:var(--acc);color:var(--acc);font-weight:700">❄️ HT 칠러 (10℃ 고온용)</button>
       <button class="btn" id="btnPanel" type="button">⚙ 칠러 운전조건</button>
       <button class="btn" id="btnTheme" type="button">◐ 라이트</button>
+      <button class="btn" id="btnPrint" type="button" title="전체 리포트 인쇄/PDF 저장">🖨️ 인쇄</button>
     </div>
-    <nav class="tabs" role="tablist" id="tabs">
+    <div class="tabs-wrap"><nav class="tabs" role="tablist" id="tabs">
       <button role="tab" data-t="s_fast" aria-selected="true"><span class="n">00</span>⚡ 1분 실무 요약</button>
       <button role="tab" data-t="s_desiccant" aria-selected="false"><span class="n">01</span>💧 액체식 제습기 (CrecoPlus)</button>
       <button role="tab" data-t="s0" aria-selected="false"><span class="n">02</span>❄️ 수냉식 칠러 (LT/HT 체계)</button>
@@ -279,14 +307,14 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
       <button role="tab" data-t="s4" aria-selected="false"><span class="n">06</span>🎛️ 트레이드오프 &amp; 리스크</button>
       <button role="tab" data-t="s5" aria-selected="false"><span class="n">07</span>🛠️ 현장 시공 &amp; 트러블슈팅</button>
       <button role="tab" data-t="s6" aria-selected="false"><span class="n">08</span>📋 R&amp;D 제언 &amp; 체크리스트</button>
-    </nav>
+    </nav></div>
   </div>
 </header>
 
 <!-- ============ 수냉식 칠러 운전조건 시뮬레이터 패널 ============ -->
 <div class="wrap" style="padding-top:16px">
   <div class="warnbar" id="cdnWarn">
-    ⚠ 외부 CDN(Chart.js / MathJax) 로딩에 실패했습니다. 차트와 수식이 표시되지 않을 수 있으며, 수치 표와 계산 결과는 정상 동작합니다.
+    ⚠ 외부 CDN(Chart.js / MathJax) 로딩에 실패했습니다. <b>사내 인트라넷 환경에서는 외부 접속이 차단될 수 있습니다.</b> 차트와 수식이 표시되지 않을 수 있으나, 수치 표와 계산 결과는 정상 동작합니다.
   </div>
 
   <div class="ctl panel-chiller" id="panel">
@@ -367,7 +395,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="vTe"></span>
           </label>
           <div class="field-desc">LT 5℃(또는 HT 10℃) 냉수 제조용 냉매온도 (접근온도차 -2.5K)</div>
-          <input type="range" id="Te" min="-30" max="15" step="0.5" value="2.5">
+          <input type="range" aria-label="증발온도 Te (℃)" id="Te" min="-30" max="15" step="0.5" value="2.5">
         </div>
 
         <div class="field" id="fTc">
@@ -376,7 +404,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="vTc"></span>
           </label>
           <div class="field-desc">냉각탑 냉각수(39℃) 방열 냉매온도 (+2.0K 마진)</div>
-          <input type="range" id="Tc" min="30" max="65" step="0.5" value="41">
+          <input type="range" aria-label="응축온도 Tc (℃)" id="Tc" min="30" max="65" step="0.5" value="41">
         </div>
 
         <div class="field" id="fPgc" style="display:none">
@@ -385,7 +413,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="vPgc"></span>
           </label>
           <div class="field-desc">초임계 운전 시 고압측 방열 압력 (CO2/R744 전용)</div>
-          <input type="range" id="Pgc" min="7.6" max="11.9" step="0.1" value="8.5">
+          <input type="range" aria-label="가스쿨러 압력 Pgc (MPa)" id="Pgc" min="7.6" max="11.9" step="0.1" value="8.5">
         </div>
 
         <div class="field" id="fTgc" style="display:none">
@@ -394,7 +422,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="vTgc"></span>
           </label>
           <div class="field-desc">가스쿨러 냉각 후 출구 냉매온도 (CO2/R744 전용)</div>
-          <input type="range" id="Tgc" min="28" max="45" step="0.5" value="35">
+          <input type="range" aria-label="가스쿨러 출구온도 Tgc (℃)" id="Tgc" min="28" max="45" step="0.5" value="35">
         </div>
 
         <div class="field">
@@ -403,7 +431,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="vEps"></span>
           </label>
           <div class="field-desc">내부열교환기 열회수 성능 (실무 권장 0.50-0.60)</div>
-          <input type="range" id="eps" min="0" max="0.9" step="0.05" value="0.55">
+          <input type="range" aria-label="IHX 유효도 ε" id="eps" min="0" max="0.9" step="0.05" value="0.55">
         </div>
 
         <div class="field">
@@ -412,7 +440,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="vSH"></span>
           </label>
           <div class="field-desc">압축기 액 유입(액백·Liquid Back) 방지 안전 마진</div>
-          <input type="range" id="SH" min="0" max="12" step="0.5" value="4">
+          <input type="range" aria-label="증발기 출구 과열도 SH (K)" id="SH" min="0" max="12" step="0.5" value="4">
         </div>
 
         <div class="field" id="fSC">
@@ -421,7 +449,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="vSC"></span>
           </label>
           <div class="field-desc">팽창밸브(EEV) 전단 기포(Flash Gas) 방지 마진</div>
-          <input type="range" id="SC" min="0" max="10" step="0.5" value="3">
+          <input type="range" aria-label="응축기 출구 과냉각도 SC (K)" id="SC" min="0" max="10" step="0.5" value="3">
         </div>
 
         <div class="field">
@@ -430,7 +458,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="vEta"></span>
           </label>
           <div class="field-desc">등엔트로피 효율 (사내 스크류/터보 기준 약 0.72)</div>
-          <input type="range" id="eta" min="0.5" max="0.85" step="0.01" value="0.72">
+          <input type="range" aria-label="등엔트로피 압축효율 η" id="eta" min="0.5" max="0.85" step="0.01" value="0.72">
         </div>
 
         <div class="field">
@@ -439,7 +467,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="vDP"></span>
           </label>
           <div class="field-desc">IHX 저압측 통과 시 배관 마찰 압력 강하 (부가분)</div>
-          <input type="range" id="dP" min="0" max="60" step="1" value="2">
+          <input type="range" aria-label="흡입관 압력손실 ΔP (kPa)" id="dP" min="0" max="60" step="1" value="2">
         </div>
       </div>
     </div>
@@ -520,7 +548,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
   <!-- 한눈에 보는 의사결정 신호등 카드 -->
   <div class="card" style="margin-top:18px">
     <h3 class="blk">실무 의사결정 신호등 (달아야 할까? 말아야 할까?)</h3>
-    <div class="grid g3" style="margin-top:10px">
+    <div class="grid g4" style="margin-top:10px">
       <div class="card tight" style="border-top:4px solid var(--ok);margin:0;background:var(--panel2)">
         <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
           <span style="font-size:18px">🟢</span> <b style="font-size:14px;color:var(--ok)">무조건 설치 (필수)</b>
@@ -548,6 +576,16 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
         <b>일반 에어컨 공조기 (R32)</b>
         <p style="font-size:12.5px;color:var(--tx2);margin:6px 0 0">
           R32는 원래 온도가 높은 냉매이므로, IHX를 달면 토출온도가 120℃를 훌쩍 넘어 압축기 오일이 타고 고장 납니다.
+        </p>
+      </div>
+
+      <div class="card tight" style="border-top:4px solid var(--ok);margin:0;background:var(--panel2)">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px">
+          <span style="font-size:18px">🟢</span> <b style="font-size:14px;color:var(--ok)">표준 사양 (필수)</b>
+        </div>
+        <b>3,100 RT 대형 터보 칠러</b>
+        <p style="font-size:12.5px;color:var(--tx2);margin:6px 0 0">
+          2단 원심 압축 + 플래시 탱크 이코노마이저는 전 세계 대형 터보 칠러의 필수 표준입니다. 흡입관 SLHX가 아닌 플래시 이코노마이저로 COP +18% 향상 및 친환경 냉매 전환 시 체적능력 결손을 100% 보상합니다.
         </p>
       </div>
     </div>
@@ -820,22 +858,22 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
         <div class="ctl-grid" style="margin-top:10px">
           <div class="field">
             <label>제습탑 용액온도 (Processor) <span class="v" id="d_vTproc">14.0 °C</span></label>
-            <input type="range" id="d_Tproc" min="10" max="20" step="0.5" value="14">
+            <input type="range" aria-label="제습탑 용액온도 (℃)" id="d_Tproc" min="10" max="20" step="0.5" value="14">
             <span class="small" style="color:var(--tx3);font-size:10.5px">실무 스펙: 13-15℃ 내외</span>
           </div>
           <div class="field">
             <label>재생탑 가열온도 (Regenerator) <span class="v" id="d_vTreg">36.5 °C</span></label>
-            <input type="range" id="d_Treg" min="28" max="42" step="0.5" value="36.5">
+            <input type="range" aria-label="재생탑 가열온도 (℃)" id="d_Treg" min="28" max="42" step="0.5" value="36.5">
             <span class="small" style="color:var(--tx3);font-size:10.5px">39℃ 칠러 폐열 활용: 37℃ 이하</span>
           </div>
           <div class="field">
             <label>열교환기 유효도 ε (SHX) <span class="v" id="d_vEps">0.75</span></label>
-            <input type="range" id="d_Eps" min="0.4" max="0.9" step="0.05" value="0.75">
+            <input type="range" aria-label="SHX 열교환 유효도 ε" id="d_Eps" min="0.4" max="0.9" step="0.05" value="0.75">
             <span class="small" style="color:var(--tx3);font-size:10.5px">SUS316 판형 통상 0.70-0.80</span>
           </div>
           <div class="field">
             <label>용액 순환 유량 <span class="v" id="d_vFlow">20 L/min</span></label>
-            <input type="range" id="d_Flow" min="5" max="60" step="1" value="20">
+            <input type="range" aria-label="용액 순환 유량 (L/min)" id="d_Flow" min="5" max="60" step="1" value="20">
             <span class="small" style="color:var(--tx3);font-size:10.5px">시스템 설계 순환 유량</span>
           </div>
         </div>
@@ -1264,7 +1302,8 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
           <b>Q. 3,100 RT급 대형 Centrifugal(터보) 칠러에도 IHX를 적용할 수 있는가?</b><br>
           <b>A. "네, 가능하며 전 세계 모든 3,000 RT급 대형 터보 칠러(Trane, Carrier, York, LG 등)의 필수 표준 사양입니다."</b><br>
           단, 소형 스크롤/스크류 칠러에서 쓰이는 <b>"흡입관 직결식 열교환기(SLHX)"는 절대 적용할 수 없으며</b>, 
-          반드시 <b>"2단 터보 압축 + 플래시 탱크 이코노마이저(Flash Tank Economizer)"</b> 사이클로 구현해야 합니다.
+          반드시 <b>"2단 터보 압축 + 플래시 탱크 이코노마이저(Flash Tank Economizer)"</b> 사이클로 구현해야 합니다.<br>
+          <span style="display:inline-block;margin-top:6px;padding:4px 10px;background:color-mix(in srgb,var(--ok) 15%,transparent);border:1px solid var(--ok);border-radius:6px;font-size:13px">🔑 <b>핵심:</b> 친환경 냉매(R1234ze/R1233ze) 전환 시 발생하는 체적능력 15-20% 결손을 이코노마이저가 <b>100% 보상</b>하여, 기존 R134a 프레임 그대로 드롭인 전환이 가능합니다.</span>
         </p>
       </div>
       <div style="background:var(--panel);border:1px solid var(--acc);border-radius:10px;padding:12px 18px;text-align:center;min-width:200px">
@@ -1509,7 +1548,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="v_c_rt">3,100 RT</span>
           </label>
           <div class="field-desc">사내 터보 칠러 냉방 용량 (1 RT ≈ 3.517 kW)</div>
-          <input type="range" id="c_rt" min="2000" max="4000" step="50" value="3100">
+          <input type="range" aria-label="칠러 정격 냉동용량 (RT)" id="c_rt" min="2000" max="4000" step="50" value="3100">
         </div>
 
         <div class="field">
@@ -1530,7 +1569,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="v_c_hours">4,000 시간</span>
           </label>
           <div class="field-desc">공장 가동 패턴 (주야 연속 또는 피크 가동)</div>
-          <input type="range" id="c_hours" min="1500" max="8000" step="250" value="4000">
+          <input type="range" aria-label="연간 운전시간 (시간)" id="c_hours" min="1500" max="8000" step="250" value="4000">
         </div>
 
         <div class="field">
@@ -1539,7 +1578,7 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             <span class="v" id="v_c_rate">120 원/kWh</span>
           </label>
           <div class="field-desc">사내 수전 계약 전력 요금 (계절/부하 평균)</div>
-          <input type="range" id="c_rate" min="80" max="220" step="5" value="120">
+          <input type="range" aria-label="산업용 전력 단가 (원/kWh)" id="c_rate" min="80" max="220" step="5" value="120">
         </div>
       </div>
     </div>
@@ -1982,9 +2021,9 @@ html[data-theme="light"] .switch input:checked+.track::after{background:#fff}
             </label>
           </div>
           <div class="ctl-grid">
-            <div class="field"><label>흡입 과열도 증가 ΔT<sub>sh</sub> <span class="v" id="vCsh"></span></label><input type="range" id="cSh" min="0" max="30" step="0.5" value="16"></div>
-            <div class="field"><label>과냉각도 증가 ΔT<sub>sub</sub> <span class="v" id="vCsub"></span></label><input type="range" id="cSub" min="0" max="30" step="0.5" value="10"></div>
-            <div class="field"><label>흡입관 압력손실 ΔP <span class="v" id="vCdp"></span></label><input type="range" id="cDp" min="0" max="60" step="1" value="0"></div>
+            <div class="field"><label>흡입 과열도 증가 ΔT<sub>sh</sub> <span class="v" id="vCsh"></span></label><input type="range" aria-label="흡입 과열도 증가 ΔTsh (K)" id="cSh" min="0" max="30" step="0.5" value="16"></div>
+            <div class="field"><label>과냉각도 증가 ΔT<sub>sub</sub> <span class="v" id="vCsub"></span></label><input type="range" aria-label="과냉각도 증가 ΔTsub (K)" id="cSub" min="0" max="30" step="0.5" value="10"></div>
+            <div class="field"><label>흡입관 압력손실 ΔP <span class="v" id="vCdp"></span></label><input type="range" aria-label="흡입관 압력손실 ΔP (kPa)" id="cDp" min="0" max="60" step="1" value="0"></div>
           </div>
           <div class="small" style="margin-top:10px">
             연동 ON: <span class="mono">ΔT<sub>sub</sub> = ΔT<sub>sh</sub>·(c<sub>p,v</sub>/c<sub>p,l</sub>)</span> — 동일 질량유량 단일회로 IHX의 물리적 구속조건(식 2).
@@ -3564,6 +3603,7 @@ function bind(){
       if(arrow) arrow.textContent = '▲';
     }
   });
+  if($('#btnPrint')){ $('#btnPrint').addEventListener('click',function(){ window.print(); }); }
   $('#btnTheme').addEventListener('click',function(){
     var r=document.documentElement;
     var next=(r.getAttribute('data-theme')==='dark')?'light':'dark';
